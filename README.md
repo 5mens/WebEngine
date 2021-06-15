@@ -2,4 +2,4 @@
 
 <b>Статус сборки проекта</b>
 <br>
-<img src = "https://github.com/5mens/WebEngine/testing-actions/workflows/.NET/badge.svg?branche=master"><br>
+<img src = "https://github.com/5mens/WebEngine/workflows/build/badge.svg"><br>
