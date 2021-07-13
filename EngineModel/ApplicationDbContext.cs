@@ -1,4 +1,5 @@
 ﻿using EngineModel.Models.Menus;
+using EngineModels.Models.Users;
 using Microsoft.EntityFrameworkCore;
 
 namespace EngineModel
@@ -11,6 +12,8 @@ namespace EngineModel
         }
         public DbSet<Menu> Menu { get; set; }
         public DbSet<MenuItem> MenuItem { get; set; }
+        public DbSet<User> User { get; set; }
+        public DbSet<UserGroup> UserGroup { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
