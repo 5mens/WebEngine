@@ -1,9 +1,9 @@
-﻿using EngineModel.Models.Menus;
+﻿using EngineModels.Models.Menus;
 using System;
 using System.Collections.Generic;
-using WebEngine.Interfaces.Menus;
+using EngineModels.Interfaces.Menus;
 
-namespace EngineModel.Repository.Menus
+namespace EngineModels.Repository.Menus
 {
     public class MenuRepository : IMenu
     {
@@ -13,9 +13,9 @@ namespace EngineModel.Repository.Menus
             this.applicationDbContext = applicationDbContext;
         }
 
-        public IEnumerable<Menu> AllMenus => applicationDbContext.Menu;
+        public IEnumerable<Menu> GetMenus => applicationDbContext.Menu;
 
-        public void AddNewMenu(string title, string desc, string menutype)
+        public void AddNewMenu(Menu menu)
         {
             throw new NotImplementedException();
         }
@@ -31,8 +31,10 @@ namespace EngineModel.Repository.Menus
         }
 
         public void UpdateMenu(int id, string title, string desc, string menutype)
-        {
+        {            
             throw new NotImplementedException();
         }
+
+
     }
 }

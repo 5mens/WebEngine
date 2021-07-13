@@ -1,8 +1,8 @@
-﻿using EngineModel.Models.Menus;
+﻿using EngineModels.Models.Menus;
 using EngineModels.Models.Users;
 using Microsoft.EntityFrameworkCore;
 
-namespace EngineModel
+namespace EngineModels
 {
     public class ApplicationDbContext : DbContext
     {

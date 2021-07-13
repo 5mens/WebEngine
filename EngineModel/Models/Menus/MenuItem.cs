@@ -1,4 +1,4 @@
-﻿namespace EngineModel.Models.Menus
+﻿namespace EngineModels.Models.Menus
 {
     /// <summary>
     /// Элементы меню
