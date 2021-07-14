@@ -23,9 +23,9 @@ namespace Engine
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddDbContext<ApplicationDbContext>(opts =>
+            /*services.AddDbContext<ApplicationDbContext>(opts =>
                 opts.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
-                    options => options.MigrationsAssembly("EngineModels")));
+                    options => options.MigrationsAssembly("EngineModels")));*/
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
