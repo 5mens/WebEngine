@@ -1856,6 +1856,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\" />
     <Folder Include="Templates\Administrator\" />
   </ItemGroup>
 
