@@ -9,13 +9,13 @@
 
         <nav id="app-nav-main" class="app-nav app-nav-main flex-grow-1">
             <ul class="app-menu list-unstyled accordion" id="menu-accordion">
-                <NavItem Has_submenu="false" Nav_link_text="Главная" Nav_link="/" ParamD="@svgMain"/>
-                <NavItem Has_submenu="true" Nav_link_text="Меню" Submenu_number="1" SubMenus="@menuSubMenu" ImgClass="bi bi-card-list" ParamD="@svgMenu"/>
-                <NavItem Has_submenu="true" Nav_link_text="Пользователи" Submenu_number="2" SubMenus="@userSubMenu" ImgClass="bi bi-file-person" ParamD="@svgUser"/>
-                <NavItem Has_submenu="true" Nav_link_text="Материалы" Submenu_number="3" SubMenus="@articleSubMenu" ImgClass="bi bi-folder" ParamD="@svgArticle"/>
+                <_NavItem Has_submenu="false" Nav_link_text="Главная" Nav_link="/" ParamD="@svgMain" />
+                <_NavItem Has_submenu="true" Nav_link_text="Меню" Submenu_number="1" SubMenus="@menuSubMenu" ImgClass="bi bi-card-list" ParamD="@svgMenu" />
+                <_NavItem Has_submenu="true" Nav_link_text="Пользователи" Submenu_number="2" SubMenus="@userSubMenu" ImgClass="bi bi-file-person" ParamD="@svgUser" />
+                <_NavItem Has_submenu="true" Nav_link_text="Материалы" Submenu_number="3" SubMenus="@articleSubMenu" ImgClass="bi bi-folder" ParamD="@svgArticle" />
             </ul><!--//app-menu-->
         </nav><!--//app-nav-->
-        <SidePanelFooter />
+        <_SidePanelFooter />
 
     </div><!--//sidepanel-inner-->
 </div><!--//app-sidepanel-->
@@ -38,7 +38,7 @@
             new SubMenu{ Name = "M6 0h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2v-1a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H6a1 1 0 0 0-1 1H4a2 2 0 0 1 2-2z" },
         };
     List<SubMenu> menuSubMenu = new List<SubMenu>()
-    {
+{
         new SubMenu{
              Name = "Список меню",
              Link = "menu"
@@ -49,7 +49,7 @@
         }
     };
     List<SubMenu> userSubMenu = new List<SubMenu>()
-    {
+{
         new SubMenu{
              Name = "Пользователи",
              Link = "users"
@@ -64,7 +64,7 @@
         }
     };
     List<SubMenu> articleSubMenu = new List<SubMenu>()
-    {
+{
         new SubMenu{
              Name = "Материалы",
              Link = "articles"
@@ -74,4 +74,4 @@
              Link = "article-category"
         }
     };
-    }
+}
