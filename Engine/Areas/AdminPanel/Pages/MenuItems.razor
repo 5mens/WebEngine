@@ -1,0 +1,101 @@
+﻿@page "/menu-items"
+<div class="app-content pt-3 p-md-3 p-lg-4">
+    <div class="container-xl">
+        <div class="row g-3 mb-4 align-items-center justify-content-between">
+            <_PageTitle  MainTitle="@mainTitle"/>
+            <div class="col-auto">
+                <div class="page-utilities">
+                    <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
+                        <div class="col-auto">
+                            <form class="table-search-form row gx-1 align-items-center">
+                                <div class="col-auto">
+                                    <input type="text" id="search-orders" name="searchorders" class="form-control search-orders" placeholder="Поиск">
+                                </div>
+                                <div class="col-auto">
+                                    <button type="submit" class="btn app-btn-secondary">Поиск</button>
+                                </div>
+                            </form>
+
+                        </div><!--//col-->
+                    </div><!--//row-->
+                </div><!--//table-utilities-->
+            </div><!--//col-auto-->
+        </div><!--//row-->
+        <_TableTemplate Items="menus" Context="menu">
+            <TableHeader>
+                <th><input class="form-check-input" type="checkbox" value="" id="settings-checkbox-3"></th>
+                <th>Id</th>
+                <th>Наименование</th>
+                <th>Описание</th>
+                <th>Ссылка</th>
+                <th>Опубликован</th>
+            </TableHeader>
+            <RowTemplate>
+                <td><input class="form-check-input" type="checkbox" value="" id="settings-checkbox-3"></td>
+                <td>@menu.Id</td>
+                <td>@menu.Title</td>
+                <td>@menu.Desc</td>
+                <td>@menu.Link</td>
+                <td>@menu.Published</td>
+            </RowTemplate>
+        </_TableTemplate>
+    </div>
+</div>
+
+@code {
+    private string mainTitle = "Элементы меню Главное меню";
+    private List<MenuItem> menus = new List<MenuItem>()
+    {
+            new MenuItem { Id = 1,  Title = "Главная", Link = "\\", Desc = "Главная страница сайта", Published = true, IsHome = true },
+            new MenuItem { Id = 2,  Title = "Избранные материалы", Desc = "Избранные материалы", Link="\\favorite-articles", Published = false, IsHome = false },
+            new MenuItem { Id = 3,  Title = "Материалы", Desc = "Материалы", Link="#", Published = true, IsHome = false }
+        };
+
+    public class MenuItem
+    {
+        /// <summary>
+        /// Идентификатор
+        /// </summary>
+        public int Id { get; set; }
+        /// <summary>
+        /// Тип меню
+        /// </summary>
+        public string Menutype { get; set; }
+        /// <summary>
+        /// Наименование
+        /// </summary>
+        public string Title { get; set; }
+        /// <summary>
+        /// Ссылка
+        /// </summary>
+        public string Link { get; set; }
+        /// <summary>
+        /// Описание
+        /// </summary>
+        public string Desc { get; set; }
+        /// <summary>
+        /// Статус публикации меню
+        /// </summary>
+        public bool Published { get; set; }
+        /// <summary>
+        /// Главная страница
+        /// </summary>
+        public bool IsHome { get; set; }
+        /// <summary>
+        /// Сортировка
+        /// </summary>
+        public int Ordering { get; set; }
+        /// <summary>
+        /// Родительский элемент
+        /// </summary>
+        public int ParentId { get; set; }
+        /// <summary>
+        /// Идентификатор меню, в котором расположен элемент
+        /// </summary>
+        public int MenuId { get; set; }
+        /// <summary>
+        /// Меню
+        /// </summary>
+        public virtual Menu Menu { get; set; }
+    }
+}
