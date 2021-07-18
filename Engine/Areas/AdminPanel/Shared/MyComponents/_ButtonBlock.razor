@@ -1,8 +1,33 @@
-﻿<div class="app-card-footer p-4 mt-auto">
-    <a class="btn app-btn-primary" href="#">Добавить</a>
-    <a class="btn app-btn-secondary" href="#">Изменить</a>
-    <a class="btn app-btn-primary bg-danger" href="#">Удалить</a>
+﻿@if (IsVisible)
+{
+<div class="app-card-footer p-4 mt-auto">
+    @if (IsVisibleAdd)
+    {
+        <a class="btn app-btn-primary" href="@BtnAddLink">Добавить</a>
+    }
+    @if (IsVisibleEdit)
+    {
+        <a class="btn app-btn-secondary" href="@BtnEditLink">Изменить</a>
+    }
+    @if (IsVisibleDelete)
+    {
+        <a class="btn app-btn-primary bg-danger" href="@BtnDeleteLink">Удалить</a>
+    }
 </div>
+}
 @code {
-
+    [Parameter]
+    public bool IsVisible { get; set; }
+    [Parameter]
+    public bool IsVisibleAdd { get; set; }
+    [Parameter]
+    public bool IsVisibleEdit { get; set; }
+    [Parameter]
+    public bool IsVisibleDelete { get; set; }
+    [Parameter]
+    public string BtnAddLink { get; set; }
+    [Parameter]
+    public string BtnEditLink { get; set; }
+    [Parameter]
+    public string BtnDeleteLink { get; set; }
 }

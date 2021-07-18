@@ -1,4 +1,4 @@
-﻿@page "/menu-items"
+﻿@page "/menu/items/{MenuId:int}"
 <div class="app-content pt-3 p-md-3 p-lg-4">
     <div class="container-xl">
         <div class="row g-3 mb-4 align-items-center justify-content-between">
@@ -27,6 +27,8 @@
 </div>
 
 @code {
+    [Parameter]
+    public int MenuId { get; set; } = 1;
     private string mainTitle = "Элементы меню Главное меню";
     private List<MenuItem> menus = new List<MenuItem>()
     {
