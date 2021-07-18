@@ -1,5 +1,3 @@
-using Blazorise;
-using Blazorise.Bootstrap;
 using Engine.Areas.Identity;
 using Engine.Data;
 using Engine.Models;
@@ -51,12 +49,7 @@ namespace Engine
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
-            services.AddBlazorise(options =>
-              {
-                  options.ChangeTextOnKeyPress = true; // optional
-              })
-              .AddBootstrapProviders();
-
+            
             services.AddSingleton<IMenu, MenuRepository>();
         }
 
