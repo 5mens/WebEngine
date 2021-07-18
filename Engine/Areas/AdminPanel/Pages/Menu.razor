@@ -1,0 +1,64 @@
+﻿@page "/menu"
+    <div class="app-content pt-3 p-md-3 p-lg-4">
+        <div class="container-xl">
+            <div class="row g-3 mb-4 align-items-center justify-content-between">
+                <_PageTitle MainTitle="Список меню" />
+                <div class="col-auto">
+                    <div class="page-utilities">
+                        <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
+                            <div class="col-auto">
+                                <form class="table-search-form row gx-1 align-items-center">
+                                    <div class="col-auto">
+                                        <input type="text" id="search-orders" name="searchorders" class="form-control search-orders" placeholder="Поиск">
+                                    </div>
+                                    <div class="col-auto">
+                                        <button type="submit" class="btn app-btn-secondary">Поиск</button>
+                                    </div>
+                                </form>
+
+                            </div><!--//col-->
+                        </div><!--//row-->
+                    </div><!--//table-utilities-->
+                </div><!--//col-auto-->
+            </div><!--//row-->            
+            <_TableTemplate Items="menus" Context="menu">
+                <TableHeader>
+                    <th><input class="form-check-input" type="checkbox" value="" id="settings-checkbox-3"></th>
+                    <th>Id</th>
+                    <th>Наименование</th>
+                    <th>Описание</th>
+                </TableHeader>
+                <RowTemplate>
+                    <td><input class="form-check-input" type="checkbox" value="" id="settings-checkbox-3"></td>                    
+                    <td>@menu.Id</td>                    
+                    <td>@menu.Title</td>                    
+                    <td>@menu.Desc</td>                    
+                </RowTemplate>
+            </_TableTemplate>
+        </div>
+    </div>
+
+    @code {
+        private List<CMenu> menus = new List<CMenu>()
+        {
+            new CMenu { Id = 1,  Title = "Главное меню", Desc = "Главное меню сайта" },
+            new CMenu { Id = 2,  Title = "Боковое меню", Desc = "Боковое меню сайта" },
+            new CMenu { Id = 3,  Title = "Подвал", Desc = "Подвал (footer) меню сайта" }
+        };
+
+        private class CMenu
+        {
+            /// <summary>
+            /// Идентификатор
+            /// </summary>
+            public int Id { get; set; }
+            /// <summary>
+            /// Наименование
+            /// </summary>
+            public string Title { get; set; }
+            /// <summary>
+            /// Описание
+            /// </summary>
+            public string Desc { get; set; }
+        };
+    }
