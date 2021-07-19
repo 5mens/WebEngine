@@ -55,10 +55,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Templates\Administrator\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="Areas\AdminPanel\Pages\Index.razor" />
     <None Include="Areas\AdminPanel\Shared\LoginDisplay.razor" />
     <None Include="Areas\AdminPanel\Shared\MainLayout.razor" />
@@ -103,6 +99,9 @@
     <None Include="wwwroot\assets\images\users\user-7.jpg" />
     <None Include="wwwroot\assets\images\users\user-8.jpg" />
     <None Include="wwwroot\assets\images\users\user-9.jpg" />
+    <None Include="wwwroot\assets\js\app.js" />
+    <None Include="wwwroot\assets\js\charts-demo.js" />
+    <None Include="wwwroot\assets\js\index-charts.js" />
   </ItemGroup>
 
 </Project>

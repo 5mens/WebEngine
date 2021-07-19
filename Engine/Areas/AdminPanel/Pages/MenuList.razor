@@ -17,7 +17,7 @@
                                           BtnDeleteLink="#" />
                             <MudTable Class="table app-table-hover mb-0 text-left" Items="@Elements" Hover="@hover" SortLabel="Сортировка по:" MultiSelection="true" Dense="@dense" @bind-SelectedItems="selectedItems" Filter="new Func<Menu,bool>(FilterFunc)">
                                 <ToolBarContent>
-                                    <MudText Typo="Typo.h1">Список меню</MudText>
+                                    <MudText Typo="Typo.h6">Список меню</MudText>
                                     <MudSpacer />
                                     <MudTextField @bind-Value="searchString" Placeholder="Поиск" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
                                 </ToolBarContent>
