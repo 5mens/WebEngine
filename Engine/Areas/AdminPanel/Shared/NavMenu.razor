@@ -3,7 +3,7 @@
     <div class="sidepanel-inner d-flex flex-column">
         <a href="#" id="sidepanel-close" class="sidepanel-close d-xl-none">&times;</a>
         <div class="app-branding">
-            <a class="app-logo" href="/"><img class="logo-icon mr-2" src="assets/images/app-logo.svg" alt="logo"><span class="logo-text">5mens</span></a>
+            <a class="app-logo" href="/"><img class="logo-icon mr-2" src="/assets/images/app-logo.svg" alt="logo"><span class="logo-text">5mens</span></a>
 
         </div><!--//app-branding-->
 
@@ -41,37 +41,37 @@
 {
         new SubMenu{
              Name = "Список меню",
-             Link = "menu"
+             Link = "/menu/list"
         },
         new SubMenu{
              Name = "Элементы меню",
-             Link = "menu-items"
+             Link = "/menu/items/1"
         }
     };
     List<SubMenu> userSubMenu = new List<SubMenu>()
 {
         new SubMenu{
              Name = "Пользователи",
-             Link = "users"
+             Link = "/user/users"
         },
         new SubMenu{
              Name = "Группы пользователей",
-             Link = "user-groups"
+             Link = "/user/groups"
         },
         new SubMenu{
              Name = "Уровни доступа",
-             Link = "accessLevel"
+             Link = "/user/accessLevel"
         }
     };
     List<SubMenu> articleSubMenu = new List<SubMenu>()
 {
         new SubMenu{
              Name = "Материалы",
-             Link = "articles"
+             Link = "/articles"
         },
         new SubMenu{
              Name = "Категории",
-             Link = "article-category"
+             Link = "/articles/category"
         }
     };
 }

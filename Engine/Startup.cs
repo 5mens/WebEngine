@@ -1,6 +1,8 @@
 using Engine.Areas.Identity;
 using Engine.Data;
 using Engine.Models;
+using Engine.Models.Interfaces;
+using Engine.Models.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -28,7 +30,8 @@ namespace Engine
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-
+            services.AddDbContextFactory<AppDbContext>(opt =>
+                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
 
@@ -46,6 +49,8 @@ namespace Engine
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
+            
+            services.AddSingleton<IMenu, MenuRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

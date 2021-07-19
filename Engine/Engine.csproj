@@ -1861,10 +1861,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EngineModel\EngineModels.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Templates\Administrator\" />
   </ItemGroup>
 
