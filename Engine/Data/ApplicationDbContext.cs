@@ -25,6 +25,8 @@ namespace Engine.Data
         }
         public DbSet<Menu> Menu { get; set; }
         public DbSet<MenuItem> MenuItem { get; set; }
+        public DbSet<Article> Article { get; set; }
+        public DbSet<Comment> Comment { get; set; }
 
         /// <summary>
         /// Dispose pattern.
