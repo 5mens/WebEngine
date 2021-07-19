@@ -16,13 +16,14 @@
 
     <meta name="description" content="Основная панель управления сайтом">
     <meta name="author" content="5mens">
-    <link rel="shortcut icon" href="/favicon.ico">
+    <base href="~/" />
+    <link rel="shortcut icon" href="~/favicon.ico">
     <!-- FontAwesome JS-->
     @*<script defer src="/assets/plugins/fontawesome/js/all.min.js"></script>*@
     <!-- App CSS -->
-    <link id="theme-style" rel="stylesheet" href="/assets/css/portal.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
-    <link href="/_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
+    <link href="~/_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
+    <link id="theme-style" rel="stylesheet" href="~/assets/css/portal.css">
 </head>
 <body class="app">
     <component type="typeof(App)" render-mode="ServerPrerendered" />
@@ -38,17 +39,17 @@
         <a class="dismiss">🗙</a>
     </div>
 
-    <script src="/_framework/blazor.server.js"></script>
+    <script src="_framework/blazor.server.js"></script>
     <!-- Javascript -->
     <!--<script src="/assets/plugins/popper.min.js"></script>
     <script src="/assets/plugins/bootstrap/js/bootstrap.min.js"></script>-->
-
     <!-- Charts JS -->
     <!--<script src="/assets/plugins/chart.js/chart.min.js"></script>
     <script src="/assets/js/index-charts.js"></script>-->
-
     <!-- Page Specific JS -->
     @*<script src="/assets/js/app.js"></script>*@
-    <script src="/_content/MudBlazor/MudBlazor.min.js"></script>
+    <script src="~/_content/MudBlazor/MudBlazor.min.js"></script>
+    <script src="~/_content/Blazeditor.TinyMCE/tinymce.min.js"></script>
+    <script src="~/_content/Blazeditor.TinyMCE/blazeditor.js"></script>
 </body>
 </html>

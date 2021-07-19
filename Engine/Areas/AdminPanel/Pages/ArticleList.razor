@@ -1,5 +1,4 @@
-﻿@page "/menu/list"
-
+﻿@page "/article/list"
 @inject IDbContextFactory<AppDbContext> DbFactory
 <div class="app-content pt-3 p-md-3 p-lg-4">
     <div class="container-xl">
@@ -12,39 +11,28 @@
                                           IsVisibleAdd="true"
                                           IsVisibleEdit="true"
                                           IsVisibleDelete="true"
-                                          BtnAddLink="/menu/add"
+                                          BtnAddLink="/article/add"
                                           BtnEditLink="#"
                                           BtnDeleteLink="#" />
-                            <MudTable Class="table app-table-hover mb-0 text-left" Items="@Elements" Hover="@hover" SortLabel="Сортировка по:" MultiSelection="true" Dense="@dense" @bind-SelectedItems="selectedItems" Filter="new Func<Menu,bool>(FilterFunc)">
+                            <MudTable Class="table app-table-hover mb-0 text-left" Items="@Elements" Hover="@hover" SortLabel="Сортировка по:" MultiSelection="true" Dense="@dense" @bind-SelectedItems="selectedItems" Filter="new Func<Article,bool>(FilterFunc)">
                                 <ToolBarContent>
                                     <MudText Typo="Typo.h1">Список меню</MudText>
                                     <MudSpacer />
                                     <MudTextField @bind-Value="searchString" Placeholder="Поиск" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
                                 </ToolBarContent>
                                 <HeaderContent>
-                                    <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<Menu, object>(x=>x.Id)">Id</MudTableSortLabel></MudTh>
-                                    <MudTh><MudTableSortLabel Enabled="@enabled" SortBy="new Func<Menu, object>(x=>x.Title)">Наименование</MudTableSortLabel></MudTh>
-                                    <MudTh><MudTableSortLabel SortBy="new Func<Menu, object>(x=>x.Desc)">Описание</MudTableSortLabel></MudTh>
-                                    <MudTh><MudTableSortLabel SortBy="new Func<Menu, object>(x=>x.Menutype)">Позиция</MudTableSortLabel></MudTh>
-                                    <MudTh>Элементы</MudTh>
+                                    <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<Article, object>(x=>x.Id)">Id</MudTableSortLabel></MudTh>
+                                    <MudTh><MudTableSortLabel Enabled="@enabled" SortBy="new Func<Article, object>(x=>x.Title)">Наименование</MudTableSortLabel></MudTh>
+                                    <MudTh><MudTableSortLabel SortBy="new Func<Article, object>(x=>x.Text)">Текст</MudTableSortLabel></MudTh>
+                                    <MudTh><MudTableSortLabel SortBy="new Func<Article, object>(x=>x.Author.UserName)">Автор</MudTableSortLabel></MudTh>
+                                    <MudTh><MudTableSortLabel SortBy="new Func<Article, object>(x=>x.Created)">Дата</MudTableSortLabel></MudTh>
                                 </HeaderContent>
                                 <RowTemplate>
                                     <MudTd DataLabel="Id">@context.Id</MudTd>
                                     <MudTd DataLabel="Title">@context.Title</MudTd>
-                                    <MudTd DataLabel="Desc">@context.Desc</MudTd>
-                                    <MudTd DataLabel="Menutype">@context.Menutype</MudTd>
-                                    <MudTd>
-                                        <MudButton Link="@($"/menu/items/{context.Id}")"
-                                                   Target="_self"
-                                                   Size="Size.Small"
-                                                   Class="btn-sm app-btn-secondary"
-                                                   Variant="Variant.Filled"
-                                                   EndIcon="@Icons.Filled.Edit"
-                                                   Color="Color.Primary"
-                                                   Disabled=@disabled>
-                                            Изменить
-                                        </MudButton>
-                                    </MudTd>
+                                    <MudTd DataLabel="Text">@context.Text</MudTd>
+                                    <MudTd DataLabel="Author">@context.Author.UserName</MudTd>
+                                    <MudTd DataLabel="Created">@context.Created</MudTd>
                                 </RowTemplate>
                                 <PagerContent>
                                     <MudTablePager Class="" PageSizeOptions="new int[]{20, 50, 100}" RowsPerPageString="Выводить по:" InfoFormat="{first_item}-{last_item} из {all_items}" />
@@ -59,18 +47,17 @@
     </div>
 </div>
 
-
 @code {
     private string searchString = "";
-    private Menu selectedItem = null;
+    private Article selectedItem = null;
     private bool disabled = false;
     private bool dense = false;
     private bool hover = true;
     private bool enabled = true;
-    private IEnumerable<Menu> Elements = new List<Menu>();
+    private IEnumerable<Article> Elements = new List<Article>();
     private bool Busy;
     private AppDbContext Context { get; set; }
-    private HashSet<Menu> selectedItems = new HashSet<Menu>();
+    private HashSet<Article> selectedItems = new HashSet<Article>();
 
     protected override async Task OnInitializedAsync()
     {
@@ -79,7 +66,7 @@
         try
         {
             Context = DbFactory.CreateDbContext();
-            Elements = await Context.Menu.ToListAsync();
+            Elements = await Context.Article.ToListAsync();
         }
         finally
         {
@@ -88,15 +75,15 @@
 
         await base.OnInitializedAsync();
     }
-    private bool FilterFunc(Menu element)
+    private bool FilterFunc(Article element)
     {
         if (string.IsNullOrWhiteSpace(searchString))
             return true;
         if (element.Title.Contains(searchString, StringComparison.OrdinalIgnoreCase))
             return true;
-        if (element.Desc.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+        if (element.Author.UserName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
             return true;
-        if ($"{element.Id} {element.Menutype}".Contains(searchString))
+        if ($"{element.Id} {element.Author.UserName}".Contains(searchString))
             return true;
         return false;
     }
