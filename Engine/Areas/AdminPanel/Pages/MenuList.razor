@@ -1,47 +1,80 @@
 ﻿@page "/menu/list"
+
 @inject IDbContextFactory<AppDbContext> DbFactory
-@inject NavigationManager Nav
 <div class="app-content pt-3 p-md-3 p-lg-4">
     <div class="container-xl">
         <div class="row g-3 mb-4 align-items-center justify-content-between">
             <_PageTitle MainTitle="Список меню" />
-            <_SearchBar />
         </div><!--//row-->
-        <_TableTemplate Items="menu" Context="menu" BtnAddLink="/menu/add">
-            <TableHeader>
-                <th><input class="form-check-input" type="checkbox" value="" id="settings-checkbox-3"></th>
-                <th>Id</th>
-                <th>Наименование</th>
-                <th>Описание</th>
-                <th>Позиция</th>
-                <th>Элементы</th>
-            </TableHeader>
-            <RowTemplate>
-                <td><input class="form-check-input" type="checkbox" value="" id="settings-checkbox-3"></td>
-                <td>@menu.Id</td>
-                <td>@menu.Title</td>
-                <td>@menu.Desc</td>
-                <td>@menu.Menutype</td>
-                <td><NavLink Match="NavLinkMatch.Prefix" class="btn app-btn-secondary bg-gradient" href ="@($"/menu/items/{menu.Id}")">Редактировать</NavLink></td>
-            </RowTemplate>
-        </_TableTemplate>
-    </div><!--//tab-pane-->
-</div><!--//tab-content-->
+        <_ButtonBlock IsVisible="true"
+                      IsVisibleAdd="true"
+                      IsVisibleEdit="true"
+                      IsVisibleDelete="true"
+                      BtnAddLink="/menu/add"
+                      BtnEditLink="#"
+                      BtnDeleteLink="#" />
+        <div class="tab-content" id="orders-table-tab-content">
+            <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+                <div class="app-card app-card-orders-table shadow-sm mb-5">
+                    <div class="app-card-body">
+                        <div class="table-responsive">
+
+                            <MudTable Items="@Elements" Hover="@hover" SortLabel="Сортировка по:" MultiSelection="true" @bind-SelectedItems="selectedItems">                                
+                                <HeaderContent>
+                                    <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<Menu, object>(x=>x.Id)">Id</MudTableSortLabel></MudTh>
+                                    <MudTh><MudTableSortLabel Enabled="@enabled" SortBy="new Func<Menu, object>(x=>x.Title)">Наименование</MudTableSortLabel></MudTh>
+                                    <MudTh><MudTableSortLabel SortBy="new Func<Menu, object>(x=>x.Desc)">Описание</MudTableSortLabel></MudTh>
+                                    <MudTh><MudTableSortLabel SortBy="new Func<Menu, object>(x=>x.Menutype)">Позиция</MudTableSortLabel></MudTh>
+                                    <MudTh>Элементы</MudTh>
+                                </HeaderContent>
+                                <RowTemplate>
+                                    <MudTd DataLabel="Id">@context.Id</MudTd>
+                                    <MudTd DataLabel="Title">@context.Title</MudTd>
+                                    <MudTd DataLabel="Desc">@context.Desc</MudTd>
+                                    <MudTd DataLabel="Menutype">@context.Menutype</MudTd>
+                                    <MudTd>
+                                        <MudButton Link="@($"/menu/items/{context.Id}")"
+                                                   Target="_self"
+                                                   Size="Size.Small"
+                                                   Variant="Variant.Filled"
+                                                   EndIcon="@Icons.Filled.Edit"
+                                                   Color="Color.Primary"
+                                                   Disabled=@disabled>
+                                            Изменить
+                                        </MudButton>
+                                    </MudTd>
+                                </RowTemplate>
+                                <PagerContent>
+                                    <MudTablePager PageSizeOptions="new int[]{20, 50, 100}" RowsPerPageString="Выводить по:" InfoFormat="{first_item}-{last_item} из {all_items}"/>
+                                </PagerContent>
+                            </MudTable>
+                            <MudText Inline="true">Выбранные значения: @(selectedItems==null ? "" : string.Join(", ", selectedItems.OrderBy(x=>x.Title).Select(x=>x.Title)))</MudText>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @code {
-    private int menuId { get; set; }
-    private AppDbContext Context { get; set; }
+    private bool disabled = false;
+    private bool hover = true;
+    private bool enabled = true;
+    private IEnumerable<Menu> Elements = new List<Menu>();
     private bool Busy;
+    private AppDbContext Context { get; set; }
+    private HashSet<Menu> selectedItems = new HashSet<Menu>();
 
-    private List<Menu> menu { get; set; }
-    protected async override Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
         Busy = true;
 
         try
         {
             Context = DbFactory.CreateDbContext();
-            menu = await Context.Menu.ToListAsync();
+            Elements = await Context.Menu.ToListAsync();
         }
         finally
         {
@@ -49,10 +82,5 @@
         }
 
         await base.OnInitializedAsync();
-    }
-
-    public void Dispose()
-    {
-        Context?.Dispose();
     }
 }
