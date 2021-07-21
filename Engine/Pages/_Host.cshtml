@@ -8,22 +8,24 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <title>Панель управления</title>
     <!-- Meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <meta name="description" content="Основная панель управления сайтом">
     <meta name="author" content="5mens">
-    <base href="~/" />
     <link rel="shortcut icon" href="~/favicon.ico">
-    <!-- FontAwesome JS-->
-    @*<script defer src="/assets/plugins/fontawesome/js/all.min.js"></script>*@
-    <!-- App CSS -->
+    @if (Request.Path.Value.Contains("/administrator"))
+    {
+        <title>Панель управления</title>
+        <meta name="description" content="Основная панель управления сайтом">        
+    }
+    else
+    {
+        <title>Сайт</title>
+        <meta name="description" content="Сайт">
+    }
+    <base href="~/" />
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
-
-    <link id="theme-style" rel="stylesheet" href="~/assets/css/portal.css">
     <link href="~/_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
 </head>
 <body class="app">
@@ -41,17 +43,16 @@
     </div>
 
     <script src="_framework/blazor.server.js"></script>
-    <!-- Javascript -->
-    <!--<script src="/assets/plugins/popper.min.js"></script>
-    <script src="/assets/plugins/bootstrap/js/bootstrap.min.js"></script>-->
-    <!-- Charts JS -->
-    <!--<script src="/assets/plugins/chart.js/chart.min.js"></script>
-    <script src="/assets/js/index-charts.js"></script>-->
-    <!-- Page Specific JS -->
-    @*<script src="/assets/js/app.js"></script>*@
     <script src="~/_content/MudBlazor/MudBlazor.min.js"></script>
-    <script src="~/_content/Blazeditor.TinyMCE/tinymce.min.js"></script>
-    <script src="~/_content/Blazeditor.TinyMCE/blazeditor.js"></script>
-    <script src="~/assets/js/app.js"></script>
+    @if (Request.Path.Value.Contains("/administrator"))
+    {
+        <script src="~/assets/js/app.js"></script>
+    }
+    @if (Request.Path.Value.Contains("/administrator/article/add"))
+    {
+        <script src="~/_content/Blazeditor.TinyMCE/tinymce.min.js"></script>
+        <script src="~/_content/Blazeditor.TinyMCE/blazeditor.js"></script>
+        <script src="~/js/site.js"></script>
+    }
 </body>
 </html>

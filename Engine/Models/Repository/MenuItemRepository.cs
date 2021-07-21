@@ -9,14 +9,16 @@ namespace Engine.Models.Repository
 {
     public class MenuItemRepository : IMenuItem
     {
-        private readonly AppDbContext applicationDbContext;
-        public MenuItemRepository(AppDbContext applicationDbContext) {
-            this.applicationDbContext = applicationDbContext;
+        private readonly IDbContextFactory<AppDbContext> DbFactory;
+
+        public MenuItemRepository(IDbContextFactory<AppDbContext> contextFactory)
+        {
+            DbFactory = contextFactory;
         }
 
         //Необходимо отладить
-        public IEnumerable<MenuItem> GetMenuItemsById(int id) => applicationDbContext.MenuItem.Where(p => p.MenuId == id).Include(c => c.Menu);
+        public IEnumerable<MenuItem> GetMenuItemsById(int id) => null; //applicationDbContext.MenuItem.Where(p => p.MenuId == id).Include(c => c.Menu);
 
-        public MenuItem GetMenuItem(int id) => applicationDbContext.MenuItem.FirstOrDefault(p => p.Id == id);
+        public MenuItem GetMenuItem(int id) => null;//applicationDbContext.MenuItem.FirstOrDefault(p => p.Id == id);
     }
 }

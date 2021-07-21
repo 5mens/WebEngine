@@ -53,6 +53,7 @@ namespace Engine
             services.AddMudServices();
 
             services.AddSingleton<IMenu, MenuRepository>();
+            services.AddSingleton<IMenuItem, MenuItemRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
