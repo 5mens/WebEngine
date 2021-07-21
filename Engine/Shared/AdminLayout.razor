@@ -1,0 +1,15 @@
+﻿@inherits LayoutComponentBase
+@using Engine.Areas.AdminPanel.Shared
+@using Engine.Areas.AdminPanel.Shared.MyComponents
+
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<header class="app-header fixed-top">
+    <NavMenu />
+    <_AppHeader />
+</header>
+<div class="app-wrapper">
+    @Body
+</div>

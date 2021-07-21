@@ -55,11 +55,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Areas\AdminPanel\Pages\Index.razor" />
-    <None Include="Areas\AdminPanel\Shared\LoginDisplay.razor" />
-    <None Include="Areas\AdminPanel\Shared\MainLayout.razor" />
-    <None Include="Areas\AdminPanel\Shared\NavMenu.razor" />
-    <None Include="Areas\AdminPanel\_Imports.razor" />
     <None Include="Areas\Identity\Pages\Account\Login.cshtml" />
     <None Include="Areas\Identity\Pages\Account\LogOut.cshtml" />
     <None Include="Areas\Identity\Pages\Account\Register.cshtml" />
@@ -102,6 +97,10 @@
     <None Include="wwwroot\assets\js\app.js" />
     <None Include="wwwroot\assets\js\charts-demo.js" />
     <None Include="wwwroot\assets\js\index-charts.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\WebSite\Shared\" />
   </ItemGroup>
 
 </Project>

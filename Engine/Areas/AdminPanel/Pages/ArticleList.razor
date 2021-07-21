@@ -1,4 +1,4 @@
-﻿@page "/article/list"
+﻿@page "/administrator/article/list"
 @inject IDbContextFactory<AppDbContext> DbFactory
 <div class="app-content pt-3 p-md-3 p-lg-4">
     <div class="container-xl">
@@ -11,7 +11,7 @@
                                           IsVisibleAdd="true"
                                           IsVisibleEdit="true"
                                           IsVisibleDelete="true"
-                                          BtnAddLink="/article/add"
+                                          BtnAddLink="/administrator/article/add"
                                           BtnEditLink="#"
                                           BtnDeleteLink="#" />
                             <MudTable Class="table app-table-hover mb-0 text-left" Items="@Elements" Hover="@hover" SortLabel="Сортировка по:" MultiSelection="true" Dense="@dense" @bind-SelectedItems="selectedItems" Filter="new Func<Article,bool>(FilterFunc)">

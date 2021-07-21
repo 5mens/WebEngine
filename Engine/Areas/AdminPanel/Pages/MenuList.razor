@@ -1,4 +1,4 @@
-﻿@page "/menu/list"
+﻿@page "/administrator/menu/list"
 
 @inject IDbContextFactory<AppDbContext> DbFactory
 <div class="app-content pt-3 p-md-3 p-lg-4">
@@ -12,7 +12,7 @@
                                           IsVisibleAdd="true"
                                           IsVisibleEdit="true"
                                           IsVisibleDelete="true"
-                                          BtnAddLink="/menu/add"
+                                          BtnAddLink="/administrator/menu/add"
                                           BtnEditLink="#"
                                           BtnDeleteLink="#" />
                             <MudTable Class="table app-table-hover mb-0 text-left" Items="@Elements" Hover="@hover" SortLabel="Сортировка по:" MultiSelection="true" Dense="@dense" @bind-SelectedItems="selectedItems" Filter="new Func<Menu,bool>(FilterFunc)">
@@ -34,7 +34,7 @@
                                     <MudTd DataLabel="Desc">@context.Desc</MudTd>
                                     <MudTd DataLabel="Menutype">@context.Menutype</MudTd>
                                     <MudTd>
-                                        <MudButton Link="@($"/menu/items/{context.Id}")"
+                                        <MudButton Link="@($"/administrator/menu/items/{context.Id}")"
                                                    Target="_self"
                                                    Size="Size.Small"
                                                    Class="btn-sm app-btn-secondary"

@@ -1,4 +1,4 @@
-﻿@page "/menu/add"
+﻿@page "/administrator/menu/add"
 
 @inject IDbContextFactory<AppDbContext> DbFactory
 @inject NavigationManager Nav
@@ -55,6 +55,6 @@
     /// </summary>
     private void Cancel()
     {
-        Nav.NavigateTo($"/menu/list");
+        Nav.NavigateTo($"/administrator/menu/list");
     }
 }
