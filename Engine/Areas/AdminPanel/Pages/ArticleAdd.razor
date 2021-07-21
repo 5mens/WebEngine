@@ -4,54 +4,32 @@
 @using System.Globalization
 @inject AuthenticationStateProvider GetAuthenticationStateAsync
 
-<div class="app-content pt-3 p-md-3 p-lg-4">
-    <div class="container-xl">
-        <div class="row g-4 settings-section">
-            <div class="col-12">
-                <div class="app-card app-card-settings shadow-sm p-4">
-                    <div class="app-card-body">
 
+<MudTextField @bind-Value="@_articleTitle" Required="true" RequiredError="Обязательно для заполнения" Label="Наименование статьи" Variant="Variant.Text" Class="mb-3 border-bottom"></MudTextField>
 
-                        <div>
-                            <MudTextField @bind-Value="@_articleTitle" Required="true" RequiredError="Обязательно для заполнения" Label="Наименование статьи" Variant="Variant.Text" Class="mb-3 border-bottom"></MudTextField>
-                        </div>
-                        <div class="row">
-                            <div class="col-9 p-3">
-                                <TextEditor Id="demo" @ref="@TextEditor" BlazeditorOption="textEditorOption" OnChangeCallBack="@OnChange">
-                                    <EditorContent>
-                                        @((MarkupString)initialText)
-                                    </EditorContent>
-                                </TextEditor>
-                            </div>
-                            <div class="col-3 p-3">
-                                <MudDatePicker PickerVariant="PickerVariant.Dialog" Label="Дата публикации" @bind-Date="@date" Culture="@CultureInfo.GetCultureInfo("ru-RU")" />
-                                <AuthorizeView>
-                                    <MudTextField Disabled="true"  @bind-Value="@_articleAuthor" Label="Автор" Variant="Variant.Text" Class="mb-3 border-bottom"></MudTextField>
-                                </AuthorizeView>
-                                <MudSelect Label="Категория материала" Variant="Variant.Text" OffsetY="true" @bind-Value="_articleCategory">
-                                    <MudSelectItem Class="bg-secondary" Value="@("Uncategorized")">Без категории</MudSelectItem>
-                                </MudSelect>
-                                <MudAutocomplete T="string" Label="Теги" @bind-Value="value2" SearchFunc="@Search2"
-                                                 ResetValueOnEmptyText="@resetValueOnEmptyText"
-                                                 CoerceText="@coerceText" CoerceValue="@coerceValue"
-                                                 AdornmentIcon="@Icons.Material.Filled.Tag" AdornmentColor="Color.Primary" />
-                            </div>
+<TextEditor Id="demo" @ref="@TextEditor" BlazeditorOption="textEditorOption" OnChangeCallBack="@OnChange">
+    <EditorContent>
+        @((MarkupString)initialText)
+    </EditorContent>
+</TextEditor>
 
-                        </div>
-                        <div class="row">
-                            <div class="col-12 m-3">
-                                <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" Color="Color.Info" Size="Size.Large">Сохранить</MudButton>
-                                <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Cancel" Color="Color.Info" Size="Size.Large">Отмена</MudButton>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<MudDatePicker PickerVariant="PickerVariant.Dialog" Label="Дата публикации" @bind-Date="@date" Culture="@CultureInfo.GetCultureInfo("ru-RU")" />
+<AuthorizeView>
+    <MudTextField Disabled="true" @bind-Value="@_articleAuthor" Label="Автор" Variant="Variant.Text" Class="mb-3 border-bottom"></MudTextField>
+</AuthorizeView>
+<MudSelect Label="Категория материала" Variant="Variant.Text" OffsetY="true" @bind-Value="_articleCategory">
+    <MudSelectItem Class="bg-secondary" Value="@("Uncategorized")">Без категории</MudSelectItem>
+</MudSelect>
+<MudAutocomplete T="string" Label="Теги" @bind-Value="value2" SearchFunc="@Search2"
+                 ResetValueOnEmptyText="@resetValueOnEmptyText"
+                 CoerceText="@coerceText" CoerceValue="@coerceValue"
+                 AdornmentIcon="@Icons.Material.Filled.Tag" AdornmentColor="Color.Primary" />
+
+<MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" Color="Color.Info" Size="Size.Large">Сохранить</MudButton>
+<MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Cancel" Color="Color.Info" Size="Size.Large">Отмена</MudButton>
+
 
 @code
 {
-    
+
 }

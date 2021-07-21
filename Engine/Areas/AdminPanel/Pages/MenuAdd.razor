@@ -2,43 +2,32 @@
 
 @inject IDbContextFactory<AppDbContext> DbFactory
 @inject NavigationManager Nav
-<div class="app-content pt-3 p-md-3 p-lg-4">
-    <div class="container-xl">
-        <div class="row g-3 mb-4 align-items-center justify-content-between">
-            <_PageTitle MainTitle="Добавить меню" />
-        </div>
-        <div class="row g-4 settings-section">
-            <div class="col-12">
-                <div class="app-card app-card-settings shadow-sm p-4">
-                    <div class="app-card-body">
-                        <form class="settings-form">
-                            <div class="mb-3">
-                                <label for="setting-input-1" class="form-label">Наименование</label>
-                                <input type="text" class="form-control" id="setting-input-1" @bind-value="@_menuTitle" required="" placeholder="Введите наименование меню">
-                            </div>
-                            <div class="mb-3">
-                                <label for="setting-input-2" class="form-label">Описание</label>
-                                <input type="text" class="form-control" id="setting-input-2" @bind-value="@_menuDesc" placeholder="Введите краткое описание меню">
-                            </div>
-                            <a class="btn app-btn-primary" @onclick="@(async () => await OnButtonClicked())">Сохранить</a>
-                            <a class="btn app-btn-primary bg-danger" @onclick="@Cancel">Отмена</a>
-                        </form>
-                    </div><!--//app-card-body-->
-                </div><!--//app-card-->
-            </div>
-        </div>
-    </div>
-</div>
-@code {
-    private string _menuTitle;
-    private string _menuDesc;
+<MudPaper Class="ma-2" Elevation="0">
+    <MudText Typo="Typo.h5" Class="pt-3">Добавить новое меню</MudText>
+    <MudDivider DividerType="DividerType.Middle" />
+</MudPaper>
+<MudPaper Class="ma-2" Elevation="0">
+    <MudButton Class="ma-1 mt-2" OnClick="()=>OnButtonClicked()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" Color="Color.Primary" Size="Size.Medium">Сохранить</MudButton>
+    <MudButton Class="ma-1 mt-2" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Cancel" Color="Color.Error" Size="Size.Medium">Отмена</MudButton>
+</MudPaper>
 
-    protected override Task OnInitializedAsync()
+<MudText Typo="Typo.h6" Class="ma-2 pt-3">Введите наименование, описание пункта меню, а также выберите положение</MudText>
+
+<MudTextField Class="ma-2 pt-5" Required="true" RequiredError="Данное поле является обязательным" @bind-Value="_menuTitle" Label="Наименование меню" Variant="Variant.Text"></MudTextField>
+<MudTextField Class="ma-2" @bind-Value="_menuDesc" Label="Описание меню" Variant="Variant.Text"></MudTextField>
+<MudSelect Class="ma-2" Label="Положение" Strict="true" Variant="Variant.Outlined" Format="F2" @bind-Value="_position" OffsetY="true" KeyUpPreventDefault="true">
+    @foreach (string item in _selectorValue)
     {
-        _menuTitle = string.Empty;
-        _menuDesc = string.Empty;
-        return base.OnInitializedAsync();
+        <MudSelectItem Value="@item">@item</MudSelectItem>
     }
+</MudSelect>
+
+@code {
+    private string _menuTitle = string.Empty;
+    private string _menuDesc = string.Empty;
+    private string _position = string.Empty;
+
+    private string[] _selectorValue = {"main", "top", "left", "right", "bottom",  "footer" };
 
     /// <summary>
     /// Сохранить
@@ -46,7 +35,7 @@
     private async Task OnButtonClicked()
     {
         MenuRepository menuRepository = new MenuRepository(DbFactory);
-        await Task.Run(() => menuRepository.AddNewMenu(new Menu { Title = _menuTitle, Desc = _menuDesc }));
+        await Task.Run(() => menuRepository.AddNewMenu(new Menu { Title = _menuTitle, Desc = _menuDesc, Menutype = _position }));
         Cancel();
     }
 

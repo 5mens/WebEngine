@@ -1,51 +1,32 @@
 ﻿@page "/administrator/article/list"
 @inject IDbContextFactory<AppDbContext> DbFactory
-<div class="app-content pt-3 p-md-3 p-lg-4">
-    <div class="container-xl">
-        <div class="tab-content" id="orders-table-tab-content">
-            <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
-                <div class="app-card app-card-orders-table shadow-sm mb-5">
-                    <div class="app-card-body">
-                        <div class="table-responsive">
-                            <_ButtonBlock IsVisible="true"
-                                          IsVisibleAdd="true"
-                                          IsVisibleEdit="true"
-                                          IsVisibleDelete="true"
-                                          BtnAddLink="/administrator/article/add"
-                                          BtnEditLink="#"
-                                          BtnDeleteLink="#" />
-                            <MudTable Class="table app-table-hover mb-0 text-left" Items="@Elements" Hover="@hover" SortLabel="Сортировка по:" MultiSelection="true" Dense="@dense" @bind-SelectedItems="selectedItems" Filter="new Func<Article,bool>(FilterFunc)">
-                                <ToolBarContent>
-                                    <MudText Typo="Typo.h6">Список меню</MudText>
-                                    <MudSpacer />
-                                    <MudTextField @bind-Value="searchString" Placeholder="Поиск" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
-                                </ToolBarContent>
-                                <HeaderContent>
-                                    <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<Article, object>(x=>x.Id)">Id</MudTableSortLabel></MudTh>
-                                    <MudTh><MudTableSortLabel Enabled="@enabled" SortBy="new Func<Article, object>(x=>x.Title)">Наименование</MudTableSortLabel></MudTh>
-                                    <MudTh><MudTableSortLabel SortBy="new Func<Article, object>(x=>x.Text)">Текст</MudTableSortLabel></MudTh>
-                                    <MudTh><MudTableSortLabel SortBy="new Func<Article, object>(x=>x.Author.UserName)">Автор</MudTableSortLabel></MudTh>
-                                    <MudTh><MudTableSortLabel SortBy="new Func<Article, object>(x=>x.Created)">Дата</MudTableSortLabel></MudTh>
-                                </HeaderContent>
-                                <RowTemplate>
-                                    <MudTd DataLabel="Id">@context.Id</MudTd>
-                                    <MudTd DataLabel="Title">@context.Title</MudTd>
-                                    <MudTd DataLabel="Text">@context.Text</MudTd>
-                                    <MudTd DataLabel="Author">@context.Author.UserName</MudTd>
-                                    <MudTd DataLabel="Created">@context.Created</MudTd>
-                                </RowTemplate>
-                                <PagerContent>
-                                    <MudTablePager Class="" PageSizeOptions="new int[]{20, 50, 100}" RowsPerPageString="Выводить по:" InfoFormat="{first_item}-{last_item} из {all_items}" />
-                                </PagerContent>
-                            </MudTable>
-                            <MudText Inline="true">Выбранные значения: @(selectedItems==null ? "" : string.Join(", ", selectedItems.OrderBy(x=>x.Title).Select(x=>x.Title)))</MudText>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
+<MudTable Class="table app-table-hover mb-0 text-left" Items="@Elements" Hover="@hover" SortLabel="Сортировка по:" MultiSelection="true" Dense="@dense" @bind-SelectedItems="selectedItems" Filter="new Func<Article,bool>(FilterFunc)">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Список материалов</MudText>
+        <MudSpacer />
+        <MudTextField @bind-Value="searchString" Placeholder="Поиск" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<Article, object>(x=>x.Id)">Id</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel Enabled="@enabled" SortBy="new Func<Article, object>(x=>x.Title)">Наименование</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<Article, object>(x=>x.Text)">Текст</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<Article, object>(x=>x.Author.UserName)">Автор</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<Article, object>(x=>x.Created)">Дата</MudTableSortLabel></MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="Title">@context.Title</MudTd>
+        <MudTd DataLabel="Text">@context.Text</MudTd>
+        <MudTd DataLabel="Author">@context.Author.UserName</MudTd>
+        <MudTd DataLabel="Created">@context.Created</MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager Class="" PageSizeOptions="new int[]{20, 50, 100}" RowsPerPageString="Выводить по:" InfoFormat="{first_item}-{last_item} из {all_items}" />
+    </PagerContent>
+</MudTable>
+<MudText Inline="true">Выбранные значения: @(selectedItems==null ? "" : string.Join(", ", selectedItems.OrderBy(x=>x.Title).Select(x=>x.Title)))</MudText>
+
 
 @code {
     private string searchString = "";

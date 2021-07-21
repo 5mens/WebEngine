@@ -1,87 +1,108 @@
-﻿@page "/administrator/menu/items/{MenuId:int}"
-<div class="app-content pt-3 p-md-3 p-lg-4">
-    <div class="container-xl">
-        <div class="row g-3 mb-4 align-items-center justify-content-between">
-            <_PageTitle  MainTitle="@mainTitle"/>
-            <_SearchBar />
-        </div><!--//row-->
-        <_TableTemplate Items="menus" Context="menu">
-            <TableHeader>
-                <th><input class="form-check-input" type="checkbox" value="" id="settings-checkbox-3"></th>
-                <th>Id</th>
-                <th>Наименование</th>
-                <th>Описание</th>
-                <th>Ссылка</th>
-                <th>Опубликован</th>
-            </TableHeader>
-            <RowTemplate>
-                <td><input class="form-check-input" type="checkbox" value="" id="settings-checkbox-3"></td>
-                <td>@menu.Id</td>
-                <td>@menu.Title</td>
-                <td>@menu.Desc</td>
-                <td>@menu.Link</td>
-                <td>@menu.Published</td>
-            </RowTemplate>
-        </_TableTemplate>
-    </div>
-</div>
+﻿@page "/administrator/menu/{MenuId:int}/items/"
+
+@inject IDbContextFactory<AppDbContext> DbFactory
+@inject NavigationManager Nav
+@inject IMenuItem MyMenuItem
+<MudPaper Class="ma-2" Elevation="0">
+    <MudText Typo="Typo.h5" Class="pt-3">Список меню</MudText>
+    <MudDivider DividerType="DividerType.Middle" />
+</MudPaper>
+<MudPaper Class="ma-2" Elevation="0">
+    <MudButton Class="ma-1 mt-2" OnClick="()=>AddNewMenu()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Add" Color="Color.Primary" Size="Size.Medium">Создать</MudButton>
+    <MudButton Class="ma-1 mt-2" OnClick="()=>EditMenu()" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Edit" Size="Size.Medium">Изменить</MudButton>
+    <MudButton Class="ma-1 mt-2" OnClick="()=>DeleteMenu()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Medium">Удалить</MudButton>
+</MudPaper>
+<MudTable Class="table app-table-hover mb-0 text-left" Items="@Elements" Hover="@hover" SortLabel="Сортировка по:" MultiSelection="true" Dense="@dense" @bind-SelectedItems="selectedItems" Filter="new Func<MenuItem,bool>(FilterFunc)">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Список элементов меню</MudText>
+        <MudSpacer />
+        <MudTextField @bind-Value="searchString" Placeholder="Поиск" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<MenuItem, object>(x=>x.Id)">Id</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel Enabled="@enabled" SortBy="new Func<MenuItem, object>(x=>x.Title)">Наименование</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<MenuItem, object>(x=>x.Desc)">Описание</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<MenuItem, object>(x=>x.Menutype)">Позиция</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<MenuItem, object>(x=>x.ParentId)">Родитель</MudTableSortLabel></MudTh>
+        <MudTh>Статус</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="Title">@context.Title</MudTd>
+        <MudTd DataLabel="Desc">@context.Desc</MudTd>
+        <MudTd DataLabel="Menutype">@context.Menutype</MudTd>
+        <MudTd DataLabel="ParentId">@context.ParentId</MudTd>
+        <MudTd>
+            <MudRating MaxValue="1" SelectedValue="1" FullIcon="@Icons.Material.Filled.Visibility" EmptyIcon="@Icons.Material.Filled.VisibilityOff" />
+        </MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager Class="" PageSizeOptions="new int[]{20, 50, 100}" RowsPerPageString="Выводить по:" InfoFormat="{first_item}-{last_item} из {all_items}" />
+    </PagerContent>
+</MudTable>
+<MudText Inline="true">Выбранные значения: @(selectedItems==null ? "" : string.Join(", ", selectedItems.OrderBy(x=>x.Title).Select(x=>x.Title)))</MudText>
 
 @code {
     [Parameter]
-    public int MenuId { get; set; } = 1;
-    private string mainTitle = "Элементы меню Главное меню";
-    private List<MenuItem> menus = new List<MenuItem>()
-    {
-            new MenuItem { Id = 1,  Title = "Главная", Link = "\\", Desc = "Главная страница сайта", Published = true, IsHome = true },
-            new MenuItem { Id = 2,  Title = "Избранные материалы", Desc = "Избранные материалы", Link="\\favorite-articles", Published = false, IsHome = false },
-            new MenuItem { Id = 3,  Title = "Материалы", Desc = "Материалы", Link="#", Published = true, IsHome = false }
-        };
+    public int MenuId { get; set; } = 0;
 
-    public class MenuItem
+    private string searchString = "";
+    private MenuItem selectedItem = null;
+    private bool disabled = false;
+    private bool dense = false;
+    private bool hover = true;
+    private bool enabled = true;
+    private IEnumerable<MenuItem> Elements = new List<MenuItem>();
+    private bool Busy;
+    private AppDbContext Context { get; set; }
+    private HashSet<MenuItem> selectedItems = new HashSet<MenuItem>();
+
+    protected override async Task OnInitializedAsync()
     {
-        /// <summary>
-        /// Идентификатор
-        /// </summary>
-        public int Id { get; set; }
-        /// <summary>
-        /// Тип меню
-        /// </summary>
-        public string Menutype { get; set; }
-        /// <summary>
-        /// Наименование
-        /// </summary>
-        public string Title { get; set; }
-        /// <summary>
-        /// Ссылка
-        /// </summary>
-        public string Link { get; set; }
-        /// <summary>
-        /// Описание
-        /// </summary>
-        public string Desc { get; set; }
-        /// <summary>
-        /// Статус публикации меню
-        /// </summary>
-        public bool Published { get; set; }
-        /// <summary>
-        /// Главная страница
-        /// </summary>
-        public bool IsHome { get; set; }
-        /// <summary>
-        /// Сортировка
-        /// </summary>
-        public int Ordering { get; set; }
-        /// <summary>
-        /// Родительский элемент
-        /// </summary>
-        public int ParentId { get; set; }
-        /// <summary>
-        /// Идентификатор меню, в котором расположен элемент
-        /// </summary>
-        public int MenuId { get; set; }
-        /// <summary>
-        /// Меню
-        /// </summary>
-        public virtual Menu Menu { get; set; }
+        Busy = true;
+
+        try
+        {
+            Context = DbFactory.CreateDbContext();
+            Elements = await Context.MenuItem.ToListAsync();
+        }
+        finally
+        {
+            Busy = false;
+        }
+        await base.OnInitializedAsync();
+    }
+    private bool FilterFunc(MenuItem element)
+    {
+        if (string.IsNullOrWhiteSpace(searchString))
+            return true;
+        if (element.Title.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (element.Desc.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if ($"{element.Id} {element.Menutype}".Contains(searchString))
+            return true;
+        return false;
+    }
+
+    private void AddNewMenu()
+    {
+        Nav.NavigateTo($"/administrator/menu/{MenuId}/item/add");
+    }
+
+    private void EditMenu()
+    {
+        if (selectedItems.Count == 1)
+        {
+            foreach (var item in selectedItems)
+            {
+                Nav.NavigateTo($"/administrator/menu/{MenuId}/edit/{item.Id}");
+            }
+        }
+    }
+
+    private void DeleteMenu()
+    {
+        //MyMenuItem.DeleteMenu(selectedItems.ToList<Menu>());
     }
 }

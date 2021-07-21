@@ -1,31 +1,21 @@
-﻿<div id="app-sidepanel" class="app-sidepanel">
-    <div id="sidepanel-drop" class="sidepanel-drop"></div>
-    <div class="sidepanel-inner d-flex flex-column">
-        <a href="#" id="sidepanel-close" class="sidepanel-close d-xl-none">&times;</a>
-        <div class="app-branding">
-            <a class="app-logo" href="/administrator"><img class="logo-icon mr-2" src="/assets/images/app-logo.svg" alt="logo"><span class="logo-text">5mens</span></a>
-        </div><!--//app-branding-->
-        <MudPaper Class="d-inline-flex py-3 nav-item" Square="true">
-            <MudNavMenu Class="mud-width-full">
-                @*<MudText Typo="Typo.h6" Class="px-4">Material</MudText>
-                    <MudText Typo="Typo.body2" Class="px-4 mud-text-secondary">Icons</MudText>*@
-                <MudDivider Class="my-2" />
-                <MudNavLink Href="/administrator" Icon="@Icons.Filled.Dashboard">Главная</MudNavLink>
-                <MudNavGroup Title="Меню" Icon="@Icons.Filled.Menu" Expanded="true">
-                    <MudNavLink Href="/administrator/menu/list">Список меню</MudNavLink>
-                    <MudNavLink Href="/administrator/menu/items/1">Элементы меню</MudNavLink>
-                </MudNavGroup>
-                <MudNavGroup Title="Пользователи" Icon="@Icons.Filled.People" Expanded="true">
-                    <MudNavLink Href="/administrator/user/users">Пользователи</MudNavLink>
-                    <MudNavLink Href="/administrator/user/groups">Группы пользователей</MudNavLink>
-                    <MudNavLink Href="/administrator/user/accessLevel">Уровни доступа</MudNavLink>
-                </MudNavGroup>
-                <MudNavGroup Title="Материалы" Icon="@Icons.Filled.Article" Expanded="true">
-                    <MudNavLink Href="/administrator/article/list">Материалы</MudNavLink>
-                    <MudNavLink Href="/administrator/article/category">Категории</MudNavLink>
-                </MudNavGroup>
-            </MudNavMenu>
-        </MudPaper>
-    </div><!--//sidepanel-inner-->
-    <_SidePanelFooter />
-</div><!--//app-sidepanel-->
+﻿<MudPaper Class="d-inline-flex py-3 nav-item" Square="true">
+    <MudNavMenu Class="mud-width-full">
+        @*<MudText Typo="Typo.h6" Class="px-4">Material</MudText>
+            <MudText Typo="Typo.body2" Class="px-4 mud-text-secondary">Icons</MudText>*@
+        <MudDivider Class="my-2" />
+        <MudNavLink Href="/administrator" Icon="@Icons.Filled.Dashboard">Главная</MudNavLink>
+        <MudNavGroup Title="Меню" Icon="@Icons.Filled.Menu" Expanded="true">
+            <MudNavLink Href="/administrator/menu/list">Список меню</MudNavLink>
+            <MudNavLink Href="/administrator/menu/0/items">Элементы меню</MudNavLink>
+        </MudNavGroup>
+        <MudNavGroup Title="Пользователи" Icon="@Icons.Filled.People" Expanded="true">
+            <MudNavLink Href="/administrator/user/users">Пользователи</MudNavLink>
+            <MudNavLink Href="/administrator/user/groups">Группы пользователей</MudNavLink>
+            <MudNavLink Href="/administrator/user/accessLevel">Уровни доступа</MudNavLink>
+        </MudNavGroup>
+        <MudNavGroup Title="Материалы" Icon="@Icons.Filled.Article" Expanded="true">
+            <MudNavLink Href="/administrator/article/list">Материалы</MudNavLink>
+            <MudNavLink Href="/administrator/article/category">Категории</MudNavLink>
+        </MudNavGroup>
+    </MudNavMenu>
+</MudPaper>

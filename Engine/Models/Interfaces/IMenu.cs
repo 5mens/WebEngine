@@ -9,7 +9,7 @@ namespace Engine.Models.Interfaces
         /// <summary>
         /// Получить все меню
         /// </summary>
-        List<Menu> GetMenus { get; }
+        Task<List<Menu>> GetMenus();
         /// <summary>
         /// Получить меню по его Id
         /// </summary>
@@ -25,7 +25,7 @@ namespace Engine.Models.Interfaces
         /// Удаление меню по Id
         /// </summary>
         /// <param name="id">Идентификатор</param>
-        void DeleteMenu(int id);
+        void DeleteMenu(List<Menu> menu);
         /// <summary>
         /// Обновление меню
         /// </summary>

@@ -100,7 +100,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\WebSite\Shared\" />
+    <Folder Include="Areas\AdminPanel\Shared\MyComponents\" />
   </ItemGroup>
 
 </Project>

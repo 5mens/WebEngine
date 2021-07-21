@@ -18,14 +18,10 @@ namespace Engine.Models.Repository
             DbFactory = contextFactory;
         }
         //Некорректная реализация
-        public List<Menu> GetMenus {
-            get
-            {
-                List<Menu> menu = new List<Menu>() {
-                    new Menu { Id = 1, Title = "11111111", Desc = "fa"}
-                };
-                return menu;
-            }
+        public async Task<List<Menu>> GetMenus()
+        {
+            var context = DbFactory.CreateDbContext();            
+            return await context.Menu.ToListAsync();
         }
 
         public async Task AddNewMenu(Menu menu)
@@ -35,7 +31,7 @@ namespace Engine.Models.Repository
             await context.SaveChangesAsync();
         }
 
-        public void DeleteMenu(int id)
+        public void DeleteMenu(List<Menu> menu)
         {
             //throw new NotImplementedException();
         }
@@ -47,7 +43,7 @@ namespace Engine.Models.Repository
         }
 
         public void UpdateMenu(int id, string title, string desc, string menutype)
-        {            
+        {
             //throw new NotImplementedException();
         }
 
