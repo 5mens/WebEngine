@@ -9,8 +9,8 @@
             </AuthorizeRouteView>
         </Found>
         <NotFound>
-            <LayoutView>
-                <p>Page 404</p>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <NotFound />
             </LayoutView>
         </NotFound>
     </Router>
