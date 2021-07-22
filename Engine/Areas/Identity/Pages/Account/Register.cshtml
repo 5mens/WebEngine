@@ -4,62 +4,35 @@
     ViewData["Title"] = "Регистрация";
 }
 
-<h1>@ViewData["Title"]</h1>
-
-<div class="row">
-    <div class="col-md-4">
-        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h4>Регистрация нового пользователя</h4>
-            <hr />
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
+<h2 class="auth-heading text-center mb-5">Регистрация</h2>
+<div class="auth-form-container text-left">
+    <form id="account" method="post" class="auth-form login-form">
+        <div class="email mb-3">
+            <div class="form-group email mb-3">
                 <label asp-for="Input.Email"></label>
-                <input asp-for="Input.Email" class="form-control" />
+                <input asp-for="Input.Email" class="form-control signup-name" />
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
+        </div>
+        <div class="password mb-3">
             <div class="form-group">
                 <label asp-for="Input.Password"></label>
-                <input asp-for="Input.Password" class="form-control" />
+                <input asp-for="Input.Password" class="form-control signup-password" />
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
+        </div>
+        <div class="password mb-3">
             <div class="form-group">
                 <label asp-for="Input.ConfirmPassword"></label>
-                <input asp-for="Input.ConfirmPassword" class="form-control" />
+                <input asp-for="Input.ConfirmPassword" class="form-control signup-password" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
-        </form>
-    </div>
-    @*<div class="col-md-6 col-md-offset-2">
-        <section>
-            <h4>Use another service to register.</h4>
-            <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
-                            for details on setting up this ASP.NET application to support logging in via external services.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
-                        </div>
-                    </form>
-                }
-            }
-        </section>
-    </div>*@
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn app-btn-primary btn-block theme-btn mx-auto">Зарегистрироваться</button>
+        </div>
+    </form>
+    <div class="auth-option text-center pt-5"><a asp-page="./Login" class="text-link">Вход</a></div>
 </div>
 
 @section Scripts {
