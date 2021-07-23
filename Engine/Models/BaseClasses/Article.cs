@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
+using System.Collections.Generic;
 
 namespace Engine.Models.BaseClasses
 {
@@ -30,5 +31,9 @@ namespace Engine.Models.BaseClasses
         /// </summary>
         public IdentityUser Author { get; set; }
 
+        /// <summary>
+        /// Теги
+        /// </summary>
+        public List<Tag> Tags { get; set; }
     }
 }
