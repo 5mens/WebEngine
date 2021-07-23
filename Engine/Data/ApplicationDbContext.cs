@@ -25,7 +25,9 @@ namespace Engine.Data
         }
         public DbSet<Menu> Menu { get; set; }
         public DbSet<MenuItem> MenuItem { get; set; }
+        public DbSet<Category> Category { get; set; }
         public DbSet<Article> Article { get; set; }
+        public DbSet<Tag> Tag { get; set; }
         public DbSet<Comment> Comment { get; set; }
 
         /// <summary>

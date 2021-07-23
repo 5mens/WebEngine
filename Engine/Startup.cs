@@ -54,6 +54,9 @@ namespace Engine
 
             services.AddSingleton<IMenu, MenuRepository>();
             services.AddSingleton<IMenuItem, MenuItemRepository>();
+            services.AddSingleton<ICategory, CategoryRepository>();
+            services.AddSingleton<IArticle, ArticleRepository>();
+            services.AddSingleton<ITag, TagRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
