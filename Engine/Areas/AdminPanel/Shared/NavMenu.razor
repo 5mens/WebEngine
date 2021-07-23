@@ -1,0 +1,27 @@
+﻿@inject NavigationManager Nav
+<MudPaper Class="d-inline-flex py-3 nav-item" Square="true">
+    <MudNavMenu Class="mud-width-full">
+        @*<MudText Typo="Typo.h6" Class="px-4">Material</MudText>
+            <MudText Typo="Typo.body2" Class="px-4 mud-text-secondary">Icons</MudText>*@
+        <MudDivider Class="my-2" />
+        <MudNavLink Href="/administrator" Icon="@Icons.Filled.Dashboard" Match="NavLinkMatch.All">Главная</MudNavLink>
+        <MudNavGroup Title="Меню" Icon="@Icons.Filled.Menu" Expanded="true">
+            <MudNavLink Href="/administrator/menu/list">Список меню</MudNavLink>
+            <MudNavLink Href="@($"/administrator/menu/{MenuId}/items")" Match="NavLinkMatch.All">Элементы меню</MudNavLink>
+        </MudNavGroup>
+        <MudNavGroup Title="Пользователи" Icon="@Icons.Filled.People" Expanded="true">
+            <MudNavLink Href="/administrator/user/users" Match="NavLinkMatch.All">Пользователи</MudNavLink>
+            <MudNavLink Href="/administrator/user/groups" Match="NavLinkMatch.All">Группы пользователей</MudNavLink>
+            <MudNavLink Href="/administrator/user/accessLevel" Match="NavLinkMatch.All">Уровни доступа</MudNavLink>
+        </MudNavGroup>
+        <MudNavGroup Title="Материалы" Icon="@Icons.Filled.Article" Expanded="true">
+            <MudNavLink Href="/administrator/article/list" Match="NavLinkMatch.All">Материалы</MudNavLink>
+            <MudNavLink Href="/administrator/article/category" Match="NavLinkMatch.All">Категории</MudNavLink>
+        </MudNavGroup>
+    </MudNavMenu>
+</MudPaper>
+
+@code{
+    [Parameter]
+    public int MenuId { get; set; } = 0;
+}

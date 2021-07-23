@@ -1,0 +1,35 @@
+﻿@page "/administrator/article/add"
+
+@using Blazeditor.TinyMCE
+@using System.Globalization
+@inject AuthenticationStateProvider GetAuthenticationStateAsync
+
+
+<MudTextField @bind-Value="@_articleTitle" Required="true" RequiredError="Обязательно для заполнения" Label="Наименование статьи" Variant="Variant.Text" Class="mb-3 border-bottom"></MudTextField>
+
+<TextEditor Id="demo" @ref="@TextEditor" BlazeditorOption="textEditorOption" OnChangeCallBack="@OnChange">
+    <EditorContent>
+        @((MarkupString)initialText)
+    </EditorContent>
+</TextEditor>
+
+<MudDatePicker PickerVariant="PickerVariant.Dialog" Label="Дата публикации" @bind-Date="@date" Culture="@CultureInfo.GetCultureInfo("ru-RU")" />
+<AuthorizeView>
+    <MudTextField Disabled="true" @bind-Value="@_articleAuthor" Label="Автор" Variant="Variant.Text" Class="mb-3 border-bottom"></MudTextField>
+</AuthorizeView>
+<MudSelect Label="Категория материала" Variant="Variant.Text" OffsetY="true" @bind-Value="_articleCategory">
+    <MudSelectItem Class="bg-secondary" Value="@("Uncategorized")">Без категории</MudSelectItem>
+</MudSelect>
+<MudAutocomplete T="string" Label="Теги" @bind-Value="value2" SearchFunc="@Search2"
+                 ResetValueOnEmptyText="@resetValueOnEmptyText"
+                 CoerceText="@coerceText" CoerceValue="@coerceValue"
+                 AdornmentIcon="@Icons.Material.Filled.Tag" AdornmentColor="Color.Primary" />
+
+<MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" Color="Color.Info" Size="Size.Large">Сохранить</MudButton>
+<MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Cancel" Color="Color.Info" Size="Size.Large">Отмена</MudButton>
+
+
+@code
+{
+
+}

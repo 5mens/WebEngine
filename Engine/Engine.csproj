@@ -7,12 +7,100 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.14" />
+    <Content Remove="wwwroot\assets\css\portal.css" />
+    <Content Remove="wwwroot\assets\images\app-logo.svg" />
+    <Content Remove="wwwroot\assets\images\background\background-1.jpg" />
+    <Content Remove="wwwroot\assets\images\background\background-2.jpg" />
+    <Content Remove="wwwroot\assets\images\background\background-3.jpg" />
+    <Content Remove="wwwroot\assets\images\doc-thumb-1.jpg" />
+    <Content Remove="wwwroot\assets\images\doc-thumb-2.jpg" />
+    <Content Remove="wwwroot\assets\images\portal-logo.svg" />
+    <Content Remove="wwwroot\assets\images\profiles\profile-1.png" />
+    <Content Remove="wwwroot\assets\images\profiles\profile-2.png" />
+    <Content Remove="wwwroot\assets\images\profiles\profile-3.png" />
+    <Content Remove="wwwroot\assets\images\profiles\profile-4.png" />
+    <Content Remove="wwwroot\assets\images\profiles\profile-5.png" />
+    <Content Remove="wwwroot\assets\images\profiles\profile-6.png" />
+    <Content Remove="wwwroot\assets\images\user.png" />
+    <Content Remove="wwwroot\assets\images\users\user-1.jpg" />
+    <Content Remove="wwwroot\assets\images\users\user-2.jpg" />
+    <Content Remove="wwwroot\assets\images\users\user-3.jpg" />
+    <Content Remove="wwwroot\assets\images\users\user-4.jpg" />
+    <Content Remove="wwwroot\assets\images\users\user-5.jpg" />
+    <Content Remove="wwwroot\assets\images\users\user-6.jpg" />
+    <Content Remove="wwwroot\assets\images\users\user-7.jpg" />
+    <Content Remove="wwwroot\assets\images\users\user-8.jpg" />
+    <Content Remove="wwwroot\assets\images\users\user-9.jpg" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EngineModel\EngineModels.csproj" />
-    <ProjectReference Include="..\EngineTests\EngineTests.csproj" />
+    <PackageReference Include="Blazeditor.TinyMCE" Version="1.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.14" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="MudBlazor" Version="5.0.15" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Areas\Identity\Pages\Account\Login.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\LogOut.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Register.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\_ViewImports.cshtml" />
+    <None Include="Areas\Identity\Pages\Shared\_LoginPartial_Delete.cshtml" />
+    <None Include="Areas\Identity\Pages\_ViewImports.cshtml" />
+    <None Include="Areas\Identity\Pages\_ViewStart.cshtml" />
+    <None Include="Pages\Error.cshtml" />
+    <None Include="Pages\Shared\_Layout.cshtml" />
+    <None Include="Pages\Shared\_LoginPartial.cshtml" />
+    <None Include="Pages\Shared\_ValidationScriptsPartial.cshtml" />
+    <None Include="Pages\_Host.cshtml" />
+    <None Include="Pages\_ViewImports.cshtml" />
+    <None Include="Pages\_ViewStart.cshtml" />
+    <None Include="Shared\NotAuthorizedHandler.razor" />
+    <None Include="wwwroot\assets\css\portal.css" />
+    <None Include="wwwroot\assets\images\app-logo.svg" />
+    <None Include="wwwroot\assets\images\background\background-1.jpg" />
+    <None Include="wwwroot\assets\images\background\background-2.jpg" />
+    <None Include="wwwroot\assets\images\background\background-3.jpg" />
+    <None Include="wwwroot\assets\images\doc-thumb-1.jpg" />
+    <None Include="wwwroot\assets\images\doc-thumb-2.jpg" />
+    <None Include="wwwroot\assets\images\portal-logo.svg" />
+    <None Include="wwwroot\assets\images\profiles\profile-1.png" />
+    <None Include="wwwroot\assets\images\profiles\profile-2.png" />
+    <None Include="wwwroot\assets\images\profiles\profile-3.png" />
+    <None Include="wwwroot\assets\images\profiles\profile-4.png" />
+    <None Include="wwwroot\assets\images\profiles\profile-5.png" />
+    <None Include="wwwroot\assets\images\profiles\profile-6.png" />
+    <None Include="wwwroot\assets\images\user.png" />
+    <None Include="wwwroot\assets\images\users\user-1.jpg" />
+    <None Include="wwwroot\assets\images\users\user-2.jpg" />
+    <None Include="wwwroot\assets\images\users\user-3.jpg" />
+    <None Include="wwwroot\assets\images\users\user-4.jpg" />
+    <None Include="wwwroot\assets\images\users\user-5.jpg" />
+    <None Include="wwwroot\assets\images\users\user-6.jpg" />
+    <None Include="wwwroot\assets\images\users\user-7.jpg" />
+    <None Include="wwwroot\assets\images\users\user-8.jpg" />
+    <None Include="wwwroot\assets\images\users\user-9.jpg" />
+    <None Include="wwwroot\assets\js\app.js" />
+    <None Include="wwwroot\assets\js\charts-demo.js" />
+    <None Include="wwwroot\assets\js\index-charts.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\AdminPanel\Shared\MyComponents\" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,49 @@
+﻿@page "/administrator/menu/add"
+
+@inject IDbContextFactory<AppDbContext> DbFactory
+@inject NavigationManager Nav
+<MudPaper Class="ma-2" Elevation="0">
+    <MudText Typo="Typo.h5" Class="pt-3">Добавить новое меню</MudText>
+    <MudDivider DividerType="DividerType.Middle" />
+</MudPaper>
+<MudPaper Class="ma-2" Elevation="0">
+    <MudButton Class="ma-1 mt-2" OnClick="()=>OnButtonClicked()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" Color="Color.Primary" Size="Size.Medium">Сохранить</MudButton>
+    <MudButton Class="ma-1 mt-2" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Cancel" Color="Color.Error" Size="Size.Medium">Отмена</MudButton>
+</MudPaper>
+
+<MudText Typo="Typo.h6" Class="ma-2 pt-3">Введите наименование, описание пункта меню, а также выберите положение</MudText>
+
+<MudTextField Class="ma-2 pt-5" Required="true" RequiredError="Данное поле является обязательным" @bind-Value="_menuTitle" Label="Наименование меню" Variant="Variant.Text"></MudTextField>
+<MudTextField Class="ma-2" @bind-Value="_menuDesc" Label="Описание меню" Variant="Variant.Text"></MudTextField>
+<MudSelect Class="ma-2" Label="Положение" Strict="true" Variant="Variant.Outlined" Format="F2" @bind-Value="_position" OffsetY="true" KeyUpPreventDefault="true">
+    @foreach (string item in _selectorValue)
+    {
+        <MudSelectItem Value="@item">@item</MudSelectItem>
+    }
+</MudSelect>
+
+@code {
+    private string _menuTitle = string.Empty;
+    private string _menuDesc = string.Empty;
+    private string _position = string.Empty;
+
+    private string[] _selectorValue = {"main", "top", "left", "right", "bottom",  "footer" };
+
+    /// <summary>
+    /// Сохранить
+    /// </summary>
+    private async Task OnButtonClicked()
+    {
+        MenuRepository menuRepository = new MenuRepository(DbFactory);
+        await Task.Run(() => menuRepository.AddNewMenu(new Menu { Title = _menuTitle, Desc = _menuDesc, Menutype = _position }));
+        Cancel();
+    }
+
+    /// <summary>
+    /// Отмена
+    /// </summary>
+    private void Cancel()
+    {
+        Nav.NavigateTo($"/administrator/menu/list");
+    }
+}

@@ -1,0 +1,14 @@
+﻿@page "/administrator"
+<h3>Главная страница панели управления</h3>
+<h4>На данный момент абсолютно пустая</h4>
+<h5>Здесь могла быть ваша реклама</h5>
+
+@code {
+    private string i = string.Empty;
+
+    protected async override Task OnInitializedAsync()
+    {
+        i = "";
+        await base.OnInitializedAsync();
+    }
+}

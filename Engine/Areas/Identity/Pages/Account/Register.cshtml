@@ -1,0 +1,40 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Регистрация";
+}
+
+<h2 class="auth-heading text-center mb-5">Регистрация</h2>
+<div class="auth-form-container text-left">
+    <form id="account" method="post" class="auth-form login-form">
+        <div class="email mb-3">
+            <div class="form-group email mb-3">
+                <label asp-for="Input.Email"></label>
+                <input asp-for="Input.Email" class="form-control signup-name" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="password mb-3">
+            <div class="form-group">
+                <label asp-for="Input.Password"></label>
+                <input asp-for="Input.Password" class="form-control signup-password" />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="password mb-3">
+            <div class="form-group">
+                <label asp-for="Input.ConfirmPassword"></label>
+                <input asp-for="Input.ConfirmPassword" class="form-control signup-password" />
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn app-btn-primary btn-block theme-btn mx-auto">Зарегистрироваться</button>
+        </div>
+    </form>
+    <div class="auth-option text-center pt-5"><a asp-page="./Login" class="text-link">Вход</a></div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

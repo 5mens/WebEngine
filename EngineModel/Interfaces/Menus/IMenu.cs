@@ -1,15 +1,15 @@
-﻿using EngineModel.Models.Menus;
+﻿using EngineModels.Models.Menus;
 using System.Collections.Generic;
 
 
-namespace WebEngine.Interfaces.Menus
+namespace EngineModels.Interfaces.Menus
 {
     interface IMenu
     {
         /// <summary>
         /// Получить все меню
         /// </summary>
-        IEnumerable<Menu> AllMenus { get; }
+        IEnumerable<Menu> GetMenus { get; }
         /// <summary>
         /// Получить меню по его Id
         /// </summary>
@@ -22,7 +22,7 @@ namespace WebEngine.Interfaces.Menus
         /// <param name="title">Наименование</param>
         /// <param name="desc">Описание</param>
         /// <param name="menutype">Тип меню</param>
-        void AddNewMenu(string title, string desc, string menutype);
+        void AddNewMenu(Menu menu);
         /// <summary>
         /// Удаление меню по Id
         /// </summary>

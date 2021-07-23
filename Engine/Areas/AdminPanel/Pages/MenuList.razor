@@ -1,0 +1,107 @@
+﻿@page "/administrator/menu/list"
+
+@inject IDbContextFactory<AppDbContext> DbFactory
+@inject NavigationManager Nav
+@inject IMenu MyMenu
+<MudPaper Class="ma-2" Elevation="0">
+    <MudText Typo="Typo.h5" Class="pt-3">Список меню</MudText>
+    <MudDivider DividerType="DividerType.Middle" />
+</MudPaper>
+<MudPaper Class="ma-2" Elevation="0">
+    <MudButton Class="ma-1 mt-2" OnClick="()=>AddNewMenu()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Add" Color="Color.Primary" Size="Size.Medium">Создать</MudButton>
+    <MudButton Class="ma-1 mt-2" OnClick="()=>EditMenu()" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Edit" Size="Size.Medium">Изменить</MudButton>
+    <MudButton Class="ma-1 mt-2" OnClick="()=>DeleteMenu()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Medium">Удалить</MudButton>
+</MudPaper>
+<MudTable Class="table app-table-hover mb-0 text-left" Items="@Elements" Hover="@hover" SortLabel="Сортировка по:" MultiSelection="true" Dense="@dense" @bind-SelectedItems="selectedItems" Filter="new Func<Menu,bool>(FilterFunc)">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Список меню</MudText>
+        <MudSpacer />
+        <MudTextField @bind-Value="searchString" Placeholder="Поиск" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<Menu, object>(x=>x.Id)">Id</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel Enabled="@enabled" SortBy="new Func<Menu, object>(x=>x.Title)">Наименование</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<Menu, object>(x=>x.Desc)">Описание</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<Menu, object>(x=>x.Menutype)">Позиция</MudTableSortLabel></MudTh>
+        <MudTh>Элементы</MudTh>
+        <MudTh>Статус</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="Title">@context.Title</MudTd>
+        <MudTd DataLabel="Desc">@context.Desc</MudTd>
+        <MudTd DataLabel="Menutype">@context.Menutype</MudTd>
+        <MudTd>
+            <MudChip Link="@($"/administrator/menu/{context.Id}/items")" Icon="@Icons.Material.Filled.Edit" Size="Size.Medium" Variant="Variant.Filled" Color="Color.Info" Class="ma-2">Изменить</MudChip>
+        </MudTd>
+        <MudTd>
+            <MudRating MaxValue="1" SelectedValue="1" FullIcon="@Icons.Material.Filled.Visibility" EmptyIcon="@Icons.Material.Filled.VisibilityOff" />
+        </MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager Class="" PageSizeOptions="new int[]{20, 50, 100}" RowsPerPageString="Выводить по:" InfoFormat="{first_item}-{last_item} из {all_items}" />
+    </PagerContent>
+</MudTable>
+<MudText Inline="true">Выбранные значения: @(selectedItems==null ? "" : string.Join(", ", selectedItems.OrderBy(x=>x.Title).Select(x=>x.Title)))</MudText>
+
+@code {
+    private string searchString = "";
+    private Menu selectedItem = null;
+    private bool disabled = false;
+    private bool dense = false;
+    private bool hover = true;
+    private bool enabled = true;
+    private IEnumerable<Menu> Elements = new List<Menu>();
+    private bool Busy;
+    private AppDbContext Context { get; set; }
+    private HashSet<Menu> selectedItems = new HashSet<Menu>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Busy = true;
+
+        try
+        {
+            Context = DbFactory.CreateDbContext();
+            Elements = await Context.Menu.ToListAsync();
+        }
+        finally
+        {
+            Busy = false;
+        }
+        await base.OnInitializedAsync();
+    }
+    private bool FilterFunc(Menu element)
+    {
+        if (string.IsNullOrWhiteSpace(searchString))
+            return true;
+        if (element.Title.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (element.Desc.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if ($"{element.Id} {element.Menutype}".Contains(searchString))
+            return true;
+        return false;
+    }
+
+    private void AddNewMenu()
+    {
+        Nav.NavigateTo($"/administrator/menu/add");
+    }
+
+    private void EditMenu()
+    {
+        if (selectedItems.Count == 1)
+        {
+            foreach (var item in selectedItems)
+            {
+                Nav.NavigateTo($"/administrator/menu/{item.Id}/edit");
+            }
+        }
+    }
+
+    private void DeleteMenu()
+    {
+        MyMenu.DeleteMenu(selectedItems.ToList<Menu>());
+    }
+}

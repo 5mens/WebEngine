@@ -1,0 +1,10 @@
+﻿@page  "/administrator/menu/{MenuId:int}/item/{MenuItemId}/edit"
+
+<h3>MenuItemEdit</h3>
+
+@code {
+    [Parameter]
+    public int MenuId { get; set; }
+    [Parameter]
+    public int MenuItemId { get; set; }
+}
