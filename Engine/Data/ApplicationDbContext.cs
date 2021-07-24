@@ -31,7 +31,8 @@ namespace Engine.Data
         public DbSet<Tag> Tag { get; set; }
         public DbSet<Comment> Comment { get; set; }
         public DbSet<IdentityRole> AspNetRoles { get; set; }
-
+        public DbSet<IdentityUser> AspNetUsers { get; set; }
+        
         /// <summary>
         /// Dispose pattern.
         /// </summary>
