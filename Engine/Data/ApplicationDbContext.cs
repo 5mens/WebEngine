@@ -16,6 +16,14 @@ namespace Engine.Data
             : base(options)
         {
         }
+        public DbSet<Menu> Menu { get; set; }
+        public DbSet<MenuItem> MenuItem { get; set; }
+        public DbSet<Category> Category { get; set; }
+        public DbSet<Article> Article { get; set; }
+        public DbSet<Tag> Tag { get; set; }
+        public DbSet<Comment> Comment { get; set; }
+        public DbSet<UserGroup> AspNetRoles { get; set; }
+        public DbSet<IdentityUser> AspNetUsers { get; set; }
     }
 
     public class AppDbContext : DbContext

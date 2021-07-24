@@ -27,5 +27,13 @@ namespace Engine.Models.BaseClasses
         /// Тип меню
         /// </summary>
         public string Menutype { get; set; }
+        /// <summary>
+        /// Опубликован
+        /// </summary>
+        public bool Published { get; set; }
+        /// <summary>
+        /// Главное меню?
+        /// </summary>
+        public bool IsMain { get; set; }
     }
 }
