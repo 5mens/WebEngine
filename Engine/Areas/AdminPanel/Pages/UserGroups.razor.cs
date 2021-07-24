@@ -1,7 +1,5 @@
-﻿using Engine.Data;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +12,7 @@ namespace Engine.Areas.AdminPanel.Pages
         [Inject]
         private NavigationManager Nav { get; set; }
         [Inject]
-        private IDbContextFactory<AppDbContext> DbFactory { get; set; }
-        private AppDbContext Context { get; set; }
+        private RoleManager<IdentityRole> roleManager { get; set; }
         private string searchString = "";
         private IdentityRole selectedItem = null;
         private bool disabled = false;
@@ -25,13 +22,13 @@ namespace Engine.Areas.AdminPanel.Pages
         private IEnumerable<IdentityRole> Elements = new List<IdentityRole>();
         private bool Busy;
         private HashSet<IdentityRole> selectedItems = new HashSet<IdentityRole>();
+        
         protected override async Task OnInitializedAsync()
         {            
             Busy = true;
             try
             {
-                Context = DbFactory.CreateDbContext();
-                Elements = await Context.AspNetRoles.ToListAsync();
+                Elements = roleManager.Roles.ToList();
             }
             finally
             {
@@ -62,9 +59,13 @@ namespace Engine.Areas.AdminPanel.Pages
             }
         }
 
-        private void GroupDelete()
+        private async Task GroupDelete()
         {
-
+            foreach (var item in selectedItems)
+            {
+                await roleManager.DeleteAsync(item);
+            }
+            Elements = roleManager.Roles.ToList();
         }
 
     }
