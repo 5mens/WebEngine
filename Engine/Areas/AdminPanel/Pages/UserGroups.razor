@@ -1,6 +1,18 @@
 ﻿@page "/administrator/user/groups" 
-<h3>UserGroups</h3>
-
-@code {
-
-}
+<MudTable Class="table app-table-hover mb-0 text-left" Items="@Elements" Hover="@hover" SortLabel="Сортировка по:" MultiSelection="true" Dense="@dense" @bind-SelectedItems="selectedItems" Filter="new Func<IdentityRole,bool>(FilterFunc)">
+    <ToolBarContent>
+        <MudSpacer />
+        <MudTextField @bind-Value="searchString" Placeholder="Поиск" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh><MudTableSortLabel Enabled="@enabled" SortBy="new Func<IdentityRole, object>(x=>x.Name)">Наименование</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<IdentityRole, object>(x=>x.NormalizedName)">Нормализованное наименование</MudTableSortLabel></MudTh>        
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="UserName">@context.Name</MudTd>
+        <MudTd DataLabel="Email">@context.NormalizedName</MudTd>        
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager Class="" PageSizeOptions="new int[]{20, 50, 100}" RowsPerPageString="Выводить по:" InfoFormat="{first_item}-{last_item} из {all_items}" />
+    </PagerContent>
+</MudTable>
