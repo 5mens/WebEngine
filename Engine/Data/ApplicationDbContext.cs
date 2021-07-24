@@ -29,6 +29,7 @@ namespace Engine.Data
         public DbSet<Article> Article { get; set; }
         public DbSet<Tag> Tag { get; set; }
         public DbSet<Comment> Comment { get; set; }
+        public DbSet<UserGroup> AspNetRoles { get; set; }
 
         /// <summary>
         /// Dispose pattern.
