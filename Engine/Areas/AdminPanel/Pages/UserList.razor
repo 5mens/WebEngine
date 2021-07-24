@@ -1,6 +1,25 @@
 ﻿@page "/administrator/user/users"
-<h3>UserList</h3>
 
-@code {
-
-}
+<MudTable Class="table app-table-hover mb-0 text-left" Items="@Elements" Hover="@hover" SortLabel="Сортировка по:" MultiSelection="true" Dense="@dense" @bind-SelectedItems="selectedItems" Filter="new Func<IdentityUser,bool>(FilterFunc)">
+    <ToolBarContent>        
+        <MudSpacer />
+        <MudTextField @bind-Value="searchString" Placeholder="Поиск" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh><MudTableSortLabel Enabled="@enabled" SortBy="new Func<IdentityUser, object>(x=>x.UserName)">Имя пользователя</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<IdentityUser, object>(x=>x.Email)">E-Mail</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<IdentityUser, object>(x=>x.LockoutEnabled)">Забанен</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<IdentityUser, object>(x=>x.LockoutEnd)">Окончание бана</MudTableSortLabel></MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="UserName">@context.UserName</MudTd>
+        <MudTd DataLabel="Email">@context.Email</MudTd>
+        <MudTd DataLabel="LockoutEnabled">
+            <MudCheckBox @bind-Checked="@context.LockoutEnabled" @onchange="()=>UserBan(context.LockoutEnabled)" Color="CheckBoxColor(context.LockoutEnabled)" CheckedIcon="@Icons.Material.Filled.Cancel" UncheckedIcon="@Icons.Material.Filled.Check"></MudCheckBox>
+        </MudTd>
+        <MudTd DataLabel="LockoutEnd">@context.LockoutEnd</MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager Class="" PageSizeOptions="new int[]{20, 50, 100}" RowsPerPageString="Выводить по:" InfoFormat="{first_item}-{last_item} из {all_items}" />
+    </PagerContent>
+</MudTable>
