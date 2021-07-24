@@ -1,4 +1,5 @@
 ﻿using Engine.Models.BaseClasses;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -30,7 +31,8 @@ namespace Engine.Data
         public DbSet<Tag> Tag { get; set; }
         public DbSet<Comment> Comment { get; set; }
         public DbSet<UserGroup> AspNetRoles { get; set; }
-
+        public DbSet<IdentityUser> AspNetUsers { get; set; }
+        
         /// <summary>
         /// Dispose pattern.
         /// </summary>
