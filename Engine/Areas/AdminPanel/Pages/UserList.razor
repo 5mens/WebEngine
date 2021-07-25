@@ -18,7 +18,7 @@
         <MudTd DataLabel="UserName">@context.UserName</MudTd>
         <MudTd DataLabel="Email">@context.Email</MudTd>
         <MudTd DataLabel="LockoutEnabled">
-            <MudCheckBox @bind-Checked="@context.LockoutEnabled" @onclick="()=>UserBan(context)" Color="CheckBoxColor(context.LockoutEnabled)" CheckedIcon="@Icons.Material.Filled.Cancel" UncheckedIcon="@Icons.Material.Filled.Check"></MudCheckBox>
+            <MudCheckBox @bind-Checked="@context.LockoutEnabled" @onclick="()=>UserBan(context)" Color="CheckBoxColor(context.LockoutEnabled)" CheckedIcon="@Icons.Material.Filled.Check" UncheckedIcon="@Icons.Material.Filled.Cancel"></MudCheckBox>
         </MudTd>
         <MudTd DataLabel="LockoutEnd">@context.LockoutEnd</MudTd>
     </RowTemplate>
