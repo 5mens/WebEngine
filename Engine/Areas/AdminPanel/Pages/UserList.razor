@@ -1,5 +1,8 @@
 ﻿@page "/administrator/user/users"
-
+<MudPaper Class="ma-2" Elevation="0">
+    <MudButton Class="ma-1 mt-2" OnClick="()=>UserEdit()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" Color="Color.Primary" Size="Size.Medium">Изменить</MudButton>
+    <MudButton Class="ma-1 mt-2" OnClick="()=>UserDelete()" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Cancel" Color="Color.Error" Size="Size.Medium">Удалить</MudButton>
+</MudPaper>
 <MudTable Class="table app-table-hover mb-0 text-left" Items="@Elements" Hover="@hover" SortLabel="Сортировка по:" MultiSelection="true" Dense="@dense" @bind-SelectedItems="selectedItems" Filter="new Func<IdentityUser,bool>(FilterFunc)">
     <ToolBarContent>        
         <MudSpacer />
@@ -15,7 +18,7 @@
         <MudTd DataLabel="UserName">@context.UserName</MudTd>
         <MudTd DataLabel="Email">@context.Email</MudTd>
         <MudTd DataLabel="LockoutEnabled">
-            <MudCheckBox @bind-Checked="@context.LockoutEnabled" @onchange="()=>UserBan(context.LockoutEnabled)" Color="CheckBoxColor(context.LockoutEnabled)" CheckedIcon="@Icons.Material.Filled.Cancel" UncheckedIcon="@Icons.Material.Filled.Check"></MudCheckBox>
+            <MudCheckBox @bind-Checked="@context.LockoutEnabled" @onclick="()=>UserBan(context)" Color="CheckBoxColor(context.LockoutEnabled)" CheckedIcon="@Icons.Material.Filled.Cancel" UncheckedIcon="@Icons.Material.Filled.Check"></MudCheckBox>
         </MudTd>
         <MudTd DataLabel="LockoutEnd">@context.LockoutEnd</MudTd>
     </RowTemplate>
