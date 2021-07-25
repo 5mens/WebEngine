@@ -30,6 +30,9 @@ namespace Engine.Models.Interfaces
         /// Обновление меню
         /// </summary>
         Task UpdateMenu(Menu menu);
-
+        /// <summary>
+        /// Получить главное меню
+        /// </summary>
+        Menu GetMainMenu();
     }
 }

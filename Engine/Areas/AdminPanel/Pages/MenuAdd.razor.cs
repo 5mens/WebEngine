@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Engine.Models.Interfaces;
 using MudBlazor;
 using Engine.Models.BaseClasses;
+using Engine.Models.Localization;
 
 namespace Engine.Areas.AdminPanel.Pages
 {
@@ -37,16 +38,16 @@ namespace Engine.Areas.AdminPanel.Pages
             if ((NewMenu.Title != string.Empty || NewMenu.Title != "") && (NewMenu.Menutype != string.Empty || NewMenu.Menutype != ""))
             {                
                 await MyMenu.AddNewMenu(NewMenu);
-                Snackbar.Add("Меню добавлено", Severity.Success);
+                Snackbar.Add(MainDictionary.MessageCode["MENU_ADD"], Severity.Success);
                 Cancel();
             }
-            else if (NewMenu.Title != string.Empty || NewMenu.Title != "")
+            else if (NewMenu.Title == string.Empty || NewMenu.Title == "")
             {
-                Snackbar.Add("Необходимо заполнить наименование меню", Severity.Error);
+                Snackbar.Add(MainDictionary.MessageCode["TITLE_EMPTY"], Severity.Error);
             }
             else
             {
-                Snackbar.Add("Выберите положение меню", Severity.Error);
+                Snackbar.Add(MainDictionary.MessageCode["POSITION_EMPTY"], Severity.Error);
             }
         }
 
