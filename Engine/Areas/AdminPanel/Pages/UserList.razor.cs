@@ -1,4 +1,5 @@
 ﻿using Engine.Data;
+using Engine.Models.Localization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -14,8 +15,11 @@ namespace Engine.Areas.AdminPanel.Pages
         [Inject]
         private NavigationManager Nav { get; set; }
         [Inject]
-        private IDbContextFactory<AppDbContext> DbFactory { get; set; }        
-        private AppDbContext Context { get; set; }
+        private UserManager<IdentityUser> userManager { get; set; }
+        [Inject]
+        private IDialogService DialogService { get; set; }
+        [Inject]
+        private ISnackbar Snackbar { get; set; }
         private IEnumerable<IdentityUser> Elements = new List<IdentityUser>();
         private HashSet<IdentityUser> selectedItems = new HashSet<IdentityUser>();
         private bool Busy;
@@ -25,13 +29,13 @@ namespace Engine.Areas.AdminPanel.Pages
         private bool dense = false;
         private bool hover = true;
         private bool enabled = true;
+
         protected async override Task OnInitializedAsync()
         {
             Busy = true;
             try
             {
-                Context = DbFactory.CreateDbContext();
-                Elements = await Context.AspNetUsers.ToListAsync();
+                Elements = await userManager.Users.ToListAsync();
             }
             finally
             {
@@ -40,7 +44,8 @@ namespace Engine.Areas.AdminPanel.Pages
             await base.OnInitializedAsync();
         }
 
-        private void UserEdit() {
+        private void UserEdit()
+        {
             if (selectedItems.Count == 1)
             {
                 foreach (var item in selectedItems)
@@ -50,12 +55,33 @@ namespace Engine.Areas.AdminPanel.Pages
             }
         }
 
-        private void UserBan(bool context) { 
-        
+        private async Task UserBan(IdentityUser context)
+        {            
+            context.LockoutEnabled = context.LockoutEnabled ? false : true;
+            await userManager.UpdateAsync(context);
+            Elements = await userManager.Users.ToListAsync();
         }
 
-        private void UserDelete() { 
-        
+        private async Task UserDelete()
+        {
+            
+            if (selectedItems.Count > 0)
+            {
+                bool? result = await DialogService.ShowMessageBox(
+                    MainDictionary.MessageCode["DELETE_ATTENTION"],
+                    MainDictionary.MessageCode["DELETE_MESSAGE"],
+                    yesText: MainDictionary.MessageCode["DELETE_YES"], cancelText: MainDictionary.MessageCode["DELETE_CANCEL"]);
+                StateHasChanged();
+                if (result == true)
+                {
+                    foreach (var item in selectedItems)
+                    {
+                        await userManager.DeleteAsync(item);
+                    }
+                    Elements = Elements = await userManager.Users.ToListAsync();
+                    Snackbar.Add(MainDictionary.MessageCode["USER_DELETE"], Severity.Error);
+                }
+            }                        
         }
 
         private bool FilterFunc(IdentityUser element)
@@ -71,7 +97,8 @@ namespace Engine.Areas.AdminPanel.Pages
             return false;
         }
 
-        private Color CheckBoxColor(bool context) {
+        private Color CheckBoxColor(bool context)
+        {
             if (!context)
             {
                 return Color.Tertiary;

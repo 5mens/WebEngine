@@ -11,8 +11,9 @@ namespace Engine.Models.Localization
         {
             ["MENU_CHANGED"] = "Меню изменено",
             ["MENU_ADD"] = "Меню добавлено",
-            ["MENU_DELETE"] = "Меню удалено",
+            ["MENU_DELETE"] = "Меню удалено",            
             ["MENU_TITLE_EMPTY"] = "Необходимо заполнить наименование меню",
+            ["USER_DELETE"] = "Пользователь удален",
             ["POSITION_EMPTY"] = "Не выбрана позиция",
             ["TITLE_EMPTY"] = "Необходимо заполнить наименование",
             ["LINK_EMPTY"] = "Ссылка не заполнена",

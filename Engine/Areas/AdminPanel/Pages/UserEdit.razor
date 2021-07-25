@@ -1,7 +1,7 @@
 ﻿@page "/administrator/user/{UserId}/edit"
-<h3>UserEdit</h3>
-
-@code {
-    [Parameter]
-    public string UserId { get; set; }
-}
+<MudPaper Class="ma-2" Elevation="0">
+    <MudButton Class="ma-1 mt-2" OnClick="()=>UpdateUser()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" Color="Color.Primary" Size="Size.Medium">Сохранить</MudButton>
+    <MudButton Class="ma-1 mt-2" OnClick="()=>Cancel()" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Cancel" Color="Color.Error" Size="Size.Medium">Отмена</MudButton>
+</MudPaper>
+<MudTextField Label="Имя пользователя" @bind-Value="EditedItem.UserName" />
+<MudTextField Label="Email" Class="mt-3" @bind-Value="EditedItem.Email" />
