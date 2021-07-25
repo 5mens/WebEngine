@@ -57,7 +57,8 @@ namespace Engine.Areas.AdminPanel.Pages
 
         private async Task UserBan(IdentityUser context)
         {            
-            context.LockoutEnabled = context.LockoutEnabled ? false : true;
+            context.LockoutEnabled = context.LockoutEnabled ? true : false;
+            context.LockoutEnd = !context.LockoutEnabled ? new DateTime(2500, 01, 01) : null ;
             await userManager.UpdateAsync(context);
             Elements = await userManager.Users.ToListAsync();
         }
@@ -99,7 +100,7 @@ namespace Engine.Areas.AdminPanel.Pages
 
         private Color CheckBoxColor(bool context)
         {
-            if (!context)
+            if (context)
             {
                 return Color.Tertiary;
             }
