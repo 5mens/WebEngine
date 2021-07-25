@@ -1,34 +1,37 @@
 ﻿using Engine.Models.BaseClasses;
 using Engine.Models.Interfaces;
+using Engine.Models.Localization;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Engine.Models.Localization;
 
 namespace Engine.Areas.AdminPanel.Pages
 {
-    public partial class MenuEdit
+    public partial class MenuItemEdit
     {
         [Parameter]
         public int MenuId { get; set; }
+        [Parameter]
+        public string MenuItemId { get; set; }
         [Inject]
-        private IMenu MyMenu { get; set; }
+        private IMenuItem MyMenuItem { get; set; }
         [Inject]
         private NavigationManager Nav { get; set; }
         [Inject]
         private ISnackbar Snackbar { get; set; }
         private bool Busy;
-        private Menu EditedItem;
-        private string[] _selectorValue = { "main", "top", "left", "right", "bottom", "footer" };
+        private MenuItem EditedItem;
         protected override async Task OnInitializedAsync()
         {
             Busy = true;
             try
             {
-                EditedItem = await MyMenu.GetMenu(MenuId);
+                int x = 0;
+                Int32.TryParse(MenuItemId, out x);
+                EditedItem = await MyMenuItem.GetMenuItem(x);
             }
             finally
             {
@@ -36,25 +39,24 @@ namespace Engine.Areas.AdminPanel.Pages
             }
             await base.OnInitializedAsync();
         }
-
         /// <summary>
         /// Сохранить
         /// </summary>
         private async Task UpdateMenu()
         {
-            if ((EditedItem.Title != string.Empty || EditedItem.Title != "") && (EditedItem.Menutype != string.Empty || EditedItem.Menutype != ""))
+            if ((EditedItem.Title != string.Empty || EditedItem.Title != "") && (EditedItem.Link != string.Empty || EditedItem.Link != ""))
             {
-                await MyMenu.UpdateMenu(EditedItem);
+                await MyMenuItem.UpdateMenuItem(EditedItem);
                 Snackbar.Add(MainDictionary.MessageCode["MENU_CHANGED"], Severity.Success);
                 Cancel();
             }
-            else if (EditedItem.Title != string.Empty || EditedItem.Title != "")
+            else if (EditedItem.Title == string.Empty || EditedItem.Title == "")
             {
                 Snackbar.Add(MainDictionary.MessageCode["TITLE_EMPTY"], Severity.Error);
             }
             else
             {
-                Snackbar.Add(MainDictionary.MessageCode["POSITION_EMPTY"], Severity.Error);
+                Snackbar.Add(MainDictionary.MessageCode["LINK_EMPTY"], Severity.Error);
             }
         }
         /// <summary>
@@ -64,5 +66,6 @@ namespace Engine.Areas.AdminPanel.Pages
         {
             Nav.NavigateTo($"/administrator/menu/list");
         }
+
     }
 }

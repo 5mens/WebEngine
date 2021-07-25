@@ -46,6 +46,11 @@ namespace Engine.Models.Repository
             var context = DbFactory.CreateDbContext();
             return await context.Menu.Where(p => p.Id == id).FirstOrDefaultAsync();
         }
+        public Menu GetMainMenu()
+        {
+            var context = DbFactory.CreateDbContext();
+            return context.Menu.Where(p => p.IsMain == true).First();
+        }
 
         public async Task UpdateMenu(Menu menu)
         {

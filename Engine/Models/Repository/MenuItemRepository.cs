@@ -4,21 +4,52 @@ using System.Linq;
 using Engine.Data;
 using Engine.Models.BaseClasses;
 using Engine.Models.Interfaces;
+using Microsoft.AspNetCore.Components;
+using System.Threading.Tasks;
 
 namespace Engine.Models.Repository
 {
     public class MenuItemRepository : IMenuItem
     {
-        private readonly IDbContextFactory<AppDbContext> DbFactory;
+        [Inject]
+        private IDbContextFactory<AppDbContext> DbFactory { get; set; }
 
         public MenuItemRepository(IDbContextFactory<AppDbContext> contextFactory)
         {
             DbFactory = contextFactory;
         }
 
-        //Необходимо отладить
-        public IEnumerable<MenuItem> GetMenuItemsById(int id) => null; //applicationDbContext.MenuItem.Where(p => p.MenuId == id).Include(c => c.Menu);
+        public async Task<List<MenuItem>> GetMenuItemsById(int id)
+        {
+            var context = DbFactory.CreateDbContext();
+            return await context.MenuItem.Where(p => p.MenuId == id).ToListAsync();
+        }
+        public async Task AddNewMenuItem(MenuItem menuItem)
+        {
+            var context = DbFactory.CreateDbContext();
+            context.MenuItem.Add(menuItem);
+            await context.SaveChangesAsync();
+        }
 
-        public MenuItem GetMenuItem(int id) => null;//applicationDbContext.MenuItem.FirstOrDefault(p => p.Id == id);
+        public async Task DeleteMenuItem(List<MenuItem> menu)
+        {
+            var context = DbFactory.CreateDbContext();
+            foreach (var item in menu)
+            {
+                context.MenuItem.Remove(item);
+            }
+            await context.SaveChangesAsync();
+        }
+        public async Task<MenuItem> GetMenuItem(int id)
+        {
+            var context = DbFactory.CreateDbContext();
+            return await context.MenuItem.Where(p => p.Id == id).FirstOrDefaultAsync();
+        }
+        public async Task UpdateMenuItem(MenuItem menuItem)
+        {
+            var context = DbFactory.CreateDbContext();
+            context.Update(menuItem);
+            await context.SaveChangesAsync();
+        }
     }
 }

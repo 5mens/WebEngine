@@ -1,9 +1,7 @@
-﻿using Engine.Data;
-using Engine.Models.BaseClasses;
+﻿using Engine.Models.BaseClasses;
 using Engine.Models.Interfaces;
 using Engine.Models.Localization;
 using Microsoft.AspNetCore.Components;
-using Microsoft.EntityFrameworkCore;
 using MudBlazor;
 using System;
 using System.Collections.Generic;
@@ -12,32 +10,48 @@ using System.Threading.Tasks;
 
 namespace Engine.Areas.AdminPanel.Pages
 {
-    public partial class MenuList
+    public partial class MenuItems
     {
+        #region Parameters
+        [Parameter]
+        public int MenuId { get; set; } = 0;
+        #endregion
+        #region Injects
         [Inject]
         private NavigationManager Nav { get; set; }
+        [Inject]
+        private IMenuItem MyMenuItem { get; set; }
         [Inject]
         private IMenu MyMenu { get; set; }
         [Inject]
         private ISnackbar Snackbar { get; set; }
-        [Inject] 
+        [Inject]
+        #endregion
+        #region Variables
         private IDialogService DialogService { get; set; }
         private string searchString = "";
-        private Menu selectedItem = null;
+        private string myMenuName = "";
+        private MenuItem selectedItem = null;
         private bool disabled = false;
         private bool dense = false;
         private bool hover = true;
         private bool enabled = true;
-        private IEnumerable<Menu> Elements = new List<Menu>();
+        private IEnumerable<MenuItem> Elements = new List<MenuItem>();
+        private Menu menu = new Menu();
         private bool Busy;
-        private HashSet<Menu> selectedItems = new HashSet<Menu>();
-        string state = string.Empty;
+        private HashSet<MenuItem> selectedItems = new HashSet<MenuItem>();
+        private string state = string.Empty;
+        #endregion
+        #region Methods
         protected override async Task OnInitializedAsync()
         {
             Busy = true;
+
             try
             {
-                Elements = await MyMenu.GetMenus();
+                Elements = await MyMenuItem.GetMenuItemsById(MenuId);
+                menu = await MyMenu.GetMenu(MenuId);
+                myMenuName = menu.Title;
             }
             finally
             {
@@ -45,7 +59,7 @@ namespace Engine.Areas.AdminPanel.Pages
             }
             await base.OnInitializedAsync();
         }
-        private bool FilterFunc(Menu element)
+        private bool FilterFunc(MenuItem element)
         {
             if (string.IsNullOrWhiteSpace(searchString))
                 return true;
@@ -60,7 +74,7 @@ namespace Engine.Areas.AdminPanel.Pages
 
         private void AddNewMenu()
         {
-            Nav.NavigateTo($"/administrator/menu/add");
+            Nav.NavigateTo($"/administrator/menu/{MenuId}/item/add");
         }
 
         private void EditMenu()
@@ -69,13 +83,12 @@ namespace Engine.Areas.AdminPanel.Pages
             {
                 foreach (var item in selectedItems)
                 {
-                    Nav.NavigateTo($"/administrator/menu/{item.Id}/edit");
+                    Nav.NavigateTo($"/administrator/menu/{MenuId}/item/{item.Id}/edit");
                 }
             }
-        }
-
-        private async Task DeleteMenu()
-        {
+        }        
+        private async Task DeleteMenuItem()
+        {            
             if (selectedItems.Count > 0)
             {
                 bool? result = await DialogService.ShowMessageBox(
@@ -86,8 +99,8 @@ namespace Engine.Areas.AdminPanel.Pages
                 StateHasChanged();
                 if (result == true)
                 {
-                    await MyMenu.DeleteMenu(selectedItems.ToList());
-                    Elements = await MyMenu.GetMenus();
+                    await MyMenuItem.DeleteMenuItem(selectedItems.ToList());
+                    Elements = await MyMenuItem.GetMenuItemsById(MenuId);
                     Snackbar.Add(MainDictionary.MessageCode["MENU_DELETE"], Severity.Error);
                 }
             }
@@ -96,32 +109,29 @@ namespace Engine.Areas.AdminPanel.Pages
                 Snackbar.Add(MainDictionary.MessageCode["SELECT_OBJ_TO_DELETE"], Severity.Info);
             }
         }
-        private async Task Publish(Menu menu)
+
+        private async Task Publish(MenuItem menuItem)
         {
-            if (!menu.IsMain)
+            menuItem.Published = (menuItem.Published) ? false : true;
+            Busy = true;
+            try
             {
-                menu.Published = (menu.Published) ? false : true;
-                Busy = true;
-                try
-                {
-                    await MyMenu.UpdateMenu(menu);
-                }
-                finally
-                {
-                    Busy = false;
-                }
-
-                if (menu.Published)
-                {
-                    Snackbar.Add(MainDictionary.MessageCode["PUBLISH"], Severity.Success);
-                }
-                else
-                {
-                    Snackbar.Add(MainDictionary.MessageCode["UNPUBLISH"], Severity.Success);
-                }
-                Elements = await MyMenu.GetMenus();
-            }            
+                await MyMenuItem.UpdateMenuItem(menuItem);
+            }
+            finally
+            {
+                Busy = false;
+            }
+            if (menuItem.Published)
+            {
+                Snackbar.Add(MainDictionary.MessageCode["PUBLISH"], Severity.Success);
+            }
+            else
+            {
+                Snackbar.Add(MainDictionary.MessageCode["UNPUBLISH"], Severity.Success);
+            }
+            Elements = await MyMenuItem.GetMenuItemsById(MenuId);
         }
-
+        #endregion
     }
 }
