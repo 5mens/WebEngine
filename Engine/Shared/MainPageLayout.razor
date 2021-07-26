@@ -1,0 +1,49 @@
+﻿@inherits LayoutComponentBase
+@using Engine.Areas.WebSite.Shared
+@inject NavigationManager Nav
+<MudThemeProvider Theme="MyCustomTheme" />
+<MudDialogProvider />
+<MudSnackbarProvider />
+<MudLayout>
+    <MudAppBar Color="Color.Info" />
+    <MudDivider />
+    <MudMainContent>
+        <AuthorizeView>
+            <Authorized>
+                @if (true) { Nav.NavigateTo("/administrator"); }
+            </Authorized>
+            <NotAuthorized>
+                <MudContainer MaxWidth="MaxWidth.Large">
+                    <MudGrid Spacing="2">
+                        <MudItem xs="3" Class="mt-3">
+                            <Login />
+                        </MudItem>
+                        <MudItem xs="9" Class="mt-3 pt-2" Style="background-color:#ffffff">
+                            @Body
+                        </MudItem>
+                    </MudGrid>
+                </MudContainer>
+            </NotAuthorized>
+        </AuthorizeView>
+
+    </MudMainContent>
+</MudLayout>
+
+@code{
+    MudTheme MyCustomTheme = new MudTheme()
+    {
+        Palette = new Palette()
+        {
+            Primary = Colors.Blue.Default,
+            Secondary = Colors.Green.Accent4,
+            AppbarBackground = Colors.Red.Default,
+            Background = Colors.Grey.Lighten4,
+        },
+    };
+    bool _drawerOpen = true;
+
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+}
