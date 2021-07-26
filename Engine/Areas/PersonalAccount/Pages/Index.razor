@@ -1,6 +1,7 @@
-﻿@page "/account"
+﻿@page "/{UserId}"
 <h3>Личный кабинет пользователя</h3>
 
 @code {
-
+    [Parameter]
+    public string UserId { get; set; } = "id0";
 }

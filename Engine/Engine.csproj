@@ -7,6 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\AdminPanel\Shared\MyComponents\**" />
+    <Content Remove="Areas\AdminPanel\Shared\MyComponents\**" />
+    <EmbeddedResource Remove="Areas\AdminPanel\Shared\MyComponents\**" />
+    <None Remove="Areas\AdminPanel\Shared\MyComponents\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20210726161008_IdentityMigration.cs" />
+    <Compile Remove="Data\Migrations\20210726161008_IdentityMigration.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="wwwroot\assets\css\portal.css" />
     <Content Remove="wwwroot\assets\images\app-logo.svg" />
     <Content Remove="wwwroot\assets\images\background\background-1.jpg" />
@@ -94,10 +106,6 @@
     <None Include="wwwroot\assets\images\users\user-7.jpg" />
     <None Include="wwwroot\assets\images\users\user-8.jpg" />
     <None Include="wwwroot\assets\images\users\user-9.jpg" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Areas\AdminPanel\Shared\MyComponents\" />
   </ItemGroup>
 
 </Project>
