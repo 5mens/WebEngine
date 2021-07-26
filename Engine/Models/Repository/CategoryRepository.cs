@@ -1,6 +1,7 @@
 ﻿using Engine.Data;
 using Engine.Models.BaseClasses;
 using Engine.Models.Interfaces;
+using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,8 @@ namespace Engine.Models.Repository
 {
     public class CategoryRepository : ICategory
     {
-        private readonly IDbContextFactory<AppDbContext> DbFactory;
+        [Inject]
+        private IDbContextFactory<AppDbContext> DbFactory { get; set; }
 
         public CategoryRepository(IDbContextFactory<AppDbContext> contextFactory)
         {

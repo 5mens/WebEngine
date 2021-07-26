@@ -69,12 +69,26 @@ namespace Engine
                 config.SnackbarConfiguration.ShowTransitionDuration = 500;
                 config.SnackbarConfiguration.SnackbarVariant = Variant.Filled;
             });
-
+            #region Реализации интерфейсов
+            #region Меню
             services.AddSingleton<IMenu, MenuRepository>();
             services.AddSingleton<IMenuItem, MenuItemRepository>();
+            #endregion
+            #region Материалы
             services.AddSingleton<ICategory, CategoryRepository>();
             services.AddSingleton<IArticle, ArticleRepository>();
             services.AddSingleton<ITag, TagRepository>();
+            #endregion
+            #region Пользователи
+            services.AddSingleton<IUser, UserRepository>();
+            services.AddSingleton<IUserGroup, UserGroupRepository>();
+            #endregion
+            #region Населенные пункты
+            services.AddSingleton<ICity, CityRepository>();
+            services.AddSingleton<IDistrict, DistrictRepository>();
+            services.AddSingleton<IRegion, RegionRepository>();
+            #endregion
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

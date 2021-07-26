@@ -23,7 +23,10 @@ namespace Engine.Data
         public DbSet<Tag> Tag { get; set; }
         public DbSet<Comment> Comment { get; set; }
         public DbSet<UserGroup> AspNetRoles { get; set; }
-        public DbSet<IdentityUser> AspNetUsers { get; set; }
+        public DbSet<User> AspNetUsers { get; set; }
+        public DbSet<City> City { get; set; }
+        public DbSet<District> District { get; set; }
+        public DbSet<Region> Region { get; set; }
     }
 
     public class AppDbContext : DbContext
@@ -39,7 +42,10 @@ namespace Engine.Data
         public DbSet<Tag> Tag { get; set; }
         public DbSet<Comment> Comment { get; set; }
         public DbSet<UserGroup> AspNetRoles { get; set; }
-        public DbSet<IdentityUser> AspNetUsers { get; set; }
+        public DbSet<User> AspNetUsers { get; set; }
+        public DbSet<City> City { get; set; }
+        public DbSet<District> District { get; set; }
+        public DbSet<Region> Region { get; set; }
         
         /// <summary>
         /// Dispose pattern.
