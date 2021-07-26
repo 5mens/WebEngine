@@ -1,5 +1,21 @@
-﻿<h3>NavMenu</h3>
-
-@code {
-
-}
+﻿<MudPaper Class="d-inline-flex py-3 nav-item" Square="true">
+        <MudNavMenu Class="mud-width-full">
+            <MudDivider Class="my-2" />
+            @foreach (var item in mainMenu)
+            {
+                if (item.Published == true && !item.IsHome)
+                {
+                    <MudNavLink Href="@item.Link" Icon="@GetIcon(item.Icon)" Match="NavLinkMatch.All">@item.Title</MudNavLink>
+                }
+                else
+                {
+                    <MudNavLink Href="/id0" Icon="@Icons.Filled.Home" Match="NavLinkMatch.All">@item.Title</MudNavLink>
+                }
+            }
+        </MudNavMenu>
+</MudPaper>
+<AuthorizeView>
+    <MudPaper Elevation="0" Class="pa-2 justify-center mud-text-align-center">
+        <MudButton Link="/administrator" FullWidth="true" Variant="Variant.Filled" Color="Color.Info" Size="Size.Medium">Админ-панель</MudButton>
+    </MudPaper>
+</AuthorizeView>

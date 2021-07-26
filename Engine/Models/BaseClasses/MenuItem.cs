@@ -1,4 +1,6 @@
-﻿namespace Engine.Models.BaseClasses
+﻿using MudBlazor;
+
+namespace Engine.Models.BaseClasses
 {
     /// <summary>
     /// Элементы меню
@@ -49,5 +51,9 @@
         /// Меню
         /// </summary>
         public virtual Menu Menu { get; set; }
+        /// <summary>
+        /// Иконка
+        /// </summary>
+        public string Icon { get; set; }
     }
 }
