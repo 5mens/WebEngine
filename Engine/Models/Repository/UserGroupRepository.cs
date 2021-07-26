@@ -24,5 +24,10 @@ namespace Engine.Models.Repository
         {
             throw new NotImplementedException();
         }
+
+        public Task DeleteUserGroup(UserGroup userGroup)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

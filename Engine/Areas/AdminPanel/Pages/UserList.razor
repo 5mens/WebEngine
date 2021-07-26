@@ -3,16 +3,16 @@
     <MudButton Class="ma-1 mt-2" OnClick="()=>UserEdit()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" Color="Color.Primary" Size="Size.Medium">Изменить</MudButton>
     <MudButton Class="ma-1 mt-2" OnClick="()=>UserDelete()" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Cancel" Color="Color.Error" Size="Size.Medium">Удалить</MudButton>
 </MudPaper>
-<MudTable Class="table app-table-hover mb-0 text-left" Items="@Elements" Hover="@hover" SortLabel="Сортировка по:" MultiSelection="true" Dense="@dense" @bind-SelectedItems="selectedItems" Filter="new Func<IdentityUser,bool>(FilterFunc)">
+<MudTable Class="table app-table-hover mb-0 text-left" Items="@Elements" Hover="@hover" SortLabel="Сортировка по:" MultiSelection="true" Dense="@dense" @bind-SelectedItems="selectedItems" Filter="new Func<User,bool>(FilterFunc)">
     <ToolBarContent>        
         <MudSpacer />
         <MudTextField @bind-Value="searchString" Placeholder="Поиск" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
     </ToolBarContent>
     <HeaderContent>
         <MudTh><MudTableSortLabel Enabled="@enabled" SortBy="new Func<IdentityUser, object>(x=>x.UserName)">Имя пользователя</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortBy="new Func<IdentityUser, object>(x=>x.Email)">E-Mail</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortBy="new Func<IdentityUser, object>(x=>x.LockoutEnabled)">Забанен</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortBy="new Func<IdentityUser, object>(x=>x.LockoutEnd)">Окончание бана</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.Email)">E-Mail</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.LockoutEnabled)">Забанен</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.LockoutEnd)">Окончание бана</MudTableSortLabel></MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="UserName">@context.UserName</MudTd>

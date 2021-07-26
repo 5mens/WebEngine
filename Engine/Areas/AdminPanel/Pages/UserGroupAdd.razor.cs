@@ -3,25 +3,26 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Engine.Data;
 using Microsoft.AspNetCore.Identity;
+using Engine.Models.BaseClasses;
 
 namespace Engine.Areas.AdminPanel.Pages
 {
     public partial class UserGroupAdd {
         [Inject]
         private NavigationManager Nav { get; set; }                
-        private string _groupName = string.Empty;
+        private UserGroup newGroup = new UserGroup();
         [Inject]
-        private RoleManager<IdentityRole> roleManager { get; set; }
+        private RoleManager<UserGroup> roleManager { get; set; }
         /// <summary>
         /// Сохранить
         /// </summary>
         private async Task OnButtonClicked()
         {
-            if (_groupName != string.Empty || _groupName != "")
+            if (newGroup.Name != string.Empty || newGroup.Name != "")
             {
-                if (!await roleManager.RoleExistsAsync(_groupName))
+                if (!await roleManager.RoleExistsAsync(newGroup.Name))
                 {
-                    await roleManager.CreateAsync(new IdentityRole { Name = _groupName});
+                    await roleManager.CreateAsync(newGroup);
                 }
             }
             
@@ -33,15 +34,6 @@ namespace Engine.Areas.AdminPanel.Pages
         private void Cancel()
         {
             Nav.NavigateTo($"/administrator/user/groups");
-        }
-
-        public static async Task InitializeAsync(RoleManager<IdentityRole> roleManager)
-        {
-            
-            if (await roleManager.FindByNameAsync("employee") == null)
-            {
-                await roleManager.CreateAsync(new IdentityRole("employee"));
-            }
         }
     }    
 }

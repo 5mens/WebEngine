@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Engine.Models.BaseClasses;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 
@@ -9,11 +10,11 @@ namespace Engine.Areas.AdminPanel.Pages
         [Parameter]
         public string GroupId { get; set; }
         [Inject]
-        private RoleManager<IdentityRole> roleManager { get; set; }
+        private RoleManager<UserGroup> roleManager { get; set; }
         [Inject]
         private NavigationManager Nav { get; set; }
         private string _groupId;
-        private IdentityRole editedRole = null;
+        private UserGroup editedRole = null;
         protected override async Task OnInitializedAsync() {
             _groupId = GroupId;
             editedRole = await roleManager.FindByIdAsync(_groupId);

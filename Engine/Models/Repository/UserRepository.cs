@@ -2,6 +2,7 @@
 using Engine.Models.BaseClasses;
 using Engine.Models.Interfaces;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,24 @@ namespace Engine.Models.Repository
             DbFactory = contextFactory;
         }
 
-        public Task<List<User>> GetUsers()
+        public async Task<List<User>> GetUsers()
+        {
+            //var context = DbFactory.CreateDbContext();
+            //return await context.AspNetUsers.ToListAsync();
+            return null;
+        }
+
+        public Task BanUser(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateUser()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteUsers(User users)
         {
             throw new NotImplementedException();
         }

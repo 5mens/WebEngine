@@ -1,5 +1,6 @@
 using Engine.Areas.Identity;
 using Engine.Data;
+using Engine.Models.BaseClasses;
 using Engine.Models.Interfaces;
 using Engine.Models.Repository;
 using Microsoft.AspNetCore.Builder;
@@ -39,7 +40,7 @@ namespace Engine
             services.AddAuthentication()
                 .AddCookie();
 
-            services.AddDefaultIdentity<IdentityUser>(options =>
+            services.AddDefaultIdentity<User>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = false;
                 options.Password.RequiredLength = 6;
@@ -50,7 +51,7 @@ namespace Engine
                 options.User.RequireUniqueEmail = true;
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
             })
-                .AddRoles<IdentityRole>()
+                .AddRoles<UserGroup>()
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 

@@ -1,4 +1,5 @@
 ﻿using Engine.Data;
+using Engine.Models.BaseClasses;
 using Engine.Models.Localization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
@@ -15,13 +16,13 @@ namespace Engine.Areas.AdminPanel.Pages
         [Inject]
         private NavigationManager Nav { get; set; }
         [Inject]
-        private UserManager<IdentityUser> userManager { get; set; }
+        private UserManager<User> userManager { get; set; }
         [Inject]
         private IDialogService DialogService { get; set; }
         [Inject]
         private ISnackbar Snackbar { get; set; }
-        private IEnumerable<IdentityUser> Elements = new List<IdentityUser>();
-        private HashSet<IdentityUser> selectedItems = new HashSet<IdentityUser>();
+        private IEnumerable<User> Elements = new List<User>();
+        private HashSet<User> selectedItems = new HashSet<User>();
         private bool Busy;
         private string searchString = "";
         private IdentityUser selectedItem = null;
@@ -55,7 +56,7 @@ namespace Engine.Areas.AdminPanel.Pages
             }
         }
 
-        private async Task UserBan(IdentityUser context)
+        private async Task UserBan(User context)
         {            
             context.LockoutEnabled = context.LockoutEnabled ? true : false;
             context.LockoutEnd = !context.LockoutEnabled ? new DateTime(2500, 01, 01) : null ;
