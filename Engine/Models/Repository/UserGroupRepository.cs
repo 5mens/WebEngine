@@ -1,4 +1,5 @@
 ﻿using Engine.Data;
+using Engine.Models.BaseClasses;
 using Engine.Models.Interfaces;
 using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,11 @@ namespace Engine.Models.Repository
         public UserGroupRepository(IDbContextFactory<AppDbContext> contextFactory)
         {
             DbFactory = contextFactory;
+        }
+
+        public Task<List<UserGroup>> GetUserGroups()
+        {
+            throw new NotImplementedException();
         }
     }
 }

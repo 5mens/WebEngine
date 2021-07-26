@@ -1,4 +1,5 @@
 ﻿using Engine.Data;
+using Engine.Models.BaseClasses;
 using Engine.Models.Interfaces;
 using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,16 @@ namespace Engine.Models.Repository
         public DistrictRepository(IDbContextFactory<AppDbContext> contextFactory)
         {
             DbFactory = contextFactory;
+        }
+
+        public Task<List<District>> GetDistrictsByRegionId(District district)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<District> GetDistrict(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
