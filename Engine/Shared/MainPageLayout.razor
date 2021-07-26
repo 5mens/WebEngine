@@ -5,12 +5,12 @@
 <MudDialogProvider />
 <MudSnackbarProvider />
 <MudLayout>
-    <MudAppBar Color="Color.Info" />
+    <MudAppBar Color="Color.Info"><MudText Typo="Typo.h5" Class="ml-3">Кулинар-сервис</MudText></MudAppBar>
     <MudDivider />
     <MudMainContent>
         <AuthorizeView>
             <Authorized>
-                @if (true) { Nav.NavigateTo("/administrator"); }
+                @if (true) { Nav.NavigateTo("/id0"); }
             </Authorized>
             <NotAuthorized>
                 <MudContainer MaxWidth="MaxWidth.Large">

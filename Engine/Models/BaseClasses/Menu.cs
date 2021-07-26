@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using MudBlazor;
+using System.Collections.Generic;
 
 namespace Engine.Models.BaseClasses
 {
@@ -34,6 +35,6 @@ namespace Engine.Models.BaseClasses
         /// <summary>
         /// Главное меню?
         /// </summary>
-        public bool IsMain { get; set; }
+        public bool IsMain { get; set; }        
     }
 }
