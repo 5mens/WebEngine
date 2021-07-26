@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Engine.Models.BaseClasses;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
 using MudBlazor;
 using System;
@@ -15,14 +16,14 @@ namespace Engine.Areas.AdminPanel.Pages
         [Inject]
         private NavigationManager Nav { get; set; }
         [Inject]
-        private UserManager<IdentityUser> userManager { get; set; }
+        private UserManager<User> userManager { get; set; }
         [Inject]
-        private RoleManager<IdentityRole> roleManager { get; set; }
+        private RoleManager<UserGroup> roleManager { get; set; }
         [Inject]
         private ISnackbar Snackbar { get; set; }
         private bool Busy;
-        private IdentityUser EditedItem;
-        private IEnumerable<IdentityRole> UserRoles = new List<IdentityRole>();
+        private User EditedItem = new User();
+        private IEnumerable<UserGroup> UserRoles = new List<UserGroup>();
         protected async override Task OnInitializedAsync()
         {
             Busy = true;

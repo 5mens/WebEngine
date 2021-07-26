@@ -21,7 +21,7 @@ namespace Engine.Areas.AdminPanel.Pages
         [Inject]
         private ISnackbar Snackbar { get; set; }
         private bool Busy;
-        private Menu EditedItem;
+        private Menu EditedItem = new Menu();
         private string[] _selectorValue = { "main", "top", "left", "right", "bottom", "footer" };
         protected override async Task OnInitializedAsync()
         {

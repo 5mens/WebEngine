@@ -8,6 +8,13 @@ namespace Engine.Models.Interfaces
 {
     interface IUserGroup
     {
+        /// <summary>
+        /// Получить группы пользователей
+        /// </summary>
         Task<List<UserGroup>> GetUserGroups();
+        /// <summary>
+        /// Удалить группу пользователей
+        /// </summary>
+        Task DeleteUserGroup(UserGroup userGroup);
     }
 }

@@ -1,12 +1,12 @@
 ﻿@page "/administrator/user/groups" 
-<MudTable Class="table app-table-hover mb-0 text-left" Items="@Elements" Hover="@hover" SortLabel="Сортировка по:" MultiSelection="true" Dense="@dense" @bind-SelectedItems="selectedItems" Filter="new Func<IdentityRole,bool>(FilterFunc)">
+<MudTable Class="table app-table-hover mb-0 text-left" Items="@Elements" Hover="@hover" SortLabel="Сортировка по:" MultiSelection="true" Dense="@dense" @bind-SelectedItems="selectedItems" Filter="new Func<UserGroup,bool>(FilterFunc)">
     <ToolBarContent>
         <MudSpacer />
         <MudTextField @bind-Value="searchString" Placeholder="Поиск" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
     </ToolBarContent>
     <HeaderContent>
-        <MudTh><MudTableSortLabel Enabled="@enabled" SortBy="new Func<IdentityRole, object>(x=>x.Name)">Наименование</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortBy="new Func<IdentityRole, object>(x=>x.NormalizedName)">Нормализованное наименование</MudTableSortLabel></MudTh>        
+        <MudTh><MudTableSortLabel Enabled="@enabled" SortBy="new Func<UserGroup, object>(x=>x.Name)">Наименование</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<UserGroup, object>(x=>x.NormalizedName)">Нормализованное наименование</MudTableSortLabel></MudTh>        
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="UserName">@context.Name</MudTd>

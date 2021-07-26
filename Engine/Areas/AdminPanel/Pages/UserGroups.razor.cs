@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Engine.Models.BaseClasses;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -12,16 +13,16 @@ namespace Engine.Areas.AdminPanel.Pages
         [Inject]
         private NavigationManager Nav { get; set; }
         [Inject]
-        private RoleManager<IdentityRole> roleManager { get; set; }
+        private RoleManager<UserGroup> roleManager { get; set; }
         private string searchString = "";
-        private IdentityRole selectedItem = null;
+        private UserGroup selectedItem = null;
         private bool disabled = false;
         private bool dense = false;
         private bool hover = true;
         private bool enabled = true;
-        private IEnumerable<IdentityRole> Elements = new List<IdentityRole>();
+        private IEnumerable<UserGroup> Elements = new List<UserGroup>();
         private bool Busy;
-        private HashSet<IdentityRole> selectedItems = new HashSet<IdentityRole>();
+        private HashSet<UserGroup> selectedItems = new HashSet<UserGroup>();
         
         protected override async Task OnInitializedAsync()
         {            
@@ -36,7 +37,7 @@ namespace Engine.Areas.AdminPanel.Pages
             }
             await base.OnInitializedAsync();
         }
-        private bool FilterFunc(IdentityRole element)
+        private bool FilterFunc(UserGroup element)
         {
             if (string.IsNullOrWhiteSpace(searchString))
                 return true;

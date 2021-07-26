@@ -12,5 +12,17 @@ namespace Engine.Models.Interfaces
         /// Получить список всех пользователей
         /// </summary>
         Task<List<User>> GetUsers();
+        /// <summary>
+        /// Заблокировать пользователя
+        /// </summary>
+        Task BanUser(User user);
+        /// <summary>
+        /// Обновить сведения о пользователе
+        /// </summary>
+        Task UpdateUser();
+        /// <summary>
+        /// Удалить пользователя
+        /// </summary>
+        Task DeleteUsers(User users);
     }
 }

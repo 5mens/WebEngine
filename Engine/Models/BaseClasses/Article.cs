@@ -29,7 +29,7 @@ namespace Engine.Models.BaseClasses
         /// <summary>
         /// Автор
         /// </summary>
-        public IdentityUser Author { get; set; }
+        public User Author { get; set; }
 
         /// <summary>
         /// Теги

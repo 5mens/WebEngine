@@ -16,6 +16,8 @@ namespace Engine.Data
             : base(options)
         {
         }
+        public DbSet<UserGroup> AspNetRoles { get; set; }
+        public DbSet<User> AspNetUsers { get; set; }
     }
 
     public class AppDbContext : DbContext
@@ -29,9 +31,7 @@ namespace Engine.Data
         public DbSet<Category> Category { get; set; }
         public DbSet<Article> Article { get; set; }
         public DbSet<Tag> Tag { get; set; }
-        public DbSet<Comment> Comment { get; set; }
-        public DbSet<UserGroup> AspNetRoles { get; set; }
-        public DbSet<User> AspNetUsers { get; set; }
+        public DbSet<Comment> Comment { get; set; }        
         public DbSet<City> City { get; set; }
         public DbSet<District> District { get; set; }
         public DbSet<Region> Region { get; set; }
