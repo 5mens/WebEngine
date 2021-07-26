@@ -1,6 +1,7 @@
 ﻿using Engine.Data;
 using Engine.Models.BaseClasses;
 using Engine.Models.Interfaces;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,7 +11,8 @@ namespace Engine.Models.Repository
 {
     public class CommentRepository : IComment
     {
-        private readonly IDbContextFactory<AppDbContext> DbFactory;
+        [Inject]
+        private IDbContextFactory<AppDbContext> DbFactory { get; set; }
 
         public CommentRepository(IDbContextFactory<AppDbContext> contextFactory)
         {
