@@ -1,6 +1,5 @@
 using Engine.Areas.Identity;
 using Engine.Data;
-using Engine.Models;
 using Engine.Models.Interfaces;
 using Engine.Models.Repository;
 using Microsoft.AspNetCore.Builder;
@@ -87,6 +86,7 @@ namespace Engine
             services.AddSingleton<ICity, CityRepository>();
             services.AddSingleton<IDistrict, DistrictRepository>();
             services.AddSingleton<IRegion, RegionRepository>();
+            services.AddSingleton<ICountry, CountryRepository>();
             #endregion
             #endregion
         }

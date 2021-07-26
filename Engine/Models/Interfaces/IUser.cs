@@ -8,5 +8,9 @@ namespace Engine.Models.Interfaces
 {
     interface IUser
     {
+        /// <summary>
+        /// Получить список всех пользователей
+        /// </summary>
+        Task<List<User>> GetUsers();
     }
 }

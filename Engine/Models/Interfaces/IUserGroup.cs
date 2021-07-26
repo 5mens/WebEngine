@@ -8,5 +8,6 @@ namespace Engine.Models.Interfaces
 {
     interface IUserGroup
     {
+        Task<List<UserGroup>> GetUserGroups();
     }
 }

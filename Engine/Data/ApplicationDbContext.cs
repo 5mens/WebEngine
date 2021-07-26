@@ -35,6 +35,7 @@ namespace Engine.Data
         public DbSet<City> City { get; set; }
         public DbSet<District> District { get; set; }
         public DbSet<Region> Region { get; set; }
+        public DbSet<Country> Country { get; set; }
         
         /// <summary>
         /// Dispose pattern.

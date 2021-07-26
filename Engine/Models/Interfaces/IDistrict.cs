@@ -8,5 +8,13 @@ namespace Engine.Models.Interfaces
 {
     interface IDistrict
     {
+        /// <summary>
+        /// Получить все районы по Региону/Штату
+        /// </summary>
+        Task<List<District>> GetDistrictsByRegionId(District district);
+        /// <summary>
+        /// Получить район по Id
+        /// </summary>
+        Task<District> GetDistrict(int id);
     }
 }
