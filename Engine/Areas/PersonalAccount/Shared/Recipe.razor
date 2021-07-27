@@ -1,0 +1,57 @@
+﻿<MudItem xs="12">
+    <MudDivider />
+    <MudPaper Elevation="0" Class="d-flex align-center justify-center mud-width-full pa-2">
+        <MudGrid>
+            <MudItem xs="3">
+                <MudPaper Class="d-flex align-center justify-center mud-width-full" Elevation="4" Square="true" Style="height:275px;">
+                    <MudLink Href="#">
+                        <img src="https://www.koolinar.ru/all_image/recipes/136/136630/recipe_8d24ea09-9d5b-4929-a7ce-ec857a0bbb3e.jpg" width="100%" class="pa-2" />
+                    </MudLink>                    
+                </MudPaper>
+            </MudItem>
+            <MudItem xs="9">
+                <MudPaper Elevation="0" Square="true">
+                    <MudLink Href="#" Underline="Underline.None" Typo="Typo.h6" Class="pt-3">Макароны по флотски</MudLink>
+                    <MudPaper Elevation="0" Class="d-flex mud-width-full m-0 p-0"><MudBreadcrumbs Items="_items"></MudBreadcrumbs></MudPaper>
+                    <MudDivider />
+                    <MudTextField T="string" Variant="Variant.Text" Text="@_text" Lines="5" Disabled="true" />
+                    <MudGrid>
+                        <MudItem xs="9">
+                            <MudText Typo="Typo.subtitle2">
+                                <b>Ингредиенты: </b>
+                                @for (int i = 0; i < 1; i++)
+                                {
+                                    <MudLink Href="#" Underline="Underline.None">Макароны </MudLink>
+                                }
+                            </MudText>
+                            <MudText Typo="Typo.subtitle2">
+                                <b>Инструменты: </b>
+                                @for (int i = 0; i < 1; i++)
+                                {
+                                    <MudLink Href="#" Underline="Underline.None">Кастрюля </MudLink>
+                                }
+                            </MudText>
+                        </MudItem>
+                        <MudItem xs="1">
+                            <MudPaper Elevation="0" Class="mud-width-full d-flex">
+                                <MudIconButton Icon="@(Icons.Sharp.FavoriteBorder)" Color="Color.Error"></MudIconButton>
+                                <MudIconButton Icon="@(Icons.Sharp.Message)" Color="Color.Info"></MudIconButton>
+                                <MudIconButton Icon="@(Icons.Sharp.Add)" Color="Color.Tertiary"></MudIconButton>
+                            </MudPaper>
+                        </MudItem>
+                    </MudGrid>
+                </MudPaper>
+            </MudItem>
+        </MudGrid>
+    </MudPaper>
+    <MudDivider />
+</MudItem>
+
+@code{
+    private string _text = "Макароны по-флотски — рецепт, который на первый взгляд не вызывает затруднений даже у неопытных поваров. Но вот приготовить действительно вкусные макароны по-флотски получается не у всех.";
+    private List<BreadcrumbItem> _items = new List<BreadcrumbItem>
+    {        
+        new BreadcrumbItem("Основные блюда", href: "#"),
+        new BreadcrumbItem("Макароны", href: "#")
+    };
+}

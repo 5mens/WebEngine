@@ -1,0 +1,81 @@
+﻿<MudTable Items="@Elements" MultiSelection="true" @bind-SelectedItems="selectedItems">
+    <ColGroup>
+        <col style="width:50px;" />
+        <col style="width:100px;" />
+        <col style="width:200px;" />
+        <col style="width:200px;" />
+        <col style="width:200px;" />
+        <col style="width:50px;" />
+    </ColGroup>
+    <HeaderContent>
+        <MudTh>##</MudTh>
+        <MudTh>Дата исполнения</MudTh>
+        <MudTh>Заказчик</MudTh>
+        <MudTh>Описание</MudTh>
+        <MudTh>Статус</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="OrderEnd">@context.OrderEnd.ToString("dd.MM.yyyy")</MudTd>
+        <MudTd DataLabel="ClientId">@context.Client</MudTd>
+        <MudTd DataLabel="Desc">@context.Desc</MudTd>
+        <MudTd DataLabel="State">@context.State</MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager PageSizeOptions="new int[]{50, 100}" />
+    </PagerContent>    
+</MudTable>
+<MudText Inline="true">Selected items: @(selectedItems==null ? "" : string.Join(", ", selectedItems.OrderBy(x=>x.Id).Select(x=>x.Id)))</MudText>
+
+@code {
+    private HashSet<OrderTable> selectedItems = new HashSet<OrderTable>();
+
+    private IEnumerable<OrderTable> Elements = new List<OrderTable>() {
+        new OrderTable {  
+            Id = 1, 
+            OrderStart = DateTime.Now, 
+            OrderEnd = new DateTime(2021, 12, 20), 
+            Client = "Иванов Иван Иванович", 
+            Desc = "Заказ для теста, чтобы проверить как он будет выглядеть в таблице. Заказ для теста, чтобы проверить как он будет выглядеть в таблице. Заказ для теста, чтобы проверить как он будет выглядеть в таблице. Заказ для теста, чтобы проверить как он будет выглядеть в таблице",
+            State = "В работе"
+        }
+        };
+
+    private class OrderTable
+    {
+        /// <summary>
+        /// Идентификатор
+        /// </summary>
+        public int Id { get; set; }
+        /// <summary>
+        /// Дата принятия заказа
+        /// </summary>
+        public DateTime OrderStart { get; set; }
+        /// <summary>
+        /// Дата исполнения
+        /// </summary>
+        public DateTime OrderEnd { get; set; }
+        /// <summary>
+        /// Id клиента
+        /// </summary>
+        public string Client { get; set; }
+        /// <summary>
+        /// Id рецептов
+        /// </summary>
+        public int[] RecipeId { get; set; }
+        /// <summary>
+        /// Описание
+        /// </summary>
+        public string Desc { get; set; }
+        /// <summary>
+        /// Сумма заказа
+        /// </summary>
+        public decimal OrderSum { get; set; }
+        /// <summary>
+        /// Статус
+        /// </summary>
+        public string State { get; set; }
+    }
+}
+
+
