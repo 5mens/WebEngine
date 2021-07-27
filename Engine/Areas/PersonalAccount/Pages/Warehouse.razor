@@ -1,0 +1,29 @@
+﻿@page "/warehouse"
+<MudPaper Elevation="0">
+    <MudText Typo="Typo.h5" Class="pt-3 pl-5">Мой склад и закупки</MudText>
+    <MudDivider DividerType="DividerType.Middle" />
+</MudPaper>
+<MudTabs Elevation="0" Rounded="true" Centered="true" Style="background-color:#ffffff">
+    <MudTabPanel Text="Ингредиенты" BadgeData='"3"' BadgeColor="Color.Info">
+        <MudToolBar>
+            <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Primary" Title="Добавить" />
+            <MudIconButton Icon="@Icons.Material.Outlined.Edit" Color="Color.Secondary" Title="Изменить" />
+            <MudIconButton Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" Title="Удалить" />
+        </MudToolBar>
+    </MudTabPanel>
+    <MudTabPanel Text="Инструменты" BadgeData='"10"'>
+        <MudToolBar>
+            <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Primary" Title="Добавить" />
+            <MudIconButton Icon="@Icons.Material.Outlined.Edit" Color="Color.Secondary" Title="Изменить" />
+            <MudIconButton Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" Title="Списать" />
+        </MudToolBar>
+    </MudTabPanel>
+    <MudTabPanel Text="Планирование" BadgeData='"0"' BadgeColor="Color.Error">
+        <MudToolBar>
+            <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Primary" Title="Создать план закупок" />
+            <MudIconButton Icon="@Icons.Material.Outlined.Edit" Color="Color.Secondary" Title="Изменить план закупок" />
+            <MudIconButton Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" Title="Удалить план закупок" />
+            <MudIconButton Icon="@Icons.Material.Outlined.AddBusiness" Color="Color.Warning" Title="Провести закупку (добавить на склад)" />
+        </MudToolBar>
+    </MudTabPanel>
+</MudTabs>
