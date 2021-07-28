@@ -1,28 +1,38 @@
 ﻿@page "/administrator/user/users"
-<MudPaper Class="ma-2" Elevation="0">
-    <MudButton Class="ma-1 mt-2" OnClick="()=>UserEdit()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" Color="Color.Primary" Size="Size.Medium">Изменить</MudButton>
-    <MudButton Class="ma-1 mt-2" OnClick="()=>UserDelete()" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Cancel" Color="Color.Error" Size="Size.Medium">Удалить</MudButton>
+<MudPaper Class="ma-6" Elevation="0">
+    <MudText Typo="Typo.h5">Список пользователей</MudText>
 </MudPaper>
-<MudTable Class="table app-table-hover mb-0 text-left" Items="@Elements" Hover="@hover" SortLabel="Сортировка по:" MultiSelection="true" Dense="@dense" @bind-SelectedItems="selectedItems" Filter="new Func<User,bool>(FilterFunc)">
-    <ToolBarContent>        
-        <MudSpacer />
-        <MudTextField @bind-Value="searchString" Placeholder="Поиск" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+<MudDivider DividerType="DividerType.FullWidth" />
+<MudPaper Class="ma-6" Elevation="0">
+    <MudButton OnClick="()=>UserEdit()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Edit" Size="Size.Medium">Изменить</MudButton>
+    <MudButton Class="mx-2" OnClick="()=>UserDelete()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Cancel" Color="Color.Error" Size="Size.Medium">Удалить</MudButton>
+</MudPaper>
+<MudTable Class="table app-table-hover ma-6 text-left" Elevation="0" Items="@Elements" Hover="@hover" SortLabel="Сортировка по:" MultiSelection="true" Dense="@dense" @bind-SelectedItems="selectedItems" Filter="new Func<User,bool>(FilterFunc)">
+    <ToolBarContent>
+        <MudTextField @bind-Value="searchString" Placeholder="Поиск" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium"></MudTextField>
     </ToolBarContent>
     <HeaderContent>
-        <MudTh><MudTableSortLabel Enabled="@enabled" SortBy="new Func<IdentityUser, object>(x=>x.UserName)">Имя пользователя</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel Enabled="@enabled" SortBy="new Func<User, object>(x=>x.UserName)">Псевдоним</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel Enabled="@enabled" SortBy="new Func<User, object>(x=>x.FamilyName)">Фамилия</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel Enabled="@enabled" SortBy="new Func<User, object>(x=>x.FirstName)">Имя</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel Enabled="@enabled" SortBy="new Func<User, object>(x=>x.LastName)">Отчество</MudTableSortLabel></MudTh>
         <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.Email)">E-Mail</MudTableSortLabel></MudTh>
         <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.LockoutEnabled)">Забанен</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.LockoutEnd)">Окончание бана</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<User, object>(x=>x.LockoutEnd)">Дата окончания бана</MudTableSortLabel></MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="UserName">@context.UserName</MudTd>
+        <MudTd DataLabel="FamilyName">@context.FamilyName</MudTd>
+        <MudTd DataLabel="FirstName">@context.FirstName</MudTd>
+        <MudTd DataLabel="LastName">@context.LastName</MudTd>
         <MudTd DataLabel="Email">@context.Email</MudTd>
         <MudTd DataLabel="LockoutEnabled">
-            <MudCheckBox @bind-Checked="@context.LockoutEnabled" @onclick="()=>UserBan(context)" Color="CheckBoxColor(context.LockoutEnabled)" CheckedIcon="@Icons.Material.Filled.Check" UncheckedIcon="@Icons.Material.Filled.Cancel"></MudCheckBox>
+            <MudCheckBox @bind-Checked="@context.LockoutEnabled" @onclick="()=>UserBan(context)" Color="CheckBoxColor(context.LockoutEnabled)" CheckedIcon="@Icons.Material.Filled.CheckCircle" UncheckedIcon="@Icons.Material.Filled.Cancel"></MudCheckBox>
         </MudTd>
         <MudTd DataLabel="LockoutEnd">@context.LockoutEnd</MudTd>
     </RowTemplate>
     <PagerContent>
-        <MudTablePager Class="" PageSizeOptions="new int[]{20, 50, 100}" RowsPerPageString="Выводить по:" InfoFormat="{first_item}-{last_item} из {all_items}" />
+        <MudTablePager PageSizeOptions="new int[]{20, 50, 100}" RowsPerPageString="Выводить по:" InfoFormat="{first_item}-{last_item} из {all_items}" />
     </PagerContent>
 </MudTable>
+<MudText Class="ma-6" Inline="true">Выбранные значения: @(selectedItems==null ? "" : string.Join(", ", selectedItems.OrderBy(x=>x.UserName).Select(x=>x.UserName)))</MudText>

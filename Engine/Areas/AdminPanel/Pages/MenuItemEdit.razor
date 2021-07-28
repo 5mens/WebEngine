@@ -1,3 +1,12 @@
 ﻿@page  "/administrator/menu/{MenuId:int}/item/{MenuItemId}/edit"
-
-<h3>MenuItemEdit</h3>
+<MudPaper Class="ma-6" Elevation="0">
+    <MudText Typo="Typo.h5">Изменить элемент меню</MudText>
+</MudPaper>
+<MudDivider DividerType="DividerType.FullWidth" />
+<MudPaper Class="ma-6" Elevation="0">
+    <MudButton OnClick="()=>UpdateMenu()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" Color="Color.Success" Size="Size.Medium">Сохранить</MudButton>
+    <MudButton Class="mx-2" OnClick="()=>Cancel()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Cancel" Color="Color.Error" Size="Size.Medium">Отмена</MudButton>
+</MudPaper>
+<MudTextField Class="ma-6" Label="Наименование" @bind-Value="EditedItem.Title" />
+<MudTextField Class="ma-6" Label="Описание" @bind-Value="EditedItem.Desc" />
+<MudTextField Class="ma-6" Label="Родитель" @bind-Value="EditedItem.ParentId" />
