@@ -15,7 +15,7 @@ namespace Engine.Models.Interfaces
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Menu GetMenu(int id);
+        Task<Menu> GetMenu(int id);
         /// <summary>
         /// Добавить новое меню
         /// </summary>
@@ -25,15 +25,14 @@ namespace Engine.Models.Interfaces
         /// Удаление меню по Id
         /// </summary>
         /// <param name="id">Идентификатор</param>
-        void DeleteMenu(List<Menu> menu);
+        Task DeleteMenu(List<Menu> menu);
         /// <summary>
         /// Обновление меню
         /// </summary>
-        /// <param name="id">Идентификатор</param>
-        /// <param name="title">Наименование</param>
-        /// <param name="desc">Описание</param>
-        /// <param name="menutype">Тип меню</param>
-        void UpdateMenu(int id, string title, string desc, string menutype);
-
+        Task UpdateMenu(Menu menu);
+        /// <summary>
+        /// Получить главное меню
+        /// </summary>
+        Menu GetMainMenu();
     }
 }

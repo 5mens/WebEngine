@@ -1,6 +1,9 @@
-﻿@page "/administrator/user/groups" 
-<h3>UserGroups</h3>
-
-@code {
-
-}
+﻿@page "/administrator/user/groups"
+<MudPaper Class="ma-6" Elevation="0">
+    <MudText Typo="Typo.h5">Список групп пользователей</MudText>
+</MudPaper>
+<MudDivider DividerType="DividerType.FullWidth" />
+<MudPaper Class="ma-6" Elevation="0">
+    <MudButton OnClick="()=>GroupEdit()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Edit" Size="Size.Medium">Изменить</MudButton>
+    <MudButton Class="mx-2" OnClick="()=>GroupDelete()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Cancel" Color="Color.Error" Size="Size.Medium">Удалить</MudButton>
+</MudPaper>

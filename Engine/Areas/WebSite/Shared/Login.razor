@@ -1,0 +1,17 @@
+﻿<AuthorizeView>
+    <NotAuthorized>
+        <MudPaper Elevation="1" Class="ma-2 pa-3" Square="false">            
+                <MudPaper Elevation="0" Class="pa-2 justify-center mud-text-align-center">
+                    <MudButton Link="/Identity/Account/Login" FullWidth="true" Variant="Variant.Filled" Color="Color.Info" Size="Size.Medium">Войти</MudButton>
+                </MudPaper>
+                <MudPaper Elevation="0" Class="pa-2 justify-center mud-text-align-center">
+                    <MudButton Link="/Identity/Account/Register" FullWidth="true" Variant="Variant.Filled" Color="Color.Info" Size="Size.Medium">Регистрация</MudButton>
+                </MudPaper>
+                <MudPaper Elevation="0" Class="pa-2 justify-center mud-text-align-center">
+                    <MudLink Href="#">Забыли пароль?</MudLink>
+                </MudPaper>            
+        </MudPaper>
+    </NotAuthorized>
+</AuthorizeView>
+
+

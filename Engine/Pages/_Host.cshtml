@@ -44,10 +44,6 @@
 
     <script src="_framework/blazor.server.js"></script>
     <script src="~/_content/MudBlazor/MudBlazor.min.js"></script>
-    @if (Request.Path.Value.Contains("/administrator"))
-    {
-        <script src="~/assets/js/app.js"></script>
-    }
     @if (Request.Path.Value.Contains("/administrator/article/add"))
     {
         <script src="~/_content/Blazeditor.TinyMCE/tinymce.min.js"></script>

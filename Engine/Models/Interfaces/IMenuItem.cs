@@ -1,5 +1,6 @@
 ﻿using Engine.Models.BaseClasses;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Engine.Models.Interfaces
 {
@@ -8,12 +9,22 @@ namespace Engine.Models.Interfaces
         /// <summary>
         /// Получить элементы меню по Id
         /// </summary>
-        IEnumerable<MenuItem> GetMenuItemsById(int id);
+        Task<List<MenuItem>> GetMenuItemsById(int id);
+        /// <summary>
+        /// Добавить новый элемент меню
+        /// </summary>
+        Task AddNewMenuItem(MenuItem menuItem);
+        /// <summary>
+        /// Удаление элементов меню
+        /// </summary>
+        Task DeleteMenuItem(List<MenuItem> menu);
         /// <summary>
         /// Получить элемент меню по его Id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        MenuItem GetMenuItem(int id);
+        /// </summary>       
+        Task<MenuItem> GetMenuItem(int id);
+        /// <summary>
+        /// Изменить элемент меню
+        /// </summary>        
+        Task UpdateMenuItem(MenuItem menuItem);
     }
 }

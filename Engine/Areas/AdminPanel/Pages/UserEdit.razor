@@ -1,7 +1,15 @@
 ﻿@page "/administrator/user/{UserId}/edit"
-<h3>UserEdit</h3>
-
-@code {
-    [Parameter]
-    public string UserId { get; set; }
-}
+<MudPaper Class="ma-6" Elevation="0">
+    <MudText Typo="Typo.h5">Изменить пользователя</MudText>
+</MudPaper>
+<MudDivider DividerType="DividerType.FullWidth" />
+<MudPaper Class="ma-6" Elevation="0">
+    <MudButton OnClick="()=>UpdateUser()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" Color="Color.Success" Size="Size.Medium">Сохранить</MudButton>
+    <MudButton Class="mx-2" OnClick="()=>Cancel()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Cancel" Color="Color.Error" Size="Size.Medium">Отмена</MudButton>
+</MudPaper>
+<MudTextField Class="ma-6" Label="Псевдоним" @bind-Value="EditedItem.UserName" />
+<MudTextField Class="ma-6" Label="Фамилия" @bind-Value="EditedItem.FamilyName" />
+<MudTextField Class="ma-6" Label="Имя" @bind-Value="EditedItem.FirstName" />
+<MudTextField Class="ma-6" Label="Отчество" @bind-Value="EditedItem.LastName" />
+<MudTextField Class="ma-6" Label="E-Mail" @bind-Value="EditedItem.Email" />
+<MudTextField Class="ma-6" Label="Дата окончания бана" @bind-Value="EditedItem.LockoutEnd" />

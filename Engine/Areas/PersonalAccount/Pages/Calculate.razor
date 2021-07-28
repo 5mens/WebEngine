@@ -1,0 +1,20 @@
+﻿@page "/calculate"
+<MudPaper Elevation="0">
+    <MudText Typo="Typo.h5" Class="pt-3 pl-5">Калькуляция</MudText>
+    <MudDivider DividerType="DividerType.Middle" />
+</MudPaper>
+<MudTabs Elevation="0" Rounded="true" Centered="true" Style="background-color:#ffffff">
+    <MudTabPanel Text="Технологическая карта">
+        <MudToolBar>
+            <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Primary" Title="Добавить" />
+            <MudIconButton Icon="@Icons.Material.Outlined.Edit" Color="Color.Secondary" Title="Изменить" />
+            <MudIconButton Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" Title="Удалить" />
+        </MudToolBar>
+    </MudTabPanel>
+    <MudTabPanel Text="Расчет заказов" >
+        <MudToolBar />
+    </MudTabPanel>
+    <MudTabPanel Text="Расчет бюджета">
+        <MudToolBar />
+    </MudTabPanel>
+</MudTabs>

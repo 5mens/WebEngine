@@ -1,27 +1,40 @@
 ﻿@inject NavigationManager Nav
 <MudPaper Class="d-inline-flex py-3 nav-item" Square="true">
     <MudNavMenu Class="mud-width-full">
-        @*<MudText Typo="Typo.h6" Class="px-4">Material</MudText>
-            <MudText Typo="Typo.body2" Class="px-4 mud-text-secondary">Icons</MudText>*@
         <MudDivider Class="my-2" />
         <MudNavLink Href="/administrator" Icon="@Icons.Filled.Dashboard" Match="NavLinkMatch.All">Главная</MudNavLink>
-        <MudNavGroup Title="Меню" Icon="@Icons.Filled.Menu" Expanded="true">
+        <MudNavGroup Title="Меню" Icon="@Icons.Filled.Menu" IconColor="Color.Primary" Expanded="true">
             <MudNavLink Href="/administrator/menu/list">Список меню</MudNavLink>
             <MudNavLink Href="@($"/administrator/menu/{MenuId}/items")" Match="NavLinkMatch.All">Элементы меню</MudNavLink>
         </MudNavGroup>
-        <MudNavGroup Title="Пользователи" Icon="@Icons.Filled.People" Expanded="true">
+        <MudNavGroup Title="Пользователи" Icon="@Icons.Filled.People" IconColor="Color.Success" Expanded="true">
             <MudNavLink Href="/administrator/user/users" Match="NavLinkMatch.All">Пользователи</MudNavLink>
             <MudNavLink Href="/administrator/user/groups" Match="NavLinkMatch.All">Группы пользователей</MudNavLink>
-            <MudNavLink Href="/administrator/user/accessLevel" Match="NavLinkMatch.All">Уровни доступа</MudNavLink>
         </MudNavGroup>
-        <MudNavGroup Title="Материалы" Icon="@Icons.Filled.Article" Expanded="true">
+        <MudNavGroup Title="Материалы" Icon="@Icons.Filled.Article" IconColor="Color.Secondary" Expanded="true">
             <MudNavLink Href="/administrator/article/list" Match="NavLinkMatch.All">Материалы</MudNavLink>
             <MudNavLink Href="/administrator/article/category" Match="NavLinkMatch.All">Категории</MudNavLink>
         </MudNavGroup>
+        <MudNavGroup Title="Справочники" Icon="@Icons.Filled.Folder" IconColor="Color.Info" Expanded="true">
+            <MudNavLink Href="/administrator/dictionary/cities" Match="NavLinkMatch.All">Города</MudNavLink>
+            <MudNavLink Href="/administrator/dictionary/ingredients" Match="NavLinkMatch.All">Ингриденты</MudNavLink>
+            <MudNavLink Href="/administrator/dictionary/tools" Match="NavLinkMatch.All">Инструменты</MudNavLink>
+        </MudNavGroup>
     </MudNavMenu>
+</MudPaper>
+<MudPaper Elevation="0" Class="pa-2 justify-center mud-text-align-center">
+    <MudButton Link="/id0/" FullWidth="true" Variant="Variant.Filled" Color="Color.Info" Size="Size.Medium">Панель управления</MudButton>
 </MudPaper>
 
 @code{
     [Parameter]
-    public int MenuId { get; set; } = 0;
+    public int MenuId { get; set; }
+    [Inject]
+    private IMenu MyMenu { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        MenuId = MyMenu.GetMainMenu().Id;
+        await base.OnInitializedAsync();
+    }
 }

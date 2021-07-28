@@ -1,0 +1,25 @@
+﻿@page "/administrator/dictionary/cities"
+<InputFile id="fileInput" OnChange="UploadFiles" hidden multiple />
+
+<MudButton HtmlTag="label"
+           Variant="Variant.Filled"
+           Color="Color.Primary"
+           StartIcon="@Icons.Filled.UploadFile"
+           for="fileInput">
+    Импорт
+</MudButton>
+
+<MudTabs Outlined="true" Centered="true" Elevation="0">
+    <MudTabPanel Text="Страны" Icon="@Icons.Material.Filled.Map">
+        Здесь будет отображение стран
+    </MudTabPanel>
+    <MudTabPanel Text="Регионы" Icon="@Icons.Material.Filled.MyLocation">
+        Здесь будет отображение регионов/штатов
+    </MudTabPanel>
+    <MudTabPanel Text="Районы" Icon="@Icons.Material.Filled.Navigation">
+        Здесь будет отображение районов
+    </MudTabPanel>
+    <MudTabPanel Text="Города" Icon="@Icons.Material.Filled.LocationCity">
+        Здесь будет отображение городов
+    </MudTabPanel>
+</MudTabs>

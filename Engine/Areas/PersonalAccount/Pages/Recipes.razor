@@ -1,0 +1,34 @@
+﻿@page "/recipes"
+<MudPaper Elevation="0">
+    <MudText Typo="Typo.h5" Class="pt-3 pl-5">Книга рецептов</MudText>
+    <MudDivider DividerType="DividerType.Middle" />
+</MudPaper>
+<MudTabs Elevation="0" Rounded="true" Centered="true" Style="background-color:#ffffff">
+    <MudTabPanel Text="Мои рецепты">
+        <MudToolBar>
+            <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Primary" Title="Добавить" />
+            <MudIconButton Icon="@Icons.Material.Outlined.Edit" Color="Color.Secondary" Title="Изменить" />
+            <MudIconButton Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" Title="Удалить" />
+        </MudToolBar>
+        <MudGrid>
+            @for (int i = 0; i < 1; i++)
+            {
+                <Recipe />
+            }
+        </MudGrid>
+    </MudTabPanel>
+    <MudTabPanel Text="Понравилось">
+        <MudToolBar />
+        @for (int i = 0; i < 1; i++)
+        {
+            <Recipe />
+        }
+    </MudTabPanel>
+    <MudTabPanel Text="Рекомендации">
+        <MudToolBar />
+        @for (int i = 0; i < 1; i++)
+        {
+            <Recipe />
+        }
+    </MudTabPanel>
+</MudTabs>

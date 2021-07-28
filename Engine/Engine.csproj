@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\AdminPanel\Shared\MyComponents\**" />
+    <Content Remove="Areas\AdminPanel\Shared\MyComponents\**" />
+    <EmbeddedResource Remove="Areas\AdminPanel\Shared\MyComponents\**" />
+    <None Remove="Areas\AdminPanel\Shared\MyComponents\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="wwwroot\assets\css\portal.css" />
     <Content Remove="wwwroot\assets\images\app-logo.svg" />
     <Content Remove="wwwroot\assets\images\background\background-1.jpg" />
@@ -94,13 +101,6 @@
     <None Include="wwwroot\assets\images\users\user-7.jpg" />
     <None Include="wwwroot\assets\images\users\user-8.jpg" />
     <None Include="wwwroot\assets\images\users\user-9.jpg" />
-    <None Include="wwwroot\assets\js\app.js" />
-    <None Include="wwwroot\assets\js\charts-demo.js" />
-    <None Include="wwwroot\assets\js\index-charts.js" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Areas\AdminPanel\Shared\MyComponents\" />
   </ItemGroup>
 
 </Project>

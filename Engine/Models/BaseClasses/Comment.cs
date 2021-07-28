@@ -12,7 +12,7 @@ namespace Engine.Models.BaseClasses
         /// <summary>
         /// Пользователь оставивший комментарий
         /// </summary>
-        public IdentityUser Author { get; set; }
+        public User Author { get; set; }
         /// <summary>
         /// Id Контента, к которому относится комментарий
         /// </summary>
@@ -20,7 +20,7 @@ namespace Engine.Models.BaseClasses
         /// <summary>
         /// Id родительского комментария
         /// </summary>
-        public int IdParentComment { get; set; }
+        public Comment ParentComment { get; set; }
         /// <summary>
         /// Содержимое комментария
         /// </summary>

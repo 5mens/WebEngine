@@ -1,6 +1,6 @@
 using Engine.Areas.Identity;
 using Engine.Data;
-using Engine.Models;
+using Engine.Models.BaseClasses;
 using Engine.Models.Interfaces;
 using Engine.Models.Repository;
 using Microsoft.AspNetCore.Builder;
@@ -11,7 +11,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MudBlazor;
 using MudBlazor.Services;
+using System;
 
 namespace Engine
 {
@@ -34,9 +36,11 @@ namespace Engine
             services.AddDbContextFactory<AppDbContext>(opt =>
                 opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddAuthorization();
+            services.AddAuthentication()
+                .AddCookie();
 
-            services.AddDefaultIdentity<IdentityUser>(options =>
+            services.AddDefaultIdentity<User>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = false;
                 options.Password.RequiredLength = 6;
@@ -44,19 +48,48 @@ namespace Engine
                 options.Password.RequireLowercase = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireNonAlphanumeric = false;
-            }
-            ).AddEntityFrameworkStores<ApplicationDbContext>();
+                options.User.RequireUniqueEmail = true;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+            })
+                .AddRoles<UserGroup>()
+                .AddDefaultTokenProviders()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
-            services.AddMudServices();
-
+            services.AddMudServices(config =>
+            {
+                config.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.TopRight;
+                config.SnackbarConfiguration.PreventDuplicates = false;
+                config.SnackbarConfiguration.NewestOnTop = false;
+                config.SnackbarConfiguration.ShowCloseIcon = true;
+                config.SnackbarConfiguration.VisibleStateDuration = 10000;
+                config.SnackbarConfiguration.HideTransitionDuration = 500;
+                config.SnackbarConfiguration.ShowTransitionDuration = 500;
+                config.SnackbarConfiguration.SnackbarVariant = Variant.Filled;
+            });
+            #region Реализации интерфейсов
+            #region Меню
             services.AddSingleton<IMenu, MenuRepository>();
             services.AddSingleton<IMenuItem, MenuItemRepository>();
+            #endregion
+            #region Материалы
             services.AddSingleton<ICategory, CategoryRepository>();
             services.AddSingleton<IArticle, ArticleRepository>();
             services.AddSingleton<ITag, TagRepository>();
+            #endregion
+            #region Пользователи
+            services.AddSingleton<IUser, UserRepository>();
+            services.AddSingleton<IUserGroup, UserGroupRepository>();
+            #endregion
+            #region Населенные пункты
+            services.AddSingleton<ICity, CityRepository>();
+            services.AddSingleton<IDistrict, DistrictRepository>();
+            services.AddSingleton<IRegion, RegionRepository>();
+            services.AddSingleton<ICountry, CountryRepository>();
+            #endregion
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,7 +109,6 @@ namespace Engine
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
 
             app.UseAuthentication();

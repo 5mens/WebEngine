@@ -1,52 +1,62 @@
 ﻿using Engine.Data;
 using Engine.Models.BaseClasses;
 using Engine.Models.Interfaces;
+using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Threading;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Engine.Models.Repository
 {
     public class MenuRepository : IMenu
     {
-        private readonly IDbContextFactory<AppDbContext> DbFactory;
+        [Inject]
+        private IDbContextFactory<AppDbContext> DbFactory { get; set; }
 
         public MenuRepository(IDbContextFactory<AppDbContext> contextFactory)
         {
             DbFactory = contextFactory;
         }
-        //Некорректная реализация
         public async Task<List<Menu>> GetMenus()
         {
-            var context = DbFactory.CreateDbContext();            
+            var context = DbFactory.CreateDbContext();
             return await context.Menu.ToListAsync();
         }
 
         public async Task AddNewMenu(Menu menu)
         {
-            using var context = DbFactory.CreateDbContext();
+            var context = DbFactory.CreateDbContext();
             context.Menu.Add(menu);
             await context.SaveChangesAsync();
         }
 
-        public void DeleteMenu(List<Menu> menu)
+        public async Task DeleteMenu(List<Menu> menu)
         {
-            //throw new NotImplementedException();
+            var context = DbFactory.CreateDbContext();
+            foreach (var item in menu)
+            {
+                context.Menu.Remove(item);
+            }            
+            await context.SaveChangesAsync();
         }
 
-        public Menu GetMenu(int id)
+        public async Task<Menu> GetMenu(int id)
         {
-            //throw new NotImplementedException();
-            return null;
+            var context = DbFactory.CreateDbContext();
+            return await context.Menu.Where(p => p.Id == id).FirstOrDefaultAsync();
+        }
+        public Menu GetMainMenu()
+        {
+            var context = DbFactory.CreateDbContext();
+            return context.Menu.Where(p => p.IsMain == true).First();
         }
 
-        public void UpdateMenu(int id, string title, string desc, string menutype)
+        public async Task UpdateMenu(Menu menu)
         {
-            //throw new NotImplementedException();
+            var context = DbFactory.CreateDbContext();
+            context.Update(menu);
+            await context.SaveChangesAsync();
         }
-
-
     }
 }

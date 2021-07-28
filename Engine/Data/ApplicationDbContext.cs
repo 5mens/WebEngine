@@ -1,6 +1,8 @@
 ﻿using Engine.Models.BaseClasses;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using MudBlazor;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,6 +17,12 @@ namespace Engine.Data
             : base(options)
         {
         }
+        public DbSet<UserGroup> AspNetRoles { get; set; }
+        public DbSet<User> AspNetUsers { get; set; }
+        public DbSet<City> City { get; set; }
+        public DbSet<District> District { get; set; }
+        public DbSet<Region> Region { get; set; }
+        public DbSet<Country> Country { get; set; }
     }
 
     public class AppDbContext : DbContext
@@ -29,6 +37,14 @@ namespace Engine.Data
         public DbSet<Article> Article { get; set; }
         public DbSet<Tag> Tag { get; set; }
         public DbSet<Comment> Comment { get; set; }
+        public DbSet<UserGroup> AspNetRoles { get; set; }
+        public DbSet<User> AspNetUsers { get; set; }
+        public DbSet<Ingredient> Ingredient { get; set; }
+        public DbSet<IngredientCategory> IngredientCategory { get; set; }
+        public DbSet<Tableware> Tableware { get; set; }
+        public DbSet<UserRecipe> Recipe { get; set; }
+        public DbSet<UserRecipeCategory> RecipeCategory { get; set; }
+
 
         /// <summary>
         /// Dispose pattern.
