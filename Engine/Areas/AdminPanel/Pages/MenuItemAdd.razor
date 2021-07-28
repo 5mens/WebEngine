@@ -1,17 +1,12 @@
 ﻿@page  "/administrator/menu/{MenuId:int}/item/add"
-
-<MudPaper Class="ma-2" Elevation="0">
-    <MudText Typo="Typo.h5" Class="pt-3">Добавить новое меню</MudText>
-    <MudDivider DividerType="DividerType.Middle" />
+<MudPaper Class="ma-6" Elevation="0">
+    <MudText Typo="Typo.h5">Создать элемент меню</MudText>
 </MudPaper>
-<MudPaper Class="ma-2" Elevation="0">
-    <MudButton Class="ma-1 mt-2" OnClick="()=>OnButtonClicked()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" Color="Color.Primary" Size="Size.Medium">Сохранить</MudButton>
-    <MudButton Class="ma-1 mt-2" OnClick="()=>Cancel()" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Cancel" Color="Color.Error" Size="Size.Medium">Отмена</MudButton>
+<MudDivider DividerType="DividerType.FullWidth" />
+<MudPaper Class="ma-6" Elevation="0">
+    <MudButton OnClick="()=>OnButtonClicked()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" Color="Color.Success" Size="Size.Medium">Сохранить</MudButton>
+    <MudButton Class="mx-2" OnClick="()=>Cancel()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Cancel" Color="Color.Error" Size="Size.Medium">Отмена</MudButton>
 </MudPaper>
-
-<MudText Typo="Typo.h6" Class="ma-2 pt-3">Введите наименование, описание элемента меню, а также выберите положение</MudText>
-
-<MudTextField Class="ma-2 pt-5" Required="true" RequiredError="Данное поле является обязательным" @bind-Value="NewMenuItem.Title" Label="Наименование элемента меню" Variant="Variant.Text"></MudTextField>
-<MudTextField Class="ma-2" @bind-Value="NewMenuItem.Desc" Label="Описание элемента меню" Variant="Variant.Text"></MudTextField>
-<MudTextField Class="ma-2" @bind-Value="NewMenuItem.Link" Label="Ссылка" Variant="Variant.Text"></MudTextField>
-
+<MudTextField Class="ma-6" Label="Наименование" @bind-Value="NewMenuItem.Title" />
+<MudTextField Class="ma-6" Label="Описание" @bind-Value="NewMenuItem.Desc" />
+<MudTextField Class="ma-6" Label="Родитель" @bind-Value="NewMenuItem.ParentId" />
