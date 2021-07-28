@@ -23,7 +23,7 @@ namespace Engine.Areas.AdminPanel.Pages
         [Inject]
         private ISnackbar Snackbar { get; set; }
         private bool Busy;
-        private MenuItem EditedItem;
+        private MenuItem EditedItem = new MenuItem();
         protected override async Task OnInitializedAsync()
         {
             Busy = true;
