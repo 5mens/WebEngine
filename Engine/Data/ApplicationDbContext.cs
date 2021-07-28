@@ -19,12 +19,6 @@ namespace Engine.Data
         }
         public DbSet<UserGroup> AspNetRoles { get; set; }
         public DbSet<User> AspNetUsers { get; set; }
-        public DbSet<Menu> Menu { get; set; }
-        public DbSet<MenuItem> MenuItem { get; set; }
-        public DbSet<Category> Category { get; set; }
-        public DbSet<Article> Article { get; set; }
-        public DbSet<Tag> Tag { get; set; }
-        public DbSet<Comment> Comment { get; set; }
         public DbSet<City> City { get; set; }
         public DbSet<District> District { get; set; }
         public DbSet<Region> Region { get; set; }
@@ -42,12 +36,16 @@ namespace Engine.Data
         public DbSet<Category> Category { get; set; }
         public DbSet<Article> Article { get; set; }
         public DbSet<Tag> Tag { get; set; }
-        public DbSet<Comment> Comment { get; set; }        
-        public DbSet<City> City { get; set; }
-        public DbSet<District> District { get; set; }
-        public DbSet<Region> Region { get; set; }
-        public DbSet<Country> Country { get; set; }
-        
+        public DbSet<Comment> Comment { get; set; }
+        public DbSet<UserGroup> AspNetRoles { get; set; }
+        public DbSet<User> AspNetUsers { get; set; }
+        public DbSet<Ingredient> Ingredient { get; set; }
+        public DbSet<IngredientCategory> IngredientCategory { get; set; }
+        public DbSet<Tableware> Tableware { get; set; }
+        public DbSet<UserRecipe> Recipe { get; set; }
+        public DbSet<UserRecipeCategory> RecipeCategory { get; set; }
+
+
         /// <summary>
         /// Dispose pattern.
         /// </summary>

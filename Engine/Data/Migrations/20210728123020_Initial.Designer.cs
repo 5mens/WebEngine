@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Engine.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210719192432_AddArticleComment")]
-    partial class AddArticleComment
+    [Migration("20210728123020_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,123 +21,85 @@ namespace Engine.Data.Migrations
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Engine.Models.BaseClasses.Article", b =>
+            modelBuilder.Entity("Engine.Models.BaseClasses.City", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AuthorId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("DistrictId")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Text")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Title")
+                    b.Property<string>("PostalCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
+                    b.HasIndex("DistrictId");
 
-                    b.ToTable("Article");
+                    b.ToTable("City");
                 });
 
-            modelBuilder.Entity("Engine.Models.BaseClasses.Comment", b =>
+            modelBuilder.Entity("Engine.Models.BaseClasses.Country", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AuthorId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int?>("ContentId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
+                    b.Property<string>("Capital")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("IdParentComment")
-                        .HasColumnType("int");
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
-
-                    b.HasIndex("ContentId");
-
-                    b.ToTable("Comment");
+                    b.ToTable("Country");
                 });
 
-            modelBuilder.Entity("Engine.Models.BaseClasses.Menu", b =>
+            modelBuilder.Entity("Engine.Models.BaseClasses.District", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Desc")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Menutype")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("RegionId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Menu");
+                    b.HasIndex("RegionId");
+
+                    b.ToTable("District");
                 });
 
-            modelBuilder.Entity("Engine.Models.BaseClasses.MenuItem", b =>
+            modelBuilder.Entity("Engine.Models.BaseClasses.Region", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Desc")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsHome")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Link")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("MenuId")
+                    b.Property<int?>("CountryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Menutype")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Ordering")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ParentId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Published")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Title")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MenuId");
+                    b.HasIndex("CountryId");
 
-                    b.ToTable("MenuItem");
+                    b.ToTable("Region");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -147,6 +109,10 @@ namespace Engine.Data.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -165,6 +131,8 @@ namespace Engine.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRole");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -201,6 +169,10 @@ namespace Engine.Data.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -254,6 +226,8 @@ namespace Engine.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -340,39 +314,61 @@ namespace Engine.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Engine.Models.BaseClasses.Article", b =>
+            modelBuilder.Entity("Engine.Models.BaseClasses.UserGroup", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorId");
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole");
 
-                    b.Navigation("Author");
+                    b.Property<string>("NameRu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("UserGroup");
                 });
 
-            modelBuilder.Entity("Engine.Models.BaseClasses.Comment", b =>
+            modelBuilder.Entity("Engine.Models.BaseClasses.User", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorId");
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    b.HasOne("Engine.Models.BaseClasses.Article", "Content")
-                        .WithMany()
-                        .HasForeignKey("ContentId");
+                    b.Property<DateTime?>("BirthDay")
+                        .HasColumnType("datetime2");
 
-                    b.Navigation("Author");
+                    b.Property<int?>("CityId")
+                        .HasColumnType("int");
 
-                    b.Navigation("Content");
+                    b.Property<string>("FamilyName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasIndex("CityId");
+
+                    b.HasDiscriminator().HasValue("User");
                 });
 
-            modelBuilder.Entity("Engine.Models.BaseClasses.MenuItem", b =>
+            modelBuilder.Entity("Engine.Models.BaseClasses.City", b =>
                 {
-                    b.HasOne("Engine.Models.BaseClasses.Menu", "Menu")
-                        .WithMany("MenuItems")
-                        .HasForeignKey("MenuId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("Engine.Models.BaseClasses.District", "District")
+                        .WithMany("Cities")
+                        .HasForeignKey("DistrictId");
 
-                    b.Navigation("Menu");
+                    b.Navigation("District");
+                });
+
+            modelBuilder.Entity("Engine.Models.BaseClasses.District", b =>
+                {
+                    b.HasOne("Engine.Models.BaseClasses.Region", null)
+                        .WithMany("Districts")
+                        .HasForeignKey("RegionId");
+                });
+
+            modelBuilder.Entity("Engine.Models.BaseClasses.Region", b =>
+                {
+                    b.HasOne("Engine.Models.BaseClasses.Country", null)
+                        .WithMany("Regions")
+                        .HasForeignKey("CountryId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -426,9 +422,28 @@ namespace Engine.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Engine.Models.BaseClasses.Menu", b =>
+            modelBuilder.Entity("Engine.Models.BaseClasses.User", b =>
                 {
-                    b.Navigation("MenuItems");
+                    b.HasOne("Engine.Models.BaseClasses.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId");
+
+                    b.Navigation("City");
+                });
+
+            modelBuilder.Entity("Engine.Models.BaseClasses.Country", b =>
+                {
+                    b.Navigation("Regions");
+                });
+
+            modelBuilder.Entity("Engine.Models.BaseClasses.District", b =>
+                {
+                    b.Navigation("Cities");
+                });
+
+            modelBuilder.Entity("Engine.Models.BaseClasses.Region", b =>
+                {
+                    b.Navigation("Districts");
                 });
 #pragma warning restore 612, 618
         }

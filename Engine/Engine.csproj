@@ -14,11 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Data\Migrations\20210726161008_IdentityMigration.cs" />
-    <Compile Remove="Data\Migrations\20210726161008_IdentityMigration.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Remove="wwwroot\assets\css\portal.css" />
     <Content Remove="wwwroot\assets\images\app-logo.svg" />
     <Content Remove="wwwroot\assets\images\background\background-1.jpg" />

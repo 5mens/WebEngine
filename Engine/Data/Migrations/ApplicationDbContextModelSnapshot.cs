@@ -19,70 +19,6 @@ namespace Engine.Data.Migrations
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("ArticleTag", b =>
-                {
-                    b.Property<int>("MyPropertyId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TagsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("MyPropertyId", "TagsId");
-
-                    b.HasIndex("TagsId");
-
-                    b.ToTable("ArticleTag");
-                });
-
-            modelBuilder.Entity("Engine.Models.BaseClasses.Article", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AuthorId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("Article");
-                });
-
-            modelBuilder.Entity("Engine.Models.BaseClasses.Category", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Category");
-                });
-
             modelBuilder.Entity("Engine.Models.BaseClasses.City", b =>
                 {
                     b.Property<int>("Id")
@@ -104,37 +40,6 @@ namespace Engine.Data.Migrations
                     b.HasIndex("DistrictId");
 
                     b.ToTable("City");
-                });
-
-            modelBuilder.Entity("Engine.Models.BaseClasses.Comment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AuthorId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int?>("ContentId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("IdParentComment")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
-
-                    b.HasIndex("ContentId");
-
-                    b.ToTable("Comment");
                 });
 
             modelBuilder.Entity("Engine.Models.BaseClasses.Country", b =>
@@ -175,77 +80,6 @@ namespace Engine.Data.Migrations
                     b.ToTable("District");
                 });
 
-            modelBuilder.Entity("Engine.Models.BaseClasses.Menu", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Desc")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsMain")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Menutype")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Published")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Menu");
-                });
-
-            modelBuilder.Entity("Engine.Models.BaseClasses.MenuItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Desc")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Icon")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsHome")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Link")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("MenuId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Menutype")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Ordering")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ParentId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Published")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MenuId");
-
-                    b.ToTable("MenuItem");
-                });
-
             modelBuilder.Entity("Engine.Models.BaseClasses.Region", b =>
                 {
                     b.Property<int>("Id")
@@ -264,21 +98,6 @@ namespace Engine.Data.Migrations
                     b.HasIndex("CountryId");
 
                     b.ToTable("Region");
-                });
-
-            modelBuilder.Entity("Engine.Models.BaseClasses.Tag", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Tag");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -527,34 +346,6 @@ namespace Engine.Data.Migrations
                     b.HasDiscriminator().HasValue("User");
                 });
 
-            modelBuilder.Entity("ArticleTag", b =>
-                {
-                    b.HasOne("Engine.Models.BaseClasses.Article", null)
-                        .WithMany()
-                        .HasForeignKey("MyPropertyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Engine.Models.BaseClasses.Tag", null)
-                        .WithMany()
-                        .HasForeignKey("TagsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Engine.Models.BaseClasses.Article", b =>
-                {
-                    b.HasOne("Engine.Models.BaseClasses.User", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorId");
-
-                    b.HasOne("Engine.Models.BaseClasses.Category", null)
-                        .WithMany("Articles")
-                        .HasForeignKey("CategoryId");
-
-                    b.Navigation("Author");
-                });
-
             modelBuilder.Entity("Engine.Models.BaseClasses.City", b =>
                 {
                     b.HasOne("Engine.Models.BaseClasses.District", "District")
@@ -564,37 +355,11 @@ namespace Engine.Data.Migrations
                     b.Navigation("District");
                 });
 
-            modelBuilder.Entity("Engine.Models.BaseClasses.Comment", b =>
-                {
-                    b.HasOne("Engine.Models.BaseClasses.User", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorId");
-
-                    b.HasOne("Engine.Models.BaseClasses.Article", "Content")
-                        .WithMany()
-                        .HasForeignKey("ContentId");
-
-                    b.Navigation("Author");
-
-                    b.Navigation("Content");
-                });
-
             modelBuilder.Entity("Engine.Models.BaseClasses.District", b =>
                 {
                     b.HasOne("Engine.Models.BaseClasses.Region", null)
                         .WithMany("Districts")
                         .HasForeignKey("RegionId");
-                });
-
-            modelBuilder.Entity("Engine.Models.BaseClasses.MenuItem", b =>
-                {
-                    b.HasOne("Engine.Models.BaseClasses.Menu", "Menu")
-                        .WithMany("MenuItems")
-                        .HasForeignKey("MenuId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Menu");
                 });
 
             modelBuilder.Entity("Engine.Models.BaseClasses.Region", b =>
@@ -664,11 +429,6 @@ namespace Engine.Data.Migrations
                     b.Navigation("City");
                 });
 
-            modelBuilder.Entity("Engine.Models.BaseClasses.Category", b =>
-                {
-                    b.Navigation("Articles");
-                });
-
             modelBuilder.Entity("Engine.Models.BaseClasses.Country", b =>
                 {
                     b.Navigation("Regions");
@@ -677,11 +437,6 @@ namespace Engine.Data.Migrations
             modelBuilder.Entity("Engine.Models.BaseClasses.District", b =>
                 {
                     b.Navigation("Cities");
-                });
-
-            modelBuilder.Entity("Engine.Models.BaseClasses.Menu", b =>
-                {
-                    b.Navigation("MenuItems");
                 });
 
             modelBuilder.Entity("Engine.Models.BaseClasses.Region", b =>
