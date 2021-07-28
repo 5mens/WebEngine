@@ -20,7 +20,7 @@ namespace Engine.Models.BaseClasses
         /// <summary>
         /// Id родительского комментария
         /// </summary>
-        public int IdParentComment { get; set; }
+        public Comment ParentComment { get; set; }
         /// <summary>
         /// Содержимое комментария
         /// </summary>

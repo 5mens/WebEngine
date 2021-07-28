@@ -42,7 +42,7 @@ namespace Engine.Models.BaseClasses
         /// <summary>
         /// Родительский элемент
         /// </summary>
-        public int ParentId { get; set; }
+        public MenuItem ParentId { get; set; }
         /// <summary>
         /// Идентификатор меню, в котором расположен элемент
         /// </summary>
