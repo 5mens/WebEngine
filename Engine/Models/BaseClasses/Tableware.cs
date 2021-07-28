@@ -10,6 +10,17 @@ namespace Engine.Models.BaseClasses
     /// </summary>
     public class Tableware
     {
+        /// <summary>
+        /// Id
+        /// </summary>
         public int Id { get; set; }
+        /// <summary>
+        /// Наименование
+        /// </summary>
+        public string Name { get; set; }
+        /// <summary>
+        /// Описание
+        /// </summary>
+        public string Desc { get; set; }
     }
 }
