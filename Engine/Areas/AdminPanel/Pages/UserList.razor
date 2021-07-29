@@ -5,7 +5,7 @@
 <MudDivider DividerType="DividerType.FullWidth" />
 <MudPaper Class="ma-6" Elevation="0">
     <MudButton OnClick="()=>UserEdit()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Edit" Size="Size.Medium">Изменить</MudButton>
-    <MudButton Class="mx-2" OnClick="()=>UserDelete()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Cancel" Color="Color.Error" Size="Size.Medium">Удалить</MudButton>
+    <MudButton Class="mx-2" OnClick="()=>UserDelete()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Medium">Удалить</MudButton>
 </MudPaper>
 <MudTable Class="table app-table-hover ma-6 text-left" Elevation="0" Items="@Elements" Hover="@hover" SortLabel="Сортировка по:" MultiSelection="true" Dense="@dense" @bind-SelectedItems="selectedItems" Filter="new Func<User,bool>(FilterFunc)">
     <ToolBarContent>
