@@ -49,6 +49,9 @@ namespace Engine.Areas.AdminPanel.Pages
                 return true;
             return false;
         }
+        private void GroupAdd() {
+            Nav.NavigateTo($"/administrator/user/groups/add");
+        }
         private void GroupEdit()
         {
             if (selectedItems.Count == 1)
