@@ -14,7 +14,7 @@ namespace Engine.Areas.AdminPanel.Pages
         [Inject]
         private NavigationManager Nav { get; set; }
         private string _groupId;
-        private UserGroup editedRole = null;
+        private UserGroup editedRole = new UserGroup();
         protected override async Task OnInitializedAsync() {
             _groupId = GroupId;
             editedRole = await roleManager.FindByIdAsync(_groupId);
