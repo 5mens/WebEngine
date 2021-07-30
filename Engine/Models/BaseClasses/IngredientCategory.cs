@@ -19,5 +19,9 @@ namespace Engine.Models.BaseClasses
         /// Ссылка на изображение
         /// </summary>
         public string Image { get; set; }
+        /// <summary>
+        /// Родительская категория
+        /// </summary>
+        public IngredientCategory Category { get; set; }
     }
 }

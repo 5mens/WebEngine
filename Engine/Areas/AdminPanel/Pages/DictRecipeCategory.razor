@@ -1,0 +1,50 @@
+﻿@page "/administrator/dictionary/recipe-category"
+<MudPaper Class="ma-6" Elevation="0">
+    <MudText Typo="Typo.h5">Категории рецептов</MudText>
+</MudPaper>
+<MudDivider DividerType="DividerType.FullWidth" />
+<MudPaper Class="ma-6" Elevation="0">
+    <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Add" Color="Color.Primary" Size="Size.Medium">Создать</MudButton>
+    <MudButton Class="mx-2" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Edit" Size="Size.Medium">Изменить</MudButton>
+    <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Medium">Удалить</MudButton>
+</MudPaper>
+<MudTable Items="@Recipes" Hover="true" Dense="true" Breakpoint="Breakpoint.Sm" Class="table app-table-hover ma-6 text-left" Elevation="0" SortLabel="Сортировка по:" MultiSelection="true" @bind-SelectedItems="selectedItems" Filter="new Func<UserRecipeCategory,bool>(FilterFunc)">
+    <ToolBarContent>
+        <MudTextField @bind-Value="searchString" Placeholder="Поиск" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium"></MudTextField>
+    </ToolBarContent>
+    <ColGroup>
+        <col style="width:50px;" />
+        <col style="width:50px;" />
+        <col />
+    </ColGroup>
+    <HeaderContent>
+        <MudTh></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<UserRecipeCategory, object>(x=>x.Name)">Наименование</MudTableSortLabel></MudTh>
+    </HeaderContent>
+    <RowTemplate >
+        <MudTd>
+            <MudToggleIconButton Size="Size.Small" ToggledSize="Size.Small"  ToggledIcon="@Icons.Material.Filled.Remove" Icon="@Icons.Material.Filled.Add" ToggledColor="@Color.Error" Color="@Color.Info" ToggledChanged="@(() => ShowBtnPress(context.Id))" >@((context.ShowDetails == true)? "Hide" : "Show")</MudToggleIconButton>            
+        </MudTd>
+        <MudTd DataLabel="Name"><b>@context.Name</b></MudTd>
+    </RowTemplate>
+    <ChildRowContent>
+        @if (!context.ShowDetails)
+        {
+            <MudTr>
+                <td colspan="3">
+                    <MudTable Items="@context.Category" Dense="true" Context="CategoryContext" Hover="true" Breakpoint="Breakpoint.Sm" Elevation="0" MultiSelection="true" @bind-SelectedItems="selectedItems" Filter="new Func<UserRecipeCategory,bool>(FilterFunc)">
+                        <ColGroup>
+                            <col style="width:50px;" />
+                            <col style="width:100px;" />
+                            <col />
+                        </ColGroup>
+                        <RowTemplate>
+                            <MudTd></MudTd>
+                            <MudTd DataLabel="Name">@CategoryContext.Name</MudTd>
+                        </RowTemplate>
+                    </MudTable>
+                </td>
+            </MudTr>
+        }
+    </ChildRowContent>
+</MudTable>
