@@ -17,8 +17,12 @@ namespace Engine.Models.BaseClasses
         /// </summary>
         public string Desc { get; set; }
         /// <summary>
-        /// Родительская категория
+        /// Дочерние категории
         /// </summary>
-        public UserRecipeCategory ParentCategoy { get; set; }
+        public List<UserRecipeCategory> Category { get; set; }
+        /// <summary>
+        /// Показать детали
+        /// </summary>
+        public bool ShowDetails { get; set; }
     }
 }
