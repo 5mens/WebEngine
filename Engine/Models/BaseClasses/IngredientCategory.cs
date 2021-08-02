@@ -20,8 +20,8 @@ namespace Engine.Models.BaseClasses
         /// </summary>
         public string Image { get; set; }
         /// <summary>
-        /// Родительская категория
+        /// Ингридиенты категори
         /// </summary>
-        public IngredientCategory Category { get; set; }
+        public List<Ingredient> Ingredients { get; set; }
     }
 }
