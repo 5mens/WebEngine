@@ -7,9 +7,22 @@
     <MudButton OnClick="()=>UpdateUser()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" Color="Color.Success" Size="Size.Medium">Сохранить</MudButton>
     <MudButton Class="mx-2" OnClick="()=>Cancel()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Cancel" Color="Color.Error" Size="Size.Medium">Отмена</MudButton>
 </MudPaper>
-<MudTextField Class="ma-6" Label="Псевдоним" @bind-Value="EditedItem.UserName" />
-<MudTextField Class="ma-6" Label="Фамилия" @bind-Value="EditedItem.FamilyName" />
-<MudTextField Class="ma-6" Label="Имя" @bind-Value="EditedItem.FirstName" />
-<MudTextField Class="ma-6" Label="Отчество" @bind-Value="EditedItem.LastName" />
-<MudTextField Class="ma-6" Label="E-Mail" @bind-Value="EditedItem.Email" />
-<MudTextField Class="ma-6" Label="Дата окончания бана" @bind-Value="EditedItem.LockoutEnd" />
+<MudPaper Class="ma-6" Elevation="0">
+    <MudTextField Label="Псевдоним" @bind-Value="EditedItem.UserName" />
+    <MudTextField Label="Фамилия" @bind-Value="EditedItem.FamilyName" />
+    <MudTextField Label="Имя" @bind-Value="EditedItem.FirstName" />
+    <MudTextField Label="Отчество" @bind-Value="EditedItem.LastName" />
+    <MudTextField Label="E-Mail" @bind-Value="EditedItem.Email" />
+    <MudTextField Label="Дата окончания бана" @bind-Value="EditedItem.LockoutEnd" />
+</MudPaper>
+<MudGrid Class="ma-6">
+    <MudItem xs="12">
+        <MudText Typo="Typo.body1">Роли пользователя</MudText>
+    </MudItem>
+    @foreach (var item in EditUserRoles)
+    {
+        <MudItem xs="12" Style="padding:0px;margin:0px;">
+            <MudCheckBox Label="@item.Name" Checked="item.check" @onclick ="()=>CheckRole(item.Name)"/>
+        </MudItem>
+    }
+</MudGrid>

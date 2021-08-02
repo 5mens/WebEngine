@@ -1,30 +1,32 @@
 ﻿@page "/contacts"
-<MudPaper Elevation="0">
-    <MudText Typo="Typo.h5" Class="pt-3 pl-5">Контакты</MudText>
-    <MudDivider DividerType="DividerType.Middle" />
-</MudPaper>
-<MudTabs Elevation="0" Rounded="true" Centered="true" Style="background-color:#ffffff">
-    <MudTabPanel Text="Мои друзья" BadgeData='"3"' BadgeColor="Color.Info">
-        <MudToolBar>
-            <MudTextField @bind-Value="_txt" Placeholder="Поиск" FullWidth="false" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0" ></MudTextField>
-            <MudSpacer />
-        </MudToolBar>
-    </MudTabPanel>
-    <MudTabPanel Text="Книга контактов">
-        <MudToolBar>
-            <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Primary" Title="Добавить" />
-            <MudIconButton Icon="@Icons.Material.Outlined.Edit" Color="Color.Secondary" Title="Изменить" />
-            <MudIconButton Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" Title="Удалить" />
-        </MudToolBar>
-    </MudTabPanel>
-    <MudTabPanel Text="Черный список">
-        <MudToolBar>
-            <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Primary" Title="Добавить" />
-            <MudIconButton Icon="@Icons.Material.Outlined.Edit" Color="Color.Secondary" Title="Изменить" />
-            <MudIconButton Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" Title="Удалить" />
-        </MudToolBar>
-    </MudTabPanel>
-</MudTabs>
+<AuthorizeView Roles="user">
+    <MudPaper Elevation="0">
+        <MudText Typo="Typo.h5" Class="pt-3 pl-5">Контакты</MudText>
+        <MudDivider DividerType="DividerType.Middle" />
+    </MudPaper>
+    <MudTabs Elevation="0" Rounded="true" Centered="true" Style="background-color:#ffffff">
+        <MudTabPanel Text="Мои друзья" BadgeData='"3"' BadgeColor="Color.Info">
+            <MudToolBar>
+                <MudTextField @bind-Value="_txt" Placeholder="Поиск" FullWidth="false" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+                <MudSpacer />
+            </MudToolBar>
+        </MudTabPanel>
+        <MudTabPanel Text="Книга контактов">
+            <MudToolBar>
+                <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Primary" Title="Добавить" />
+                <MudIconButton Icon="@Icons.Material.Outlined.Edit" Color="Color.Secondary" Title="Изменить" />
+                <MudIconButton Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" Title="Удалить" />
+            </MudToolBar>
+        </MudTabPanel>
+        <MudTabPanel Text="Черный список">
+            <MudToolBar>
+                <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Primary" Title="Добавить" />
+                <MudIconButton Icon="@Icons.Material.Outlined.Edit" Color="Color.Secondary" Title="Изменить" />
+                <MudIconButton Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" Title="Удалить" />
+            </MudToolBar>
+        </MudTabPanel>
+    </MudTabs>
+</AuthorizeView>
 
 @code{
     private string _txt = string.Empty;
