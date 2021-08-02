@@ -1,0 +1,15 @@
+﻿<MudPaper Class="py-3 nav-item" Style="margin-top:0px;">
+    <MudNavMenu Class="mud-width-full">
+        @foreach (var item in mainMenu)
+        {
+            if (item.Published == true && !item.IsHome)
+            {
+                <MudNavLink Href="@item.Link" Match="NavLinkMatch.All">@item.Title</MudNavLink>
+            }
+            else
+            {
+                <MudNavLink Href="/id0" Match="NavLinkMatch.All">@item.Title</MudNavLink>
+            }
+        }
+    </MudNavMenu>
+</MudPaper>

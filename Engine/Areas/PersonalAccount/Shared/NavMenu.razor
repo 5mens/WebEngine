@@ -4,7 +4,7 @@
             {
                 if (item.Published == true && !item.IsHome)
                 {
-                    <MudNavLink Href="@item.Link" Icon="@GetIcon(item.Icon)" Match="NavLinkMatch.All">@item.Title</MudNavLink>
+                    <MudNavLink Href="@item.Link" Icon="@GetIcon(item.Icon)" Match="NavLinkMatch.Prefix">@item.Title</MudNavLink>
                 }
                 else
                 {
