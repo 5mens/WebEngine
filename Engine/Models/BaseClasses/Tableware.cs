@@ -22,5 +22,9 @@ namespace Engine.Models.BaseClasses
         /// Описание
         /// </summary>
         public string Desc { get; set; }
+        /// <summary>
+        /// Ссылка на изображение
+        /// </summary>
+        public string Image { get; set; }
     }
 }
