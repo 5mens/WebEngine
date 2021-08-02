@@ -1,0 +1,39 @@
+﻿<MudPaper Elevation="0" Class="d-flex mud-width-full pl-5 pr-5" Style="margin-bottom:20px;" >
+    <MudGrid Style="@($"background-color:#{BgColor}")">
+        <MudItem xs="2">
+            <MudLink Href="/id0" Underline="Underline.None">
+                <MudAvatar Color="Color.Primary" Size="Size.Large" Class="ma-5">ИИ</MudAvatar>
+            </MudLink>
+        </MudItem>
+        <MudItem xs="10">
+            <MudGrid>
+                <MudItem xs="8">
+                    <MudLink Href="/id0" Underline="Underline.None">
+                        <MudText Typo="Typo.body2" Class="pt-5" Color="Color.Dark"><b>Иванов Иван</b></MudText>
+                    </MudLink>
+                </MudItem>
+                <MudItem xs="4">
+                    <MudGrid>
+                        <MudItem xs="8">
+                            <MudText Typo="Typo.body2" Class="pt-5" Color="Color.Dark">21 января 2021</MudText>
+                        </MudItem>
+                        <MudItem xs="1">
+                            <MudIconButton Icon="@Icons.Material.Filled.Close"></MudIconButton>
+                        </MudItem>
+                    </MudGrid>
+                </MudItem>
+                <MudItem xs="8" Style="padding-top:0px;">
+                    <MudLink Href="/id0" Underline="Underline.None">
+                        <MudTextField Style="padding:0px;margin-top:-20px;font-size:0.9em;" DisableUnderLine="true" T="string" Variant="Variant.Text" Text="@_lastMessage" Lines="1" Disabled="true" />
+                    </MudLink>
+                </MudItem>
+            </MudGrid>
+        </MudItem>
+    </MudGrid>
+</MudPaper>
+
+@code{
+    private string _lastMessage = "Всем известно что максимальная длинна смс на русском языке более чем в два раза меньше чем на английском (70 против 160). Это обусловлено тем какая кодировка используется при отправке. Для отправки СМС только на английском языке можно использовать 7-битную кодировку, то есть тратить по 7 бит данных на каждый символ. В 7-битной кодировке есть латинские буквы, цифры и знаки препинания - всего 128 символов.";
+    [Parameter]
+    public string BgColor { get; set; } = "#ffffff";
+}

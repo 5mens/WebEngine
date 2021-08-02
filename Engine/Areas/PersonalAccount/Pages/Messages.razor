@@ -1,5 +1,18 @@
 ﻿@page "/messages"
-<MudPaper Elevation="0">
-    <MudText Typo="Typo.h5" Class="pt-3 pl-5">Сообщения</MudText>
-    <MudDivider DividerType="DividerType.Middle" />
-</MudPaper>
+@page "/messages/unread"
+<MudGrid Spacing="1">
+    <MudItem xs="7">
+        <MudGrid Spacing="1" Style="background-color:#ffffff">
+            <MudItem xs="12">
+                <MessageSearch />
+            </MudItem>
+            <MudItem xs="12">
+                <MessageBlock BgColor="edeef0"/>
+                <MessageBlock />
+            </MudItem>
+        </MudGrid>
+    </MudItem>
+    <MudItem xs="3">
+        <MessageNavMenu />
+    </MudItem>
+</MudGrid>
