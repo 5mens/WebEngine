@@ -1,4 +1,4 @@
-﻿<MudTable Items="@Elements" MultiSelection="true" @bind-SelectedItems="selectedItems">
+﻿<MudTable Class="ma-6" Elevation="0" Items="@Elements" MultiSelection="true" @bind-SelectedItems="selectedItems">
     <ColGroup>
         <col style="width:50px;" />
         <col style="width:100px;" />
@@ -8,7 +8,7 @@
         <col style="width:50px;" />
     </ColGroup>
     <HeaderContent>
-        <MudTh>##</MudTh>
+        <MudTh>№</MudTh>
         <MudTh>Дата исполнения</MudTh>
         <MudTh>Заказчик</MudTh>
         <MudTh>Описание</MudTh>
@@ -22,10 +22,11 @@
         <MudTd DataLabel="State">@context.State</MudTd>
     </RowTemplate>
     <PagerContent>
-        <MudTablePager PageSizeOptions="new int[]{50, 100}" />
+        <MudTablePager PageSizeOptions="new int[]{50, 100}" RowsPerPageString="Выводить по:" InfoFormat="{first_item}-{last_item} из {all_items}"/>
     </PagerContent>    
 </MudTable>
-<MudText Inline="true">Selected items: @(selectedItems==null ? "" : string.Join(", ", selectedItems.OrderBy(x=>x.Id).Select(x=>x.Id)))</MudText>
+<MudDivider DividerType="DividerType.FullWidth" />
+<MudText Class="ma-6" Inline="true">Выбранные значения: @(selectedItems==null ? "" : string.Join(", ", selectedItems.OrderBy(x=>x.Id).Select(x=>x.Id)))</MudText>
 
 @code {
     private HashSet<OrderTable> selectedItems = new HashSet<OrderTable>();
