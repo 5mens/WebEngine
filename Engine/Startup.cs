@@ -89,6 +89,9 @@ namespace Engine
             services.AddSingleton<IRegion, RegionRepository>();
             services.AddSingleton<ICountry, CountryRepository>();
             #endregion
+            #region Заказы
+            services.AddSingleton<IOrder, OrderRepository>();
+            #endregion
             #endregion
         }
 
