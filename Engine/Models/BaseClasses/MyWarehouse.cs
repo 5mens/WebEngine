@@ -33,9 +33,13 @@ namespace Engine.Models.BaseClasses
         /// </summary>
         public double? Price { get; set; }
         /// <summary>
+        /// Вес/объем
+        /// </summary>
+        public decimal? Weight { get; set; }
+        /// <summary>
         /// Количество
         /// </summary>
-        public decimal Count { get; set; }
+        public int? Count { get; set; }
         /// <summary>
         /// Пользовательское наименование
         /// </summary>

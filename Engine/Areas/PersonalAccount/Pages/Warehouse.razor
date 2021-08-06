@@ -6,11 +6,19 @@
         </MudPaper>
         <MudTabs Elevation="0" Rounded="true" Centered="true" Style="background-color:#ffffff">
             <MudTabPanel Text="Ингредиенты" BadgeData='"3"' BadgeColor="Color.Info">
-                <MudToolBar>
-                    <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Primary" Title="Добавить" />
-                    <MudIconButton Icon="@Icons.Material.Outlined.Edit" Color="Color.Secondary" Title="Изменить" />
-                    <MudIconButton Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" Title="Удалить" />
-                </MudToolBar>
+                @if (!addIngredient)
+                {
+                    <MudToolBar>
+                        <MudIconButton OnClick="()=>AddIngredientClick()" Icon="@Icons.Material.Outlined.Add" Color="Color.Primary" Title="Добавить" />
+                        <MudIconButton Icon="@Icons.Material.Outlined.Edit" Color="Color.Secondary" Title="Изменить" />
+                        <MudIconButton Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" Title="Удалить" />
+                    </MudToolBar>
+                    <UserIngredients />
+                }
+                else
+                {
+                    <AddIngredient OnButtonClick="@GetIngredient"/>
+                }
             </MudTabPanel>
             <MudTabPanel Text="Инструменты" BadgeData='"10"'>
                 <MudToolBar>

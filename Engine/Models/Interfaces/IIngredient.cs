@@ -14,6 +14,11 @@ namespace Engine.Models.Interfaces
         Task<List<Ingredient>> GetByCategory(IngredientCategory category);
 
         /// <summary>
+        /// Возвращает все ингредиенты LazyLoad
+        /// </summary>
+        Task<List<Ingredient>> GetAllIngredientLazy();
+
+        /// <summary>
         /// Создает нвоый ингредиент
         /// </summary>
         /// <param name="ingredient">Ингредиент</param>
