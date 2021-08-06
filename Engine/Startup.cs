@@ -89,6 +89,8 @@ namespace Engine
             services.AddSingleton<IIngredientCategory, IngredientCategoryRepository>();
 
             services.AddSingleton<IOrder, OrderRepository>();
+            services.AddSingleton<IMyWarehouse, MyWarehouseRepository>();
+
             #endregion
         }
 

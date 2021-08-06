@@ -4,14 +4,16 @@ using Engine.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Engine.Data.Migrations.AppDb
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210806160911_Warehouse")]
+    partial class Warehouse
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,8 +53,7 @@ namespace Engine.Data.Migrations.AppDb
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("ArticleText");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
@@ -170,8 +171,7 @@ namespace Engine.Data.Migrations.AppDb
                         .HasColumnName("Descr");
 
                     b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("ImagePath");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -196,8 +196,7 @@ namespace Engine.Data.Migrations.AppDb
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("ImagePath");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -343,8 +342,10 @@ namespace Engine.Data.Migrations.AppDb
                         .HasColumnName("Descr");
 
                     b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("ImagePath");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("MyWarehouseId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -353,6 +354,8 @@ namespace Engine.Data.Migrations.AppDb
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MyWarehouseId");
 
                     b.HasIndex("UserRecipeId");
 
@@ -486,8 +489,7 @@ namespace Engine.Data.Migrations.AppDb
                         .HasColumnName("Descr");
 
                     b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("ImagePath");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -543,14 +545,8 @@ namespace Engine.Data.Migrations.AppDb
                     b.Property<int?>("MyWarehouseId")
                         .HasColumnType("int");
 
-                    b.Property<double?>("Price")
+                    b.Property<double>("Price")
                         .HasColumnType("float");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserUnit")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasIndex("MyWarehouseId");
 
@@ -564,16 +560,8 @@ namespace Engine.Data.Migrations.AppDb
                     b.Property<decimal>("Count")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int?>("MyWarehouseId")
-                        .HasColumnType("int");
-
                     b.Property<double>("Price")
                         .HasColumnType("float");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasIndex("MyWarehouseId");
 
                     b.ToTable("UserTableware");
                 });
@@ -677,6 +665,10 @@ namespace Engine.Data.Migrations.AppDb
 
             modelBuilder.Entity("Engine.Models.BaseClasses.Tableware", b =>
                 {
+                    b.HasOne("Engine.Models.BaseClasses.MyWarehouse", null)
+                        .WithMany("Tablewares")
+                        .HasForeignKey("MyWarehouseId");
+
                     b.HasOne("Engine.Models.BaseClasses.UserRecipe", null)
                         .WithMany("Tablewares")
                         .HasForeignKey("UserRecipeId");
@@ -737,10 +729,6 @@ namespace Engine.Data.Migrations.AppDb
                         .HasForeignKey("Engine.Models.BaseClasses.UserTableware", "Id")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
-
-                    b.HasOne("Engine.Models.BaseClasses.MyWarehouse", null)
-                        .WithMany("Tablewares")
-                        .HasForeignKey("MyWarehouseId");
                 });
 
             modelBuilder.Entity("Engine.Models.BaseClasses.Category", b =>

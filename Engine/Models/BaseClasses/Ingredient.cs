@@ -24,6 +24,7 @@ namespace Engine.Models.BaseClasses
         /// <summary>
         /// Ссылка на изображение
         /// </summary>
+        [Column("ImagePath")]
         public string Image { get; set; }
         /// <summary>
         /// Категория ингредиента

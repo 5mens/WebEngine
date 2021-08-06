@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Engine.Models.BaseClasses
 {
@@ -19,6 +20,7 @@ namespace Engine.Models.BaseClasses
         /// <summary>
         /// Текст
         /// </summary>
+        [Column("ArticleText")]
         public string Text { get; set; }
 
         /// <summary>
