@@ -1,21 +1,33 @@
 ﻿@page "/orders"
-<MudPaper Elevation="0">
-    <MudText Typo="Typo.h5" Class="pt-3 pl-5">Мои заказы</MudText>
-    <MudDivider DividerType="DividerType.Middle" />
-</MudPaper>
-<MudTabs Elevation="0" Rounded="true" Centered="true" Style="background-color:#ffffff">
-    <MudTabPanel Text="В работе" BadgeData='"3"' BadgeColor="Color.Info">
-        <MudToolBar>
-            <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Primary" Title="Добавить" />
-            <MudIconButton Icon="@Icons.Material.Outlined.Edit" Color="Color.Secondary" Title="Изменить"/>
-            <MudIconButton Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" Title="Удалить"/>         
-        </MudToolBar>
-        <Order/>
-    </MudTabPanel>
-    <MudTabPanel Text="Завершенные" BadgeData='"50"'>
-        <MudToolBar/>
-    </MudTabPanel>
-    <MudTabPanel Text="Отмененные" BadgeData='"0"' BadgeColor="Color.Error">
-        <MudToolBar />
-    </MudTabPanel>
-</MudTabs>
+<AuthorizeView Roles="user">
+    <MudPaper Elevation="0">
+        <MudText Class="ma-6" Typo="Typo.h5">Заказы</MudText>
+        <MudDivider DividerType="DividerType.FullWidth" />
+        <MudTabs Elevation="0" Rounded="true" Centered="true">
+            <MudTabPanel Text="В работе" BadgeData='"1"' BadgeColor="Color.Info">
+                <MudToolBar>
+                    <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Success" Title="Добавить" />
+                    <MudIconButton Icon="@Icons.Material.Outlined.Edit" Color="Color.Transparent" Title="Изменить" />
+                    <MudIconButton Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" Title="Удалить" />
+                </MudToolBar>
+                <Order />
+            </MudTabPanel>
+            <MudTabPanel Text="Завершенные" BadgeData='"1"'>
+                <MudToolBar>
+                    <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Success" Title="Добавить" />
+                    <MudIconButton Icon="@Icons.Material.Outlined.Edit" Color="Color.Transparent" Title="Изменить" />
+                    <MudIconButton Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" Title="Удалить" />
+                </MudToolBar>
+                <Order />
+            </MudTabPanel>
+            <MudTabPanel Text="Отмененные" BadgeData='"1"' BadgeColor="Color.Error">
+                <MudToolBar>
+                    <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Success" Title="Добавить" />
+                    <MudIconButton Icon="@Icons.Material.Outlined.Edit" Color="Color.Transparent" Title="Изменить" />
+                    <MudIconButton Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" Title="Удалить" />
+                </MudToolBar>
+                <Order />
+            </MudTabPanel>
+        </MudTabs>
+    </MudPaper>
+</AuthorizeView>

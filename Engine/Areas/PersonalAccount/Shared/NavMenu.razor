@@ -1,10 +1,11 @@
-﻿<MudPaper Class="py-3 nav-item">
+﻿<AuthorizeView Roles="user">
+    <MudPaper Class="py-3 nav-item">
         <MudNavMenu Class="mud-width-full">
             @foreach (var item in mainMenu)
             {
                 if (item.Published == true && !item.IsHome)
                 {
-                    <MudNavLink Href="@item.Link" Icon="@GetIcon(item.Icon)" Match="NavLinkMatch.All">@item.Title</MudNavLink>
+                    <MudNavLink Href="@item.Link" Icon="@GetIcon(item.Icon)" Match="NavLinkMatch.Prefix">@item.Title</MudNavLink>
                 }
                 else
                 {
@@ -12,8 +13,9 @@
                 }
             }
         </MudNavMenu>
-</MudPaper>
-<AuthorizeView>
+    </MudPaper>
+</AuthorizeView>
+<AuthorizeView Roles="admin, superuser">
     <MudPaper Elevation="0" Class="pa-2 justify-center mud-text-align-center">
         <MudButton Link="/administrator" FullWidth="true" Variant="Variant.Filled" Color="Color.Info" Size="Size.Medium">Админ-панель</MudButton>
     </MudPaper>

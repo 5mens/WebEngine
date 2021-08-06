@@ -1,0 +1,36 @@
+﻿<MudPaper Class="d-flex mud-width-full">
+    <MudGrid Style="padding:10px;">
+        <MudItem xs="12">
+            <MudText Typo="Typo.h6">Отзывы (1)</MudText>
+        </MudItem>
+        <MudItem xs="12">
+            <MudGrid>
+                <MudItem xs="12">
+                    <MudGrid>
+                        <MudItem xs="10">
+                            <MudText Color="Color.Dark">Заказ #569</MudText>
+                        </MudItem>
+                        <MudItem xs="2">
+                            <MudRating SelectedValue="4" ReadOnly="true" />
+                        </MudItem>
+                    </MudGrid>
+                </MudItem>
+                <MudItem xs="12">
+                    <MudGrid>
+                        <MudItem xs="9">
+                            <MudTextField T="string" Variant="Variant.Text" Text="@_text" Lines="5" Disabled="true" DisableUnderLine="true" />
+                        </MudItem>
+                        <MudItem xs="3">
+                            <img src="https://maiso.ru/files/user/368949/board/zakaz-tortov--pirozhnyh-E5a3xunT.jpg" width="100%;" style="padding:10px;" />
+                        </MudItem>
+                    </MudGrid>
+                    <MudDivider />
+                </MudItem>
+            </MudGrid>
+        </MudItem>
+    </MudGrid>
+</MudPaper>
+
+@code{
+    private string _text = "Все отлично, согласно заказа";
+}

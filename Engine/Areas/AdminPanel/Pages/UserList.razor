@@ -1,11 +1,11 @@
 ﻿@page "/administrator/user/users"
 <MudPaper Class="ma-6" Elevation="0">
-    <MudText Typo="Typo.h5">Список пользователей</MudText>
+    <MudText Typo="Typo.h5">Пользователи</MudText>
 </MudPaper>
 <MudDivider DividerType="DividerType.FullWidth" />
 <MudPaper Class="ma-6" Elevation="0">
     <MudButton OnClick="()=>UserEdit()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Edit" Size="Size.Medium">Изменить</MudButton>
-    <MudButton Class="mx-2" OnClick="()=>UserDelete()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Cancel" Color="Color.Error" Size="Size.Medium">Удалить</MudButton>
+    <MudButton Class="mx-2" OnClick="()=>UserDelete()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Medium">Удалить</MudButton>
 </MudPaper>
 <MudTable Class="table app-table-hover ma-6 text-left" Elevation="0" Items="@Elements" Hover="@hover" SortLabel="Сортировка по:" MultiSelection="true" Dense="@dense" @bind-SelectedItems="selectedItems" Filter="new Func<User,bool>(FilterFunc)">
     <ToolBarContent>
@@ -35,4 +35,5 @@
         <MudTablePager PageSizeOptions="new int[]{20, 50, 100}" RowsPerPageString="Выводить по:" InfoFormat="{first_item}-{last_item} из {all_items}" />
     </PagerContent>
 </MudTable>
+<MudDivider DividerType="DividerType.FullWidth" />
 <MudText Class="ma-6" Inline="true">Выбранные значения: @(selectedItems==null ? "" : string.Join(", ", selectedItems.OrderBy(x=>x.UserName).Select(x=>x.UserName)))</MudText>

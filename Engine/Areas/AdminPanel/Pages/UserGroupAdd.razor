@@ -1,6 +1,11 @@
 ﻿@page "/administrator/user/groups/add"
-<h3>UserGroupAdd</h3>
-
-@code {
-
-}
+<MudPaper Class="ma-6" Elevation="0">
+    <MudText Typo="Typo.h5">Создать группу пользователей</MudText>
+</MudPaper>
+<MudDivider DividerType="DividerType.FullWidth" />
+<MudPaper Class="ma-6" Elevation="0">
+    <MudButton OnClick="()=>OnButtonClicked()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" Color="Color.Success" Size="Size.Medium">Сохранить</MudButton>
+    <MudButton Class="mx-2" OnClick="()=>Cancel()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Cancel" Color="Color.Error" Size="Size.Medium">Отмена</MudButton>
+</MudPaper>
+<MudTextField Class="ma-6" Label="Наименование" @bind-Value="newGroup.Name" />
+<MudTextField Class="ma-6" Label="Описание" @bind-Value="newGroup.NameRu" />

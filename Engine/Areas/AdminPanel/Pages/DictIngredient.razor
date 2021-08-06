@@ -1,0 +1,50 @@
+﻿@page "/administrator/dictionary/ingredients"
+<MudPaper Class="ma-6" Elevation="0">
+    <MudText Typo="Typo.h5">Справочник ингредиентов</MudText>
+</MudPaper>
+<MudDivider DividerType="DividerType.FullWidth" />
+<MudPaper Class="ma-6" Elevation="0">
+    <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Add" Size="Size.Medium" Color="Color.Primary">Создать</MudButton>
+    <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Edit" Size="Size.Medium" Class="mx-2">Изменить</MudButton>
+    <MudButton OnClick="() => DeleteIngredients()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Size="Size.Medium" Color="Color.Error">Удалить</MudButton>
+</MudPaper>
+<MudTable Items="@WrappedCategories" Hover="true" Dense="true" Breakpoint="Breakpoint.Sm" Class="table app-table-hover ma-6 text-left" Elevation="0">
+    <ColGroup>
+        <col style="width:50px;" />
+        <col />
+    </ColGroup>
+    <HeaderContent>
+        <MudTh></MudTh>
+        <MudTh>Наименование</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd>
+            <MudToggleIconButton Size="Size.Small" ToggledSize="Size.Small" ToggledIcon="@Icons.Material.Filled.Remove" Icon="@Icons.Material.Filled.Add" ToggledColor="@Color.Error" Color="@Color.Info" ToggledChanged="@(() => ShowBtnPress(context))">@((context.IsFolded == true)? "Hide" : "Show")</MudToggleIconButton>
+        </MudTd>
+        <MudTd DataLabel="Name"><b>@context.Category.Name</b></MudTd>
+    </RowTemplate>
+    <ChildRowContent>
+        @if (!context.IsFolded)
+        {
+            <MudTr>
+                <td colspan="2">
+                    <MudTable Items="@context.Category.Ingredients" Dense="true" Context="CategoryContext" Hover="true" Breakpoint="Breakpoint.Sm" Elevation="0" MultiSelection="true" @bind-SelectedItems="selectedItems" Filter="new Func<Ingredient,bool>(FilterFunc)">
+                        <ColGroup>
+                            <col style="width:50px;" />
+                            <col style="width:100px;" />
+                            <col />
+                            <col />
+                            <col />
+                        </ColGroup>
+                        <RowTemplate>
+                            <MudTd></MudTd>
+                            <MudTd></MudTd>
+                            <MudTd DataLabel="Name">@CategoryContext.Name</MudTd>
+                            <MudTd DataLabel="Name">@CategoryContext.Desc</MudTd>
+                        </RowTemplate>
+                    </MudTable>
+                </td>
+            </MudTr>
+        }
+    </ChildRowContent>
+</MudTable>

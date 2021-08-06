@@ -1,2 +1,11 @@
 ﻿@page "/administrator/user/groups/{GroupId}/edit"
-<h3>UserGroupEdit</h3>
+<MudPaper Class="ma-6" Elevation="0">
+    <MudText Typo="Typo.h5">Изменить группу пользователей</MudText>
+</MudPaper>
+<MudDivider DividerType="DividerType.FullWidth" />
+<MudPaper Class="ma-6" Elevation="0">
+    <MudButton OnClick="()=>UpdateRole()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" Color="Color.Success" Size="Size.Medium">Сохранить</MudButton>
+    <MudButton Class="mx-2" OnClick="()=>Cancel()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Cancel" Color="Color.Error" Size="Size.Medium">Отмена</MudButton>
+</MudPaper>
+<MudTextField Class="ma-6" Label="Наименование" @bind-Value="editedRole.Name" />
+<MudTextField Class="ma-6" Label="Описание" @bind-Value="editedRole.NameRu" />

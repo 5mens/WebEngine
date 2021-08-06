@@ -1,20 +1,18 @@
 ﻿@page "/administrator/article/list"
 @inject IDbContextFactory<AppDbContext> DbFactory
 @inject NavigationManager Nav
-<MudPaper Class="ma-2" Elevation="0">
-    <MudText Typo="Typo.h5" Class="pt-3">Список материалов</MudText>
-    <MudDivider DividerType="DividerType.Middle" />
+<MudPaper Class="ma-6" Elevation="0">
+    <MudText Typo="Typo.h5">Материалы</MudText>
 </MudPaper>
-<MudPaper Class="ma-2" Elevation="0">
-    <MudButton Class="ma-1 mt-2" OnClick="()=>AddNewArticle()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Add" Color="Color.Primary" Size="Size.Medium">Создать</MudButton>
-    <MudButton Class="ma-1 mt-2" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Edit" Size="Size.Medium">Изменить</MudButton>
-    <MudButton Class="ma-1 mt-2" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Medium">Удалить</MudButton>
+<MudDivider DividerType="DividerType.FullWidth" />
+<MudPaper Class="ma-6" Elevation="0">
+    <MudButton OnClick="()=>AddNewArticle()" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Add" Color="Color.Primary" Size="Size.Medium">Создать</MudButton>
+    <MudButton Class="mx-2" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Edit" Size="Size.Medium">Изменить</MudButton>
+    <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Medium">Удалить</MudButton>
 </MudPaper>
-<MudTable Class="table app-table-hover mb-0 text-left" Items="@Elements" Hover="@hover" SortLabel="Сортировка по:" MultiSelection="true" Dense="@dense" @bind-SelectedItems="selectedItems" Filter="new Func<Article,bool>(FilterFunc)">
+<MudTable Class="table app-table-hover ma-6 text-left" Elevation="0" Items="@Elements" Hover="@hover" SortLabel="Сортировка по:" MultiSelection="true" Dense="@dense" @bind-SelectedItems="selectedItems" Filter="new Func<Article,bool>(FilterFunc)">
     <ToolBarContent>
-        <MudText Typo="Typo.h6">Список материалов</MudText>
-        <MudSpacer />
-        <MudTextField @bind-Value="searchString" Placeholder="Поиск" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+        <MudTextField @bind-Value="searchString" Placeholder="Поиск" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium"></MudTextField>
     </ToolBarContent>
     <HeaderContent>
         <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<Article, object>(x=>x.Id)">Id</MudTableSortLabel></MudTh>
@@ -34,7 +32,8 @@
         <MudTablePager Class="" PageSizeOptions="new int[]{20, 50, 100}" RowsPerPageString="Выводить по:" InfoFormat="{first_item}-{last_item} из {all_items}" />
     </PagerContent>
 </MudTable>
-<MudText Inline="true">Выбранные значения: @(selectedItems==null ? "" : string.Join(", ", selectedItems.OrderBy(x=>x.Title).Select(x=>x.Title)))</MudText>
+<MudDivider DividerType="DividerType.FullWidth" />
+<MudText Class="ma-6" Inline="true">Выбранные значения: @(selectedItems==null ? "" : string.Join(", ", selectedItems.OrderBy(x=>x.Title).Select(x=>x.Title)))</MudText>
 
 
 @code {

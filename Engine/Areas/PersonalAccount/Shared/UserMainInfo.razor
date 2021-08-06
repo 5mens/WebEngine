@@ -1,0 +1,71 @@
+﻿<MudPaper Elevation="0" Class="mud-width-full pa-4">
+    <MudText Typo="Typo.h1" Class="pt-3" Style="font-size: x-large;"><b>Иванов Иван Иванович</b></MudText>
+    <MudTextField @bind-Value="status" Placeholder="установить статус" DisableUnderLine="true" Variant="Variant.Text" Disabled="false" Style="margin-top: 0px; font-size: 0.75rem; padding: 0px;" />
+    <MudDivider Light="false" />
+    <MudGrid Style="padding-top: 30px; padding-bottom:20px;">
+        <MudItem xs="2">
+            Дата рождения:
+        </MudItem>
+        <MudItem xs="10">
+            01 января 1967
+        </MudItem>
+        <MudItem xs="2">
+            Город:
+        </MudItem>
+        <MudItem xs="10">
+            Чебоксары
+        </MudItem>
+    </MudGrid>
+    <MudDivider Light="false" />
+    <MudText Typo="Typo.body2" Class="pt-3" Color="Color.Dark"><b>Контакты</b></MudText>
+    <MudGrid Style="padding-top: 10px; padding-bottom: 10px;">
+        <MudItem xs="1" Style="text-align:right; vertical-align:text-bottom;">
+            <MudIcon Icon="@Icons.Rounded.Phone" Title="Контактный телефон"></MudIcon>
+        </MudItem>
+        <MudItem xs="11" Style="padding: 3px;">
+            <MudTextField Style="margin-top:0px;" DisableUnderLine="true" @bind-Value="@_telephone" InputType="InputType.Telephone" />
+        </MudItem>
+        <MudItem xs="1" Style="text-align: right; padding-top: 3px;">
+            <MudIcon Icon="@Icons.Custom.Brands.Instagram" Title="Instagram"></MudIcon>
+        </MudItem>
+        <MudItem xs="11" Style="padding: 3px;">
+            <MudLink Href="https://www.instagram.com/" Target="_blank">https://www.instagram.com/</MudLink>
+        </MudItem>
+        <MudItem xs="1" Style="text-align: right; padding-top: 3px;">
+            <MudIcon Icon="@Icons.Custom.Brands.Facebook" Title="Facebook"></MudIcon>
+        </MudItem>
+        <MudItem xs="11" Style="padding: 3px;">
+            <MudLink Href="https://www.facebook.com/" Target="_blank">https://www.facebook.com/</MudLink>
+        </MudItem>
+        <MudItem xs="1" Style="text-align: right; padding-top: 3px;">
+            <MudIcon Icon="@Icons.Custom.Brands.Twitter" Title="Twitter"></MudIcon>
+        </MudItem>
+        <MudItem xs="11" Style="padding: 3px;">
+            <MudLink Href="https://twitter.com/" Target="_blank">https://twitter.com/</MudLink>
+        </MudItem>
+        <MudItem xs="1" Style="text-align: right; padding-top: 3px;">
+            <MudIcon Icon="@Icons.Custom.Brands.TikTok" Title="TikTok"></MudIcon>
+        </MudItem>
+        <MudItem xs="11" Style="padding: 3px;">
+            <MudLink Href="https://www.tiktok.com/" Target="_blank">https://www.tiktok.com/</MudLink>
+        </MudItem>
+        <MudItem xs="1" Style="text-align: right; padding-top: 3px;">
+            <MudIcon Icon="@Icons.Custom.Brands.WhatsApp" Title="WhatsApp"></MudIcon>
+        </MudItem>
+        <MudItem xs="11" Style="padding: 3px;">
+            <MudLink Href="https://www.whatsapp.com/" Target="_blank">https://www.whatsapp.com/</MudLink>
+        </MudItem>
+    </MudGrid>
+    <MudDivider Light="false" />
+    <MudText Typo="Typo.body2" Class="pt-3" Color="Color.Dark"><b>Дополнительная информация</b></MudText>
+    <MudTextField T="string" Variant="Variant.Text" Text="@_text" Disabled="true" Style="margin:0px; padding: 0px;" DisableUnderLine="true" />
+</MudPaper>
+
+
+
+@code{
+    private string status;
+    private string _telephone = "8-800-555-05-05";
+    private string _text = "Здесь будет отображаться информация, которую повар может написать дополнительно";
+
+}

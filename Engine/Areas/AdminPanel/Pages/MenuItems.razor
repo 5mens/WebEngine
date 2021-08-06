@@ -1,6 +1,6 @@
 ﻿@page "/administrator/menu/{MenuId:int}/items/"
 <MudPaper Class="ma-6" Elevation="0">
-    <MudText Typo="Typo.h5">Список элементов меню</MudText>
+    <MudText Typo="Typo.h5">Элементы меню</MudText>
 </MudPaper>
 <MudDivider DividerType="DividerType.FullWidth" />
 <MudPaper Class="ma-6" Elevation="0">
@@ -32,4 +32,5 @@
         <MudTablePager PageSizeOptions="new int[]{20, 50, 100}" RowsPerPageString="Выводить по:" InfoFormat="{first_item}-{last_item} из {all_items}" />
     </PagerContent>
 </MudTable>
+<MudDivider DividerType="DividerType.FullWidth" />
 <MudText Class="ma-6" Inline="true">Выбранные значения: @(selectedItems==null ? "" : string.Join(", ", selectedItems.OrderBy(x=>x.Title).Select(x=>x.Title)))</MudText>

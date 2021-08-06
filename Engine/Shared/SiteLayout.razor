@@ -16,11 +16,13 @@
     </MudDrawer>
     <MudMainContent>
         <MudContainer MaxWidth="MaxWidth.Large">
+            <MudPaper Class="ma-6" Elevation="0" Outlined="true">
             @Body
+                </MudPaper>
         </MudContainer>            
     </MudMainContent>
     <MudScrollToTop>
-        <MudFab Color="Color.Tertiary" Icon="@Icons.Filled.ArrowCircleUp" />
+        <MudFab Color="Color.Secondary" Icon="@Icons.Filled.ArrowCircleUp" />
     </MudScrollToTop>
 </MudLayout>
 
@@ -30,7 +32,7 @@
         Palette = new Palette()
         {
             Primary = Colors.Blue.Default,
-            Secondary = Colors.Green.Accent4,            
+            Secondary = Colors.Blue.Darken2,            
             Background = Colors.Grey.Lighten3,
         },
     };

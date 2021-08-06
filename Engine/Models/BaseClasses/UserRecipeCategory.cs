@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,10 +16,15 @@ namespace Engine.Models.BaseClasses
         /// <summary>
         /// Описание категории
         /// </summary>
+        [Column("Descr")]
         public string Desc { get; set; }
         /// <summary>
-        /// Родительская категория
+        /// Дочерние категории
         /// </summary>
-        public UserRecipeCategory ParentCategoy { get; set; }
+        public List<UserRecipeCategory> Category { get; set; }
+        /// <summary>
+        /// Показать детали
+        /// </summary>
+        public bool ShowDetails { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MudBlazor;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Engine.Models.BaseClasses
 {
@@ -26,6 +27,7 @@ namespace Engine.Models.BaseClasses
         /// <summary>
         /// Описание
         /// </summary>
+        [Column("Descr")]
         public string Desc { get; set; }
         /// <summary>
         /// Статус публикации меню
@@ -38,6 +40,7 @@ namespace Engine.Models.BaseClasses
         /// <summary>
         /// Сортировка
         /// </summary>
+        [Column("sort")]
         public int Ordering { get; set; }
         /// <summary>
         /// Родительский элемент

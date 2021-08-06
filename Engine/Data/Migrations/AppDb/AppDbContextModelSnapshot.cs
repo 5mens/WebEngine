@@ -51,7 +51,8 @@ namespace Engine.Data.Migrations.AppDb
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ArticleText");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
@@ -165,10 +166,12 @@ namespace Engine.Data.Migrations.AppDb
                         .HasColumnType("int");
 
                     b.Property<string>("Desc")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Descr");
 
                     b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ImagePath");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -193,7 +196,8 @@ namespace Engine.Data.Migrations.AppDb
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ImagePath");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -211,7 +215,8 @@ namespace Engine.Data.Migrations.AppDb
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Desc")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Descr");
 
                     b.Property<bool>("IsMain")
                         .HasColumnType("bit");
@@ -238,7 +243,8 @@ namespace Engine.Data.Migrations.AppDb
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Desc")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Descr");
 
                     b.Property<string>("Icon")
                         .HasColumnType("nvarchar(max)");
@@ -256,7 +262,8 @@ namespace Engine.Data.Migrations.AppDb
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Ordering")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("sort");
 
                     b.Property<int?>("ParentIdId")
                         .HasColumnType("int");
@@ -276,6 +283,54 @@ namespace Engine.Data.Migrations.AppDb
                     b.ToTable("MenuItem");
                 });
 
+            modelBuilder.Entity("Engine.Models.BaseClasses.MyWarehouse", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Warehouse");
+                });
+
+            modelBuilder.Entity("Engine.Models.BaseClasses.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Desc")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Descr");
+
+                    b.Property<DateTime>("OrderDateBegin")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("OrderDateEnd")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("OrderState")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Сustomer")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Order");
+                });
+
             modelBuilder.Entity("Engine.Models.BaseClasses.Tableware", b =>
                 {
                     b.Property<int>("Id")
@@ -284,7 +339,12 @@ namespace Engine.Data.Migrations.AppDb
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Desc")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Descr");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ImagePath");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -422,19 +482,26 @@ namespace Engine.Data.Migrations.AppDb
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Desc")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Descr");
 
                     b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ImagePath");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("OrderId");
 
                     b.ToTable("Recipe");
                 });
@@ -447,19 +514,71 @@ namespace Engine.Data.Migrations.AppDb
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Desc")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Descr");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ParentCategoyId")
+                    b.Property<bool>("ShowDetails")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("UserRecipeCategoryId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ParentCategoyId");
+                    b.HasIndex("UserRecipeCategoryId");
 
                     b.ToTable("RecipeCategory");
+                });
+
+            modelBuilder.Entity("Engine.Models.BaseClasses.UserIngredient", b =>
+                {
+                    b.HasBaseType("Engine.Models.BaseClasses.Ingredient");
+
+                    b.Property<int?>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MyWarehouseId")
+                        .HasColumnType("int");
+
+                    b.Property<double?>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserUnit")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("Weight")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasIndex("MyWarehouseId");
+
+                    b.ToTable("UserIngredient");
+                });
+
+            modelBuilder.Entity("Engine.Models.BaseClasses.UserTableware", b =>
+                {
+                    b.HasBaseType("Engine.Models.BaseClasses.Tableware");
+
+                    b.Property<decimal>("Count")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("MyWarehouseId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasIndex("MyWarehouseId");
+
+                    b.ToTable("UserTableware");
                 });
 
             modelBuilder.Entity("ArticleTag", b =>
@@ -523,7 +642,7 @@ namespace Engine.Data.Migrations.AppDb
             modelBuilder.Entity("Engine.Models.BaseClasses.Ingredient", b =>
                 {
                     b.HasOne("Engine.Models.BaseClasses.IngredientCategory", "Category")
-                        .WithMany()
+                        .WithMany("Ingredients")
                         .HasForeignKey("CategoryId");
 
                     b.HasOne("Engine.Models.BaseClasses.UserRecipe", null)
@@ -548,6 +667,15 @@ namespace Engine.Data.Migrations.AppDb
                     b.Navigation("Menu");
 
                     b.Navigation("ParentId");
+                });
+
+            modelBuilder.Entity("Engine.Models.BaseClasses.MyWarehouse", b =>
+                {
+                    b.HasOne("Engine.Models.BaseClasses.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Engine.Models.BaseClasses.Tableware", b =>
@@ -576,6 +704,10 @@ namespace Engine.Data.Migrations.AppDb
                         .WithMany()
                         .HasForeignKey("CategoryId");
 
+                    b.HasOne("Engine.Models.BaseClasses.Order", null)
+                        .WithMany("Recipes")
+                        .HasForeignKey("OrderId");
+
                     b.Navigation("Author");
 
                     b.Navigation("Category");
@@ -583,11 +715,35 @@ namespace Engine.Data.Migrations.AppDb
 
             modelBuilder.Entity("Engine.Models.BaseClasses.UserRecipeCategory", b =>
                 {
-                    b.HasOne("Engine.Models.BaseClasses.UserRecipeCategory", "ParentCategoy")
-                        .WithMany()
-                        .HasForeignKey("ParentCategoyId");
+                    b.HasOne("Engine.Models.BaseClasses.UserRecipeCategory", null)
+                        .WithMany("Category")
+                        .HasForeignKey("UserRecipeCategoryId");
+                });
 
-                    b.Navigation("ParentCategoy");
+            modelBuilder.Entity("Engine.Models.BaseClasses.UserIngredient", b =>
+                {
+                    b.HasOne("Engine.Models.BaseClasses.Ingredient", null)
+                        .WithOne()
+                        .HasForeignKey("Engine.Models.BaseClasses.UserIngredient", "Id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.HasOne("Engine.Models.BaseClasses.MyWarehouse", null)
+                        .WithMany("Ingredients")
+                        .HasForeignKey("MyWarehouseId");
+                });
+
+            modelBuilder.Entity("Engine.Models.BaseClasses.UserTableware", b =>
+                {
+                    b.HasOne("Engine.Models.BaseClasses.Tableware", null)
+                        .WithOne()
+                        .HasForeignKey("Engine.Models.BaseClasses.UserTableware", "Id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.HasOne("Engine.Models.BaseClasses.MyWarehouse", null)
+                        .WithMany("Tablewares")
+                        .HasForeignKey("MyWarehouseId");
                 });
 
             modelBuilder.Entity("Engine.Models.BaseClasses.Category", b =>
@@ -600,9 +756,26 @@ namespace Engine.Data.Migrations.AppDb
                     b.Navigation("Cities");
                 });
 
+            modelBuilder.Entity("Engine.Models.BaseClasses.IngredientCategory", b =>
+                {
+                    b.Navigation("Ingredients");
+                });
+
             modelBuilder.Entity("Engine.Models.BaseClasses.Menu", b =>
                 {
                     b.Navigation("MenuItems");
+                });
+
+            modelBuilder.Entity("Engine.Models.BaseClasses.MyWarehouse", b =>
+                {
+                    b.Navigation("Ingredients");
+
+                    b.Navigation("Tablewares");
+                });
+
+            modelBuilder.Entity("Engine.Models.BaseClasses.Order", b =>
+                {
+                    b.Navigation("Recipes");
                 });
 
             modelBuilder.Entity("Engine.Models.BaseClasses.UserRecipe", b =>
@@ -610,6 +783,11 @@ namespace Engine.Data.Migrations.AppDb
                     b.Navigation("Ingredients");
 
                     b.Navigation("Tablewares");
+                });
+
+            modelBuilder.Entity("Engine.Models.BaseClasses.UserRecipeCategory", b =>
+                {
+                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }

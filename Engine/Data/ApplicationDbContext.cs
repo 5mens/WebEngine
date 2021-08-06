@@ -44,6 +44,10 @@ namespace Engine.Data
         public DbSet<Tableware> Tableware { get; set; }
         public DbSet<UserRecipe> Recipe { get; set; }
         public DbSet<UserRecipeCategory> RecipeCategory { get; set; }
+        public DbSet<Order> Order { get; set; }
+        public DbSet<MyWarehouse> Warehouse { get; set; }
+        public DbSet<UserIngredient> UserIngredient { get; set; }
+        public DbSet<UserTableware> UserTableware { get; set; }
 
 
         /// <summary>
