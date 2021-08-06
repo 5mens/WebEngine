@@ -40,6 +40,7 @@ namespace Engine.Models.BaseClasses
         /// <summary>
         /// Сортировка
         /// </summary>
+        [Column("sort")]
         public int Ordering { get; set; }
         /// <summary>
         /// Родительский элемент
