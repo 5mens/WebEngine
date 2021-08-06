@@ -44,5 +44,10 @@ namespace Engine.Models.Repository
             context.Ingredient.RemoveRange(ingredients);
             await context.SaveChangesAsync();
         }
+
+        public async Task<List<Ingredient>> GetAllIngredientLazy()
+        {
+            return await DbFactory.CreateDbContext().Ingredient.ToListAsync();
+        }
     }
 }
