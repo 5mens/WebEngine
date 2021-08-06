@@ -1,5 +1,6 @@
 ﻿using MudBlazor;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Engine.Models.BaseClasses
 {
@@ -19,6 +20,7 @@ namespace Engine.Models.BaseClasses
         /// <summary>
         /// Описание
         /// </summary>
+        [Column("Descr")]
         public string Desc { get; set; }
         /// <summary>
         /// Элементы меню
