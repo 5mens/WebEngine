@@ -1,39 +1,78 @@
 ﻿@page "/warehouse"
-    <AuthorizeView Roles="user">
-        <MudPaper Elevation="0">
-            <MudText Typo="Typo.h5" Class="pt-3 pl-5">Мой склад и закупки</MudText>
-            <MudDivider DividerType="DividerType.Middle" />
-        </MudPaper>
-        <MudTabs Elevation="0" Rounded="true" Centered="true" Style="background-color:#ffffff">
-            <MudTabPanel Text="Ингредиенты" BadgeData='"3"' BadgeColor="Color.Info">
-                @if (!addIngredient)
-                {
-                    <MudToolBar>
-                        <MudIconButton OnClick="()=>AddIngredientClick()" Icon="@Icons.Material.Outlined.Add" Color="Color.Primary" Title="Добавить" />
-                        <MudIconButton Icon="@Icons.Material.Outlined.Edit" Color="Color.Secondary" Title="Изменить" />
-                        <MudIconButton Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" Title="Удалить" />
-                    </MudToolBar>
-                    <UserIngredients />
-                }
-                else
-                {
-                    <AddIngredient OnButtonClick="@GetIngredient"/>
-                }
-            </MudTabPanel>
-            <MudTabPanel Text="Инструменты" BadgeData='"10"'>
+<AuthorizeView Roles="user">
+
+    @foreach (var item in selectedIngredients)
+    {
+        <p>item.Name;</p>
+    }
+    <MudPaper Elevation="0">
+        <MudText Typo="Typo.h5" Class="pt-3 pl-5">Мой склад и закупки</MudText>
+        <MudDivider DividerType="DividerType.Middle" />
+    </MudPaper>
+    <MudTabs Elevation="0" Rounded="true" Centered="true" Style="background-color:#ffffff">
+        <!--Ингредиенты-->
+        <MudTabPanel Text="Ингредиенты">
+            @if (addIngredient == 0)
+            {
                 <MudToolBar>
-                    <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Primary" Title="Добавить" />
-                    <MudIconButton Icon="@Icons.Material.Outlined.Edit" Color="Color.Secondary" Title="Изменить" />
-                    <MudIconButton Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" Title="Списать" />
+                    <MudIconButton OnClick="()=>AddIngredientClick()" Icon="@Icons.Material.Outlined.Add" Color="Color.Primary" Title="Добавить" />
+                    <MudIconButton OnClick="()=>EditIngredientClick()" Icon="@Icons.Material.Outlined.Edit" Color="Color.Secondary" Title="Изменить" />
+                    <MudIconButton Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" Title="Удалить" />
                 </MudToolBar>
-            </MudTabPanel>
-            <MudTabPanel Text="Планирование" BadgeData='"0"' BadgeColor="Color.Error">
-                <MudToolBar>
-                    <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Primary" Title="Создать план закупок" />
-                    <MudIconButton Icon="@Icons.Material.Outlined.Edit" Color="Color.Secondary" Title="Изменить план закупок" />
-                    <MudIconButton Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" Title="Удалить план закупок" />
-                    <MudIconButton Icon="@Icons.Material.Outlined.AddBusiness" Color="Color.Warning" Title="Провести закупку (добавить на склад)" />
-                </MudToolBar>
-            </MudTabPanel>
-        </MudTabs>
-    </AuthorizeView>
+                @if (userIngredients != null)
+                {
+                    <MudTable @bind-SelectedItems="selectedItems" Context="ingContext" RowsPerPage="20" Class="table app-table-hover ma-6 text-left" Elevation="0" Items="@userIngredients" Hover="true" SortLabel="Сортировка по:" MultiSelection="true" Dense="true" Filter="new Func<UserIngredient,bool>(FilterFunc)">
+                        <ToolBarContent>
+                            <MudTextField @bind-Value="searchString" Placeholder="Поиск" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium"></MudTextField>
+                        </ToolBarContent>
+                        <HeaderContent>
+                            @*<MudTh><MudTableSortLabel Enabled="true" InitialDirection="SortDirection.Ascending" SortBy="new Func<UserIngredient, object>(x=>x.Ingredient.Name)">Наименование</MudTableSortLabel></MudTh>*@
+                            <MudTh><MudTableSortLabel SortBy="new Func<UserIngredient, object>(x=>x.UserName)">Пользователькое наименование</MudTableSortLabel></MudTh>
+                            <MudTh><MudTableSortLabel SortBy="new Func<UserIngredient, object>(x=>x.Price)">Стоимость</MudTableSortLabel></MudTh>
+                            <MudTh><MudTableSortLabel SortBy="new Func<UserIngredient, object>(x=>x.Count)">Количество</MudTableSortLabel></MudTh>
+                            <MudTh><MudTableSortLabel SortBy="new Func<UserIngredient, object>(x=>x.Weight)">Вес/объем</MudTableSortLabel></MudTh>
+                            <MudTh><MudTableSortLabel SortBy="new Func<UserIngredient, object>(x=>x.UserUnit)">Ед. изм.</MudTableSortLabel></MudTh>
+                        </HeaderContent>
+                        <RowTemplate>
+                            @*<MudTd DataLabel="Ingredient.Name">@ingContext.Ingredient.Name</MudTd>*@
+                            <MudTd DataLabel="UserName">@ingContext.UserName</MudTd>
+                            <MudTd DataLabel="Price">@ingContext.Price</MudTd>
+                            <MudTd DataLabel="Count">@ingContext.Count</MudTd>
+                            <MudTd DataLabel="Weight">@ingContext.Weight</MudTd>
+                            <MudTd DataLabel="UserUnit">@ingContext.UserUnit</MudTd>
+                        </RowTemplate>
+                        <PagerContent>
+                            <MudTablePager PageSizeOptions="new int[]{20, 50, 100}" RowsPerPageString="Выводить по:" InfoFormat="{first_item}-{last_item} из {all_items}" />
+                        </PagerContent>
+                    </MudTable>
+                    <MudDivider DividerType="DividerType.FullWidth" />
+                    <MudText Class="ma-6" Inline="true">Выбранные значения: @(selectedItems==null ? "" : string.Join(", ", selectedItems.OrderBy(x=>x.UserName).Select(x=>x.UserName)))</MudText>
+                }
+            }
+            else if (addIngredient == 1)
+            {
+                <AddIngredient OnButtonClick="@GetIngredientAsync" />
+            }
+            else
+            {
+                <AddIngredient OnButtonClick="@GetIngredientAsync"  EditedItem="selectedItems.ToList()[0]"/>
+            }
+        </MudTabPanel>
+        <!--/Ингредиенты-->
+        <MudTabPanel Text="Инструменты">
+            <MudToolBar>
+                <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Primary" Title="Добавить" />
+                <MudIconButton Icon="@Icons.Material.Outlined.Edit" Color="Color.Secondary" Title="Изменить" />
+                <MudIconButton Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" Title="Списать" />
+            </MudToolBar>
+        </MudTabPanel>
+        <MudTabPanel Text="Планирование">
+            <MudToolBar>
+                <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Primary" Title="Создать план закупок" />
+                <MudIconButton Icon="@Icons.Material.Outlined.Edit" Color="Color.Secondary" Title="Изменить план закупок" />
+                <MudIconButton Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" Title="Удалить план закупок" />
+                <MudIconButton Icon="@Icons.Material.Outlined.AddBusiness" Color="Color.Warning" Title="Провести закупку (добавить на склад)" />
+            </MudToolBar>
+        </MudTabPanel>
+    </MudTabs>
+</AuthorizeView>

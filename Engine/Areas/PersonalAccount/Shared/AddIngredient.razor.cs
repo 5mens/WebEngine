@@ -1,5 +1,6 @@
 ﻿using Engine.Models.BaseClasses;
 using Engine.Models.Interfaces;
+using Engine.Models.Localization;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using System;
@@ -13,22 +14,31 @@ namespace Engine.Areas.PersonalAccount.Shared
     public partial class AddIngredient
     {
         [Parameter] public EventCallback<UserIngredient> OnButtonClick { get; set; }
+        [Parameter] public UserIngredient EditedItem { get; set; } = null;
+        private UserIngredient NewIngredient = new UserIngredient();
         [Inject] private IIngredient MyIngredient { get; set; }
         [Inject] private ISnackbar Snackbar { get; set; }
-        private UserIngredient NewIngredient = new UserIngredient();
         void AddIngredientClick()
         {
-            OnButtonClick.InvokeAsync(new UserIngredient() { 
-                Category = value.Category,
-                Count = NewIngredient.Count,
-                Desc = value.Desc,
-                Image = value.Image,
-                Name = value.Name,
-                Price = NewIngredient.Price,
-                UserName = NewIngredient.UserName,
-                UserUnit = NewIngredient.UserUnit,
-                Weight = NewIngredient.Weight
-            });
+            if (!string.IsNullOrEmpty(value.Name))
+            {
+                OnButtonClick.InvokeAsync(new UserIngredient()
+                {   
+                    Ingredient = value,
+                    Count = NewIngredient.Count,
+                    Price = NewIngredient.Price,
+                    UserName = NewIngredient.UserName,
+                    UserUnit = NewIngredient.UserUnit,
+                    Weight = NewIngredient.Weight
+                });
+            }
+            else
+            {
+                Snackbar.Add(MainDictionary.MessageCode["INGREDIENT_CATEGORY_EMTY"], Severity.Error);
+            }
+        }
+        void CancelClick() {
+            OnButtonClick.InvokeAsync(null);
         }
         public CultureInfo _ru = CultureInfo.GetCultureInfo("ru-RU");
         private bool resetValueOnEmptyText;
@@ -39,6 +49,11 @@ namespace Engine.Areas.PersonalAccount.Shared
         private string[] _selectorValue = { "гр", "кг", "шт", "ед", "л" };
         protected override async Task OnInitializedAsync()
         {
+            if (EditedItem != null)
+            {
+                NewIngredient = EditedItem;
+                value = EditedItem.Ingredient;
+            }
             List<Ingredient> ingredient = new();
             states = await MyIngredient.GetAllIngredientLazy();
             await base.OnInitializedAsync();
@@ -49,7 +64,7 @@ namespace Engine.Areas.PersonalAccount.Shared
             await Task.Delay(5);
             if (string.IsNullOrEmpty(value))
                 return null;
-            return states.Where(x => x.Name.Contains(value, StringComparison.InvariantCultureIgnoreCase)).OrderBy(x =>x.Name);
+            return states.Where(x => x.Name.Contains(value, StringComparison.InvariantCultureIgnoreCase)).OrderBy(x => x.Name);
         }
     }
 }

@@ -4,14 +4,16 @@ using Engine.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Engine.Data.Migrations.AppDb
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210807193349_WHMigration1")]
+    partial class WHMigration1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -475,9 +477,6 @@ namespace Engine.Data.Migrations.AppDb
                     b.Property<int?>("Count")
                         .HasColumnType("int");
 
-                    b.Property<int?>("IngredientId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("MyWarehouseId")
                         .HasColumnType("int");
 
@@ -494,8 +493,6 @@ namespace Engine.Data.Migrations.AppDb
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IngredientId");
 
                     b.HasIndex("MyWarehouseId");
 
@@ -586,17 +583,12 @@ namespace Engine.Data.Migrations.AppDb
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int?>("TablewareId")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("MyWarehouseId");
-
-                    b.HasIndex("TablewareId");
 
                     b.ToTable("UserTableware");
                 });
@@ -716,15 +708,9 @@ namespace Engine.Data.Migrations.AppDb
 
             modelBuilder.Entity("Engine.Models.BaseClasses.UserIngredient", b =>
                 {
-                    b.HasOne("Engine.Models.BaseClasses.Ingredient", "Ingredient")
-                        .WithMany()
-                        .HasForeignKey("IngredientId");
-
                     b.HasOne("Engine.Models.BaseClasses.MyWarehouse", "MyWarehouse")
                         .WithMany("Ingredients")
                         .HasForeignKey("MyWarehouseId");
-
-                    b.Navigation("Ingredient");
 
                     b.Navigation("MyWarehouse");
                 });
@@ -761,13 +747,7 @@ namespace Engine.Data.Migrations.AppDb
                         .WithMany("Tablewares")
                         .HasForeignKey("MyWarehouseId");
 
-                    b.HasOne("Engine.Models.BaseClasses.Tableware", "Tableware")
-                        .WithMany()
-                        .HasForeignKey("TablewareId");
-
                     b.Navigation("MyWarehouse");
-
-                    b.Navigation("Tableware");
                 });
 
             modelBuilder.Entity("Engine.Models.BaseClasses.Category", b =>
