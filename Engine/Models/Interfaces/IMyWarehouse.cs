@@ -26,12 +26,12 @@ namespace Engine.Models.Interfaces
         /// <summary>
         /// Получить список ингредиентов из склада
         /// </summary>
-        Task<IList<UserIngredient>> GetUserIngredients(MyWarehouse warehouse);
+        Task<List<UserIngredient>> GetUserIngredients(MyWarehouse warehouse);
 
         /// <summary>
         /// Обновить текущий ингредиент пользователя
         /// </summary>
-        Task UpdateUserIngredient(UserIngredient ingredient);
+        Task UpdateUserIngredient(UserIngredient ingredient, MyWarehouse warehouse);
 
         /// <summary>
         /// Получить родительский ингредиент

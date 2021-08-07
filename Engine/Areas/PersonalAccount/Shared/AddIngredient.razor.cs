@@ -31,6 +31,7 @@ namespace Engine.Areas.PersonalAccount.Shared
                     UserUnit = NewIngredient.UserUnit,
                     Weight = NewIngredient.Weight
                 });
+                Snackbar.Add(MainDictionary.MessageCode["SAVE_SUCCES"], Severity.Success);
             }
             else
             {

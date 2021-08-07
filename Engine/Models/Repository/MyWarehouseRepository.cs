@@ -20,7 +20,7 @@ namespace Engine.Models.Repository
 
         public async Task<MyWarehouse> GetUserWarehouse(User user)
         {
-            return await DbFactory.CreateDbContext().Warehouse.Where(i => i.User == user).FirstOrDefaultAsync();
+            return await DbFactory.CreateDbContext().Warehouse.Where(i => i.User == user).Include(x => x.Ingredients).Include(x=>x.Tablewares).FirstOrDefaultAsync();
         }
 
         public void CreateUserWarehouse(MyWarehouse warehouse)
@@ -37,13 +37,15 @@ namespace Engine.Models.Repository
             await context.SaveChangesAsync();
         }
 
-        public async Task<IList<UserIngredient>> GetUserIngredients(MyWarehouse warehouse)
+        public async Task<List<UserIngredient>> GetUserIngredients(MyWarehouse warehouse)
         {
-            return await DbFactory.CreateDbContext().UserIngredient.Where(i => i.MyWarehouse.Id == warehouse.Id).ToListAsync();
+            List<UserIngredient> userIngredients = await DbFactory.CreateDbContext().UserIngredient.Where(i => i.MyWarehouse.Id == warehouse.Id).Include(i=>i.Ingredient).ToListAsync();
+            return userIngredients;
         }
 
-        public async Task UpdateUserIngredient(UserIngredient ingredient)
+        public async Task UpdateUserIngredient(UserIngredient ingredient, MyWarehouse warehouse)
         {
+            ingredient.MyWarehouse = warehouse;
             var context = DbFactory.CreateDbContext();
             context.UserIngredient.Update(ingredient);
             await context.SaveChangesAsync();
