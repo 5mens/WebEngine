@@ -1,5 +1,6 @@
 ﻿using Engine.Models.BaseClasses;
 using Engine.Models.Interfaces;
+using Engine.Models.Localization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -19,7 +20,7 @@ namespace Engine.Areas.PersonalAccount.Pages
         [Inject] private UserManager<User> userManager { get; set; }
 
         private MyWarehouse Whouse = new MyWarehouse();
-        private IList<UserIngredient> userIngredients = new List<UserIngredient>();
+        private List<UserIngredient> userIngredients = new List<UserIngredient>();
         private User _user = new User();
         private IList<UserIngredient> selectedIngredients = new List<UserIngredient>();
         private HashSet<UserIngredient> selectedItems = new HashSet<UserIngredient>();
@@ -28,36 +29,19 @@ namespace Engine.Areas.PersonalAccount.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            Whouse = await GetUserWhAsync();
-            if (Whouse == null)
+            Whouse = await GetUserWhAsync(); //Получаем склад пользователя
+            if (Whouse == null) //Если склада еще нет, то создаем и выдаем его пользователю
             {
                 MyWarehouse warehouse = new MyWarehouse();
                 MyWarehouseInj.CreateUserWarehouse(warehouse);
                 warehouse.User = _user;
                 await MyWarehouseInj.UpdateUserWarehouse(warehouse);
+                Whouse = await GetUserWhAsync();
             }
-            else
-            {
-                userIngredients = await MyWarehouseInj.GetUserIngredients(Whouse);
-                foreach (var item in userIngredients)
-                {
-                    item.Ingredient = new Ingredient();
-                    item.Ingredient = MyWarehouseInj.GetIngredient(item.Id);
-                }
-            }
+            userIngredients = await MyWarehouseInj.GetUserIngredients(Whouse);  //Получаем ингредиенты со склада
             await base.OnInitializedAsync();
         }
 
-        private bool FilterFunc(UserIngredient element)
-        {
-            if (string.IsNullOrWhiteSpace(searchString))
-                return true;            
-            if (element.UserName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-                return true;
-            if ($"{element.UserName}".Contains(searchString))
-                return true;
-            return false;
-        }
         /// <summary>
         /// 0 - режим таблицы; 1 - добавление; 2 - редактирование
         /// </summary>
@@ -68,17 +52,26 @@ namespace Engine.Areas.PersonalAccount.Pages
 
         private void EditIngredientClick()
         {
-            addIngredient = 2;
-        }
-
-        private async Task GetIngredientAsync(UserIngredient ingredient) {
-            if (ingredient == null)
+            if (selectedItems.Count == 1)
             {
-                addIngredient = 0;
+                addIngredient = 2;
             }
             else
             {
-                if (addIngredient == 1)
+                Snackbar.Add(MainDictionary.MessageCode["SELECT_OBJ_TO_EDIT"], Severity.Error);
+            }
+        }
+        /// <summary>
+        /// Сохранение ингредиентов на склад
+        /// </summary>
+        private async Task GetIngredientAsync(UserIngredient ingredient) {
+            if (ingredient == null)
+            {
+                addIngredient = 0;  //Если на входе null, то просто закрываем компонент
+            }
+            else
+            {
+                if (addIngredient == 1) //Если идет процедура добавления
                 {
                     if (Whouse.Ingredients == null)
                     {
@@ -89,13 +82,31 @@ namespace Engine.Areas.PersonalAccount.Pages
                 }
                 else
                 {
-                    await MyWarehouseInj.UpdateUserIngredient(ingredient);
+                    Whouse.Ingredients = userIngredients;
+                    await MyWarehouseInj.UpdateUserWarehouse(Whouse);
                 }
                 userIngredients = await MyWarehouseInj.GetUserIngredients(Whouse);
                 addIngredient = 0;
             }            
         }
 
+        /// <summary>
+        /// Фильтр ингредиентов
+        /// </summary>
+        private bool FilterFunc(UserIngredient element)
+        {
+            if (string.IsNullOrWhiteSpace(searchString))
+                return true;
+            if (element.UserName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if ($"{element.UserName}".Contains(searchString))
+                return true;
+            return false;
+        }
+
+        /// <summary>
+        /// Получить склад пользователя
+        /// </summary>
         private async Task<MyWarehouse> GetUserWhAsync() {
             var authstate = await GetAuthenticationStateAsync.GetAuthenticationStateAsync();
             var user = authstate.User.Identity.Name;

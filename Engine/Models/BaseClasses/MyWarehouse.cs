@@ -57,6 +57,11 @@ namespace Engine.Models.BaseClasses
         /// </summary>
         public MyWarehouse MyWarehouse { get; set; }
         /// <summary>
+        /// Id ингредиента
+        /// </summary>
+        [Column("IngredientId")]
+        public int IngredientId { get; set; }
+        /// <summary>
         /// Ингредиент
         /// </summary>
         public Ingredient Ingredient { get; set; }
@@ -84,6 +89,11 @@ namespace Engine.Models.BaseClasses
         /// Склад
         /// </summary>
         public MyWarehouse MyWarehouse { get; set; }
+        /// <summary>
+        /// Id ингредиента
+        /// </summary>
+        [Column("TablewareId")]
+        public int TablewareId { get; set; }
         /// <summary>
         /// Столовый прибор
         /// </summary>

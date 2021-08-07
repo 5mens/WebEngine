@@ -1,5 +1,5 @@
 ﻿<MudPaper Class="ma-6" Elevation="0">
-    <MudText Typo="Typo.h6">Добавить ингредиент на склад</MudText>
+    <MudText Typo="Typo.h6">Добавить/редактировать ингредиент на складе</MudText>
     <MudDivider DividerType="DividerType.FullWidth" />
     <MudPaper Class="pt-5 pb-5" Elevation="0">        
         <MudToolBar>
@@ -9,7 +9,7 @@
     </MudPaper>
     <MudGrid>
         <MudItem xs="12">
-            <MudTextField Label="Наименование" @bind-Value="NewIngredient.UserName" />
+            <MudTextField Label="Описание" @bind-Value="NewIngredient.UserName" />
         </MudItem>
         <MudItem xs="4">
             <MudNumericField T="decimal?" @bind-Value="NewIngredient.Weight" Immediate Label="Вес/объем" ErrorText="Некорректное число" Format="F0" />

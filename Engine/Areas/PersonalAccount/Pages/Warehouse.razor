@@ -26,15 +26,15 @@
                             <MudTextField @bind-Value="searchString" Placeholder="Поиск" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium"></MudTextField>
                         </ToolBarContent>
                         <HeaderContent>
-                            @*<MudTh><MudTableSortLabel Enabled="true" InitialDirection="SortDirection.Ascending" SortBy="new Func<UserIngredient, object>(x=>x.Ingredient.Name)">Наименование</MudTableSortLabel></MudTh>*@
-                            <MudTh><MudTableSortLabel SortBy="new Func<UserIngredient, object>(x=>x.UserName)">Пользователькое наименование</MudTableSortLabel></MudTh>
+                            <MudTh><MudTableSortLabel Enabled="true" InitialDirection="SortDirection.Ascending" SortBy="new Func<UserIngredient, object>(x=>x.Ingredient.Name)">Наименование</MudTableSortLabel></MudTh>
+                            <MudTh><MudTableSortLabel SortBy="new Func<UserIngredient, object>(x=>x.UserName)">Описание</MudTableSortLabel></MudTh>
                             <MudTh><MudTableSortLabel SortBy="new Func<UserIngredient, object>(x=>x.Price)">Стоимость</MudTableSortLabel></MudTh>
                             <MudTh><MudTableSortLabel SortBy="new Func<UserIngredient, object>(x=>x.Count)">Количество</MudTableSortLabel></MudTh>
                             <MudTh><MudTableSortLabel SortBy="new Func<UserIngredient, object>(x=>x.Weight)">Вес/объем</MudTableSortLabel></MudTh>
                             <MudTh><MudTableSortLabel SortBy="new Func<UserIngredient, object>(x=>x.UserUnit)">Ед. изм.</MudTableSortLabel></MudTh>
                         </HeaderContent>
                         <RowTemplate>
-                            @*<MudTd DataLabel="Ingredient.Name">@ingContext.Ingredient.Name</MudTd>*@
+                            <MudTd DataLabel="Ingredient.Name">@ingContext.Ingredient.Name</MudTd>
                             <MudTd DataLabel="UserName">@ingContext.UserName</MudTd>
                             <MudTd DataLabel="Price">@ingContext.Price</MudTd>
                             <MudTd DataLabel="Count">@ingContext.Count</MudTd>
@@ -53,7 +53,7 @@
             {
                 <AddIngredient OnButtonClick="@GetIngredientAsync" />
             }
-            else
+            else if (addIngredient == 2 && selectedItems.Count == 1)
             {
                 <AddIngredient OnButtonClick="@GetIngredientAsync"  EditedItem="selectedItems.ToList()[0]"/>
             }
