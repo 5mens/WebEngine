@@ -26,8 +26,12 @@ namespace Engine.Models.BaseClasses
         public User User { get; set; }
     }
     [Table("UserIngredient")]
-    public class UserIngredient: Ingredient
-    { 
+    public class UserIngredient
+    {
+        /// <summary>
+        /// Id
+        /// </summary>
+        public int Id { get; set; }
         /// <summary>
         /// Цена
         /// </summary>
@@ -48,9 +52,22 @@ namespace Engine.Models.BaseClasses
         /// Единица измерения (кг, грамм и т.д.) (Сделать справочник)
         /// </summary>
         public string UserUnit { get; set; }
+        /// <summary>
+        /// Склад
+        /// </summary>
+        public MyWarehouse MyWarehouse { get; set; }
+        /// <summary>
+        /// Ингредиент
+        /// </summary>
+        public Ingredient Ingredient { get; set; }
     }
     [Table("UserTableware")]
-    public class UserTableware : Tableware {
+    public class UserTableware 
+    {
+        /// <summary>
+        /// Id
+        /// </summary>
+        public int Id { get; set; }
         /// <summary>
         /// Цена
         /// </summary>
@@ -63,5 +80,13 @@ namespace Engine.Models.BaseClasses
         /// Пользовательское наименование
         /// </summary>
         public string UserName { get; set; }
+        /// <summary>
+        /// Склад
+        /// </summary>
+        public MyWarehouse MyWarehouse { get; set; }
+        /// <summary>
+        /// Столовый прибор
+        /// </summary>
+        public Tableware Tableware { get; set; }
     }
 }

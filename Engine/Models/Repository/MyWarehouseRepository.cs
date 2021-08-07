@@ -36,5 +36,21 @@ namespace Engine.Models.Repository
             context.Warehouse.Update(warehouse);
             await context.SaveChangesAsync();
         }
+
+        public async Task<IList<UserIngredient>> GetUserIngredients(MyWarehouse warehouse)
+        {
+            return await DbFactory.CreateDbContext().UserIngredient.Where(i => i.MyWarehouse.Id == warehouse.Id).ToListAsync();
+        }
+
+        public async Task UpdateUserIngredient(UserIngredient ingredient)
+        {
+            var context = DbFactory.CreateDbContext();
+            context.UserIngredient.Update(ingredient);
+            await context.SaveChangesAsync();
+        }
+
+        public Ingredient GetIngredient(int id) {
+            return DbFactory.CreateDbContext().UserIngredient.Where(p => p.Id == id).FirstOrDefault().Ingredient;
+        }
     }
 }
