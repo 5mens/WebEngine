@@ -49,9 +49,6 @@ namespace Engine.Data
         public DbSet<UserIngredient> UserIngredient { get; set; }
         public DbSet<UserTableware> UserTableware { get; set; }
 
-
-          
-
         /// <summary>
         /// Dispose pattern.
         /// </summary>
